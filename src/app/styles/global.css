@@ -34,8 +34,11 @@ h3 { font-size: 18px; }
 }
 
 .text-xsmall {
-  font-size: 12px;
-  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+.text-xxsmall {
+  font-size: 8px;
 }
 
 :root {
@@ -74,8 +77,6 @@ h3 { font-size: 18px; }
 }
 
 .input {
-  padding: var(--space-sm);
-  border: 1px solid var(--color-border);
   border-radius: 4px;
   font-family: inherit;
   font-size: 14px;

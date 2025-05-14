@@ -1,5 +1,6 @@
 export * from './button';
-// export * from './avatar';
+export * from './profile-input';
+export * from './combined-input';
 // export * from './block';
 // export * from './link';
 // export * from './avatar';
@@ -8,6 +9,5 @@ export * from './button';
 // export * from './modal';
 // export * from './chat-preview';
 // export * from './message-item';
-// export * from './auth-input';
+// export * from './profile-input';
 // export * from './search-input';
-// export * from './message-input';

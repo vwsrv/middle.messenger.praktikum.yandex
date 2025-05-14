@@ -1,13 +1,12 @@
 export * from './button';
 export * from './profile-input';
 export * from './combined-input';
+export * from './profile-avatar';
 // export * from './block';
 // export * from './link';
-// export * from './avatar';
 // export * from './block';
 // export * from './dropdown';
 // export * from './modal';
 // export * from './chat-preview';
 // export * from './message-item';
 // export * from './profile-input';
-// export * from './search-input';

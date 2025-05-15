@@ -28,13 +28,14 @@ h1 { font-size: 24px; }
 h2 { font-size: 20px; }
 h3 { font-size: 18px; }
 h4 { font-size: 15px; }
+h5 { font-size: 13px; }
 
 .text-small {
   font-size: 14px;
 }
 
 .text-xsmall {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .text-xxsmall {

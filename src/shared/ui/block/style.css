@@ -1,14 +1,19 @@
 .block {
+    position: relative;
     background-color: white;
 }
 
-.block__white {
+.block__container_white {
     padding: 10px 21px;
 }
 
-.block__gray {
-    padding: 12px 10px;
+.block__container_gray {
+    padding: 12px 0 12px;
     background-color: var(--color-bg-primary) !important;
+}
+
+.block__container_selected {
+    background-color: var(--color-bg-accent) !important;
 }
 
 .block__container {

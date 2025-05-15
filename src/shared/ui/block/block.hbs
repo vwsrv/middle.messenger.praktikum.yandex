@@ -1,5 +1,9 @@
-<div class="block block__{{type}}">
-    <div class="block__container">
+<div class="block">
+    <div
+            class="block__container block__container_{{type}} {{#if selected}}block__container_selected{{/if}}"
+            {{#if id}}id="{{id}}"{{/if}}
+            id="{{id}}"
+    >
         {{> @partial-block }}
     </div>
 </div>

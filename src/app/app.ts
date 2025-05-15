@@ -4,32 +4,32 @@ import * as Components from '../shared/ui';
 import * as Pages from '../pages';
 
 const pages = {
-    'login': [Pages.LoginPage]
-}
+  login: [Pages.LoginPage],
+};
 
 Object.entries(Components).forEach(([name, template]) => {
-    Handlebars.registerPartial(name, template);
-})
+  Handlebars.registerPartial(name, template);
+});
 
 const navigate = (page: string) => {
-    // @ts-ignore
-    const [source, context] = pages[page];
-    const container = document.getElementById('app');
+  // @ts-ignore
+  const [source, context] = pages[page];
+  const container = document.getElementById('app');
 
-    const templatingFunction = Handlebars.compile(source);
-    // @ts-ignore
-    container.innerHTML = templatingFunction(context);
-}
+  const templatingFunction = Handlebars.compile(source);
+  // @ts-ignore
+  container.innerHTML = templatingFunction(context);
+};
 
 document.addEventListener('DOMContentLoaded', () => navigate('login'));
 
-document.addEventListener('click', e => {
-    //@ts-ignore
-    const page = e.target.getAttribute('page');
-    if (page) {
-        navigate(page);
+document.addEventListener('click', (e) => {
+  //@ts-ignore
+  const page = e.target.getAttribute('page');
+  if (page) {
+    navigate(page);
 
-        e.preventDefault();
-        e.stopImmediatePropagation();
-    }
+    e.preventDefault();
+    e.stopImmediatePropagation();
+  }
 });

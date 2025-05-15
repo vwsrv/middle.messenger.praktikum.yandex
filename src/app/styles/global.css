@@ -1,14 +1,14 @@
 :root {
-  --color-primary: #19A3E6;
-  --color-error: #FF2F2F;
-  --color-success: #2FBF2F;
-  --color-text-primary: #1E1E1E;
+  --color-primary: #19a3e6;
+  --color-error: #ff2f2f;
+  --color-success: #2fbf2f;
+  --color-text-primary: #1e1e1e;
   --color-text-secondary: #999;
-  --color-text-inverted: #FFF;
-  --color-bg-primary: #FBFBFB;
-  --color-bg-secondary: #EFEFEF;
-  --color-bg-accent: #E4EDFD;
-  --color-border: #EAEAEA;
+  --color-text-inverted: #fff;
+  --color-bg-primary: #fbfbfb;
+  --color-bg-secondary: #efefef;
+  --color-bg-accent: #e4edfd;
+  --color-border: #eaeaea;
 }
 
 body {
@@ -20,15 +20,30 @@ body {
   background-color: var(--color-bg-primary);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
 }
 
-h1 { font-size: 24px; }
-h2 { font-size: 20px; }
-h3 { font-size: 18px; }
-h4 { font-size: 15px; }
-h5 { font-size: 13px; }
+h1 {
+  font-size: 24px;
+}
+h2 {
+  font-size: 20px;
+}
+h3 {
+  font-size: 18px;
+}
+h4 {
+  font-size: 15px;
+}
+h5 {
+  font-size: 13px;
+}
 
 .text-small {
   font-size: 14px;
@@ -83,7 +98,8 @@ h5 { font-size: 13px; }
   padding: 0;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 

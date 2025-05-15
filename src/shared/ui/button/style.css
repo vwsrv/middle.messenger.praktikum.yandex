@@ -1,52 +1,52 @@
 .button:active {
-    transform: translateY(2px);
+  transform: translateY(2px);
 }
 
 .button:hover {
-    opacity: 0.8;
-    transition: opacity 0.2s ease;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
 }
 
 .button__primary {
-    background-color: var(--color-primary);
-    border: none;
-    color: white;
+  background-color: var(--color-primary);
+  border: none;
+  color: white;
 }
 
 .button__dots,
 .button__arrow-right,
 .button__arrow-left,
 .button__close {
-    background-repeat: no-repeat;
-    background-position: center;
-    padding: 0;
-    border-radius: 50%;
-    min-height: 28px;
-    width: 28px;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 0;
+  border-radius: 50%;
+  min-height: 28px;
+  width: 28px;
 }
 
 .button__arrow-right,
 .button__arrow-left {
-    background-color: var(--color-primary);
+  background-color: var(--color-primary);
 }
 
 .button__close,
 .button__dots {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .button__dots {
-    background-image: url('../../../../public/icons/dots.svg');
+  background-image: url('../../../../public/icons/dots.svg');
 }
 
 .button__arrow-right {
-    background-image: url('../../../../public/icons/arrow-right.svg');
+  background-image: url('../../../../public/icons/arrow-right.svg');
 }
 
 .button__arrow-left {
-    background-image: url('../../../../public/icons/arrow-left.svg');
+  background-image: url('../../../../public/icons/arrow-left.svg');
 }
 
 .button__close {
-    background-image: url('../../../../public/icons/close-icn.svg');
+  background-image: url('../../../../public/icons/close-icn.svg');
 }

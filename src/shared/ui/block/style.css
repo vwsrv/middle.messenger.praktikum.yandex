@@ -1,22 +1,22 @@
 .block {
-    position: relative;
-    background-color: white;
+  position: relative;
+  background-color: white;
 }
 
 .block__container_white {
-    padding: 10px 21px;
+  padding: 10px 21px;
 }
 
 .block__container_gray {
-    padding: 12px 0 12px;
-    background-color: var(--color-bg-primary) !important;
+  padding: 12px 0 12px;
+  background-color: var(--color-bg-primary) !important;
 }
 
 .block__container_selected {
-    background-color: var(--color-bg-accent) !important;
+  background-color: var(--color-bg-accent) !important;
 }
 
 .block__container {
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }

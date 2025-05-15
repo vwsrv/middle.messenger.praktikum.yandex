@@ -1,51 +1,51 @@
 .input__auth {
-    position: relative;
-    box-sizing: border-box;
-    width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .input__label {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .input__field {
-    border: none;
-    border-radius: 0;
-    padding-top: 24px;
-    padding-bottom: 7px;
-    border-bottom: 1px solid var(--color-primary);
-    outline: none;
-    background: none;
-    width: 100%;
+  border: none;
+  border-radius: 0;
+  padding-top: 24px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--color-primary);
+  outline: none;
+  background: none;
+  width: 100%;
 }
 
 .input__field_auth {
-    border-bottom: 1px solid var(--color-primary);
+  border-bottom: 1px solid var(--color-primary);
 }
 
 .input__field_float-label::placeholder {
-    opacity: 0;
+  opacity: 0;
 }
 
 .input__placeholder {
-    position: absolute;
-    top: 24px;
-    left: 0;
-    font-size: 14px;
-    color: var(--color-text-secondary);
-    transition: all 0.2s ease;
-    pointer-events: none;
+  position: absolute;
+  top: 24px;
+  left: 0;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  transition: all 0.2s ease;
+  pointer-events: none;
 }
 
 .input__error {
-    padding-top: 7px;
-    color: var(--color-error);
-    font-size: 12px;
+  padding-top: 7px;
+  color: var(--color-error);
+  font-size: 12px;
 }
 
 .input__field_float-label:not(:placeholder-shown) + .input__placeholder,
-.input__field_float-label[value]:not([value=""]) + .input__placeholder {
-    top: 0;
-    font-size: 12px;
+.input__field_float-label[value]:not([value='']) + .input__placeholder {
+  top: 0;
+  font-size: 12px;
 }

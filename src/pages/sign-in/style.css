@@ -1,5 +1,6 @@
 .container {
-    margin: 80px;
+    padding: 0;
+    margin: auto;
 }
 
 .login-form {

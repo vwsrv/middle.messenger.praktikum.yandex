@@ -5,7 +5,6 @@ export * from './profile-avatar';
 export * from './block';
 export * from './modal';
 export * from './chat-preview';
+export * from './message-item';
 // export * from './link';
 // export * from './dropdown';
-// export * from './message-item';
-// export * from './profile-input';

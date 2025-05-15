@@ -2,7 +2,7 @@ export * from './button';
 export * from './profile-input';
 export * from './combined-input';
 export * from './profile-avatar';
-// export * from './block';
+export * from './block';
 // export * from './link';
 // export * from './block';
 // export * from './dropdown';

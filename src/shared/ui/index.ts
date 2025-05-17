@@ -9,3 +9,4 @@ export * from './message-item';
 export * from './link';
 export * from './dropdown';
 export * from './dropdown-item';
+export * from './error-message';

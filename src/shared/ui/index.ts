@@ -6,5 +6,5 @@ export * from './block';
 export * from './modal';
 export * from './chat-preview';
 export * from './message-item';
-// export * from './link';
+export * from './link';
 // export * from './dropdown';

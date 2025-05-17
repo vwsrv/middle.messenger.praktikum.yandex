@@ -1,0 +1,27 @@
+.link {
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.link__name:active {
+    transform: translateY(2px);
+}
+
+.link__error, .link__underline  {
+    padding: 0;
+    border: none;
+}
+
+.link__underline {
+    padding: 0;
+    text-underline: var(--color-primary) !important;
+    text-decoration: underline;
+}
+
+.link__field__primary, .link__underline {
+    color: var(--color-primary);
+}
+
+.link__field__error {
+    color: var(--color-error);
+}

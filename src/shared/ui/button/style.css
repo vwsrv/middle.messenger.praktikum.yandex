@@ -25,6 +25,26 @@
   width: 28px;
 }
 
+.button__arrow-unstyled {
+  background: none;
+  padding: 0;
+  color: var(--color-text-secondary);
+}
+
+.button__arrow-unstyled::after {
+  content: '';
+  transform: translateY(50%);
+  top: 0;
+  right: -13px;
+  display: block;
+  position: absolute;
+  background-image: url('../../../../public/icons/unstyled-arrow.icon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 8px;
+  height: 8px;
+}
 .button__arrow-right,
 .button__arrow-left {
   background-color: var(--color-primary);

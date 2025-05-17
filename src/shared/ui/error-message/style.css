@@ -1,27 +1,27 @@
 .error {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .error__title {
-    font-size: 48px;
+  font-size: 48px;
 }
 
 .error__subtitle {
-    font-weight: normal;
+  font-weight: normal;
 }
 
 .error__text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    padding-bottom: 72px;
-    padding-top: 25vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 72px;
+  padding-top: 25vh;
 }
 
 .error__image {
-    max-width: 277px;
-    max-height: 272px;
+  max-width: 277px;
+  max-height: 272px;
 }

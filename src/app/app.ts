@@ -3,13 +3,16 @@ import './styles/global.css';
 import * as Components from '../shared/ui';
 import * as Features from '../features';
 import * as Pages from '../pages';
+import * as Widgets from '../widgets';
+import { chats } from '../pages';
 
 const pages = {
-  'login': [Pages.PageSignIn],
-  'signup': [Pages.PageSignUp],
-  'nav': [ Pages.PageNavigate ],
-  'notFound': [Pages.PageNotFoundError],
-  'serverError': [Pages.PageServerError],
+  login: [Pages.PageSignIn],
+  signup: [Pages.PageSignUp],
+  nav: [Pages.PageNavigate],
+  notFound: [Pages.PageNotFoundError],
+  serverError: [Pages.PageServerError],
+  chats: [Pages.PageChats, { chats: chats }],
 };
 
 Object.entries(Components).forEach(([name, template]) => {
@@ -17,6 +20,10 @@ Object.entries(Components).forEach(([name, template]) => {
 });
 
 Object.entries(Features).forEach(([name, template]) => {
+  Handlebars.registerPartial(name, template);
+});
+
+Object.entries(Widgets).forEach(([name, template]) => {
   Handlebars.registerPartial(name, template);
 });
 
@@ -30,7 +37,7 @@ const navigate = (page: string) => {
   container.innerHTML = templatingFunction(context);
 };
 
-document.addEventListener('DOMContentLoaded', () => navigate('nav'));
+document.addEventListener('DOMContentLoaded', () => navigate('chats'));
 
 document.addEventListener('click', (e) => {
   //@ts-ignore

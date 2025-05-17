@@ -1,6 +1,6 @@
 :root {
   --color-primary: #19a3e6;
-  --color-error: #CB112D;
+  --color-error: #cb112d;
   --color-success: #2fbf2f;
   --color-text-primary: #1e1e1e;
   --color-text-secondary: #999;
@@ -87,7 +87,10 @@ h5 {
   background-color: #2a5bd8;
 }
 
-.input {
+input {
+  border: none;
+  outline: none;
+  background: transparent;
   border-radius: 4px;
   font-family: inherit;
   font-size: 14px;

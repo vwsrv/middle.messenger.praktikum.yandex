@@ -38,7 +38,7 @@
   font-size: 12px;
 }
 
-.input__float-label[value]:not([value=""]):not(:focus) + .input__placeholder {
+.input__float-label[value]:not([value='']):not(:focus) + .input__placeholder {
   top: 0;
   font-size: 12px;
 }

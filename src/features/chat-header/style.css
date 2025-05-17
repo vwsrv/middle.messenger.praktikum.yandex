@@ -1,0 +1,14 @@
+.chat__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0 10px;
+}
+
+.profile__info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}

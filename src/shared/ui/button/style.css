@@ -16,7 +16,8 @@
 .button__dots,
 .button__arrow-right,
 .button__arrow-left,
-.button__close {
+.button__close,
+.button__attach {
   background-repeat: no-repeat;
   background-position: center;
   padding: 0;
@@ -45,6 +46,7 @@
   width: 8px;
   height: 8px;
 }
+
 .button__arrow-right,
 .button__arrow-left {
   background-color: var(--color-primary);
@@ -69,4 +71,9 @@
 
 .button__close {
   background-image: url('../../../../public/icons/close-icn.svg');
+}
+
+.button__attach {
+  background-color: transparent;
+  background-image: url('../../../../public/icons/button-attach.icon.svg');
 }

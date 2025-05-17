@@ -1,0 +1,14 @@
+<div class="chat-page">
+    {{> ChatSideBar chats=chats }}
+
+    <main class="chat-main">
+        {{#if activeChat}}
+            {{> ChatHeader }}
+            <div class="chat-messages">
+            </div>
+            {{> ChatTextArea }}
+        {{else}}
+            {{> ChatEmptyState }}
+        {{/if}}
+    </main>
+</div>

@@ -1,3 +1,7 @@
+.chat:hover {
+  background-color: var(--color-bg-accent);
+}
+
 .chat__preview {
   cursor: pointer;
   display: flex;

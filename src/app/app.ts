@@ -1,13 +1,18 @@
 import Handlebars from 'handlebars';
 import './styles/global.css';
 import * as Components from '../shared/ui';
+import * as Features from '../features';
 import * as Pages from '../pages';
 
 const pages = {
-  login: [Pages.LoginPage],
+  login: [Pages.PageSignIn],
 };
 
 Object.entries(Components).forEach(([name, template]) => {
+  Handlebars.registerPartial(name, template);
+});
+
+Object.entries(Features).forEach(([name, template]) => {
   Handlebars.registerPartial(name, template);
 });
 

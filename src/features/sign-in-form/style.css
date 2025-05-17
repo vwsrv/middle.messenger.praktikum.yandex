@@ -1,0 +1,35 @@
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.form {
+    width: 25vw;
+    min-width: 280px;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.form__input-group {
+    padding-top: 40px;
+}
+
+.form__title {
+    text-align: center;
+    font-weight: normal;
+}
+
+.form__button-group {
+    padding-top: 154px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form__link {
+    text-align: center;
+    padding-top: 13px;
+}

@@ -1,0 +1,15 @@
+<div class="login">
+    <form action="" class="form">
+        <h2 class="form__title">Авторизация</h2>
+        <div class="form__input-group">
+            {{> ProfileInput type='text' placeholder='Логин' value='123456@654321.ru' }}
+            {{> ProfileInput type='password' placeholder='Пароль' error='Пароль введен неверно' value='12345678' }}
+        </div>
+        <div class="form__button-group">
+            {{> UiButton type='primary' label='Войти' }}
+            <div class="form__link">
+                {{> UiLink type='primary' border=false name='Ещё не зарегистрированы?' }}
+            </div>
+        </div>
+    </form>
+</div>

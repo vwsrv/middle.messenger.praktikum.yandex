@@ -1,2 +1,2 @@
 import './style.css';
-export { default as LoginPage } from './login-page.hbs?raw';
+export { default as PageSignIn } from './sign-in.hbs?raw';

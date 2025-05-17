@@ -5,7 +5,11 @@ import * as Features from '../features';
 import * as Pages from '../pages';
 
 const pages = {
-  login: [Pages.PageSignIn],
+  'login': [Pages.PageSignIn],
+  'signup': [Pages.PageSignUp],
+  'nav': [ Pages.PageNavigate ],
+  'notFound': [Pages.PageNotFoundError],
+  'serverError': [Pages.PageServerError],
 };
 
 Object.entries(Components).forEach(([name, template]) => {
@@ -26,7 +30,7 @@ const navigate = (page: string) => {
   container.innerHTML = templatingFunction(context);
 };
 
-document.addEventListener('DOMContentLoaded', () => navigate('login'));
+document.addEventListener('DOMContentLoaded', () => navigate('nav'));
 
 document.addEventListener('click', (e) => {
   //@ts-ignore

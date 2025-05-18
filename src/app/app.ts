@@ -45,7 +45,7 @@ const navigate = (page: string) => {
   container.innerHTML = templatingFunction(context);
 };
 
-document.addEventListener('DOMContentLoaded', () => navigate('nav'));
+document.addEventListener('DOMContentLoaded', () => navigate('emptyChats'));
 
 document.addEventListener('click', (e) => {
   //@ts-ignore

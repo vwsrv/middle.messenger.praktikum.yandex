@@ -20,12 +20,12 @@
                     {{> ChatTextArea }}
                 </div>
             {{else}}
-                {{> ChatEmptyState }}
+                {{> ChatDialogEmpty }}
             {{/if}}
         </main>
     {{else}}
         {{> ChatSideBar chats=chats }}
 
-        {{> ChatEmptyState }}
+        {{> ChatDialogEmpty }}
     {{/if}}
 </div>

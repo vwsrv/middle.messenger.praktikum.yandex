@@ -7,8 +7,8 @@
 
 Веб-приложение чат-мессенджера с авторизацией, списком чатов и настройками профиля.
 
-## 🎨 Прототипы
 
+## 🎨 Прототипы
 Figma https://clck.ru/3M3BT7
 
 ## 🌐 Демо
@@ -16,7 +16,6 @@ Figma https://clck.ru/3M3BT7
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a1a27cf4-c705-49fa-ae50-931ee1b10cff/deploy-status)](https://app.netlify.com/sites/stirring-boba-80bbc8/deploys)
 
 ▶ **Доступные страницы:**
-
 - ![Login](https://img.shields.io/badge/-Авторизация-2ea44f?style=flat-square) [`/login`](https://your-netlify-domain.netlify.app/login)
 - ![Signup](https://img.shields.io/badge/-Регистрация-2ea44f?style=flat-square) [`/signup`](https://your-netlify-domain.netlify.app/signup)
 - ![Chats](https://img.shields.io/badge/-Чаты-2ea44f?style=flat-square) [`/chats`](https://your-netlify-domain.netlify.app/chats)
@@ -26,13 +25,13 @@ Figma https://clck.ru/3M3BT7
 
 ## 🛠 Технологический стек
 
-| Технология                                                                                                              | Назначение     |
-| ----------------------------------------------------------------------------------------------------------------------- | -------------- |
-| ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=flat-square&logo=vite&logoColor=white)                    | Сборка проекта |
-| ![Handlebars](https://img.shields.io/badge/Handlebars.js-f0772b?style=flat-square&logo=handlebarsdotjs&logoColor=black) | Шаблонизация   |
-| ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=flat-square&logo=SASS&logoColor=white)                      | Стилизация     |
-| ![Flexbox](https://img.shields.io/badge/-Flexbox-1572B6?style=flat-square&logo=css3&logoColor=white)                    | Верстка        |
-| ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=flat-square&logo=netlify&logoColor=#00C7B7)         | Деплой         |
+| Технология | Назначение |
+|------------|------------|
+| ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=flat-square&logo=vite&logoColor=white) | Сборка проекта |
+| ![Handlebars](https://img.shields.io/badge/Handlebars.js-f0772b?style=flat-square&logo=handlebarsdotjs&logoColor=black) | Шаблонизация |
+| ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=flat-square&logo=SASS&logoColor=white) | Стилизация |
+| ![Flexbox](https://img.shields.io/badge/-Flexbox-1572B6?style=flat-square&logo=css3&logoColor=white) | Верстка |
+| ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=flat-square&logo=netlify&logoColor=#00C7B7) | Деплой |
 
 ## 🚀 Быстрый старт
 

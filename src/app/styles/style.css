@@ -1,14 +1,14 @@
 :root {
-  --color-primary: #19a3e6;
-  --color-error: #cb112d;
-  --color-success: #2fbf2f;
-  --color-text-primary: #1e1e1e;
+  --color-primary: #3369F3;
+  --color-error: #FF2F2F;
+  --color-success: #2FBF2F;
+  --color-text-primary: #1E1E1E;
   --color-text-secondary: #999;
-  --color-text-inverted: #fff;
-  --color-bg-primary: #fbfbfb;
-  --color-bg-secondary: #efefef;
-  --color-bg-accent: #e4edfd;
-  --color-border: #eaeaea;
+  --color-text-inverted: #FFF;
+  --color-bg-primary: #FBFBFB;
+  --color-bg-secondary: #EFEFEF;
+  --color-bg-accent: #E4EDFD;
+  --color-border: #EAEAEA;
 }
 
 body {
@@ -16,34 +16,18 @@ body {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
-  /*color: var(--color-text-primary);*/
-  /*background-color: var(--color-bg-primary);*/
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   margin: 0;
+  font-weight: 600;
 }
 
-h1 {
-  font-size: 24px;
-}
-h2 {
-  font-size: 20px;
-}
-h3 {
-  font-size: 18px;
-}
-h4 {
-  font-size: 15px;
-}
-h5 {
-  font-size: 13px;
-}
+h1 { font-size: 24px; }
+h2 { font-size: 20px; }
+h3 { font-size: 18px; }
 
 .text-small {
   font-size: 14px;
@@ -51,10 +35,7 @@ h5 {
 
 .text-xsmall {
   font-size: 12px;
-}
-
-.text-xxsmall {
-  font-size: 9px;
+  color: var(--color-text-secondary);
 }
 
 :root {
@@ -65,17 +46,20 @@ h5 {
   --space-xl: 32px;
 }
 
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
 .button {
-  position: relative;
-  cursor: pointer;
-  padding: var(--space-sm) var(--space-md);
   display: inline-block;
+  padding: var(--space-sm) var(--space-md);
   border-radius: 4px;
   font-weight: 500;
   text-align: center;
+  cursor: pointer;
   transition: all 0.2s ease;
-  border: none;
-  outline: none;
 }
 
 .button--primary {
@@ -87,10 +71,9 @@ h5 {
   background-color: #2a5bd8;
 }
 
-input {
-  border: none;
-  outline: none;
-  background: transparent;
+.input {
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   font-family: inherit;
   font-size: 14px;
@@ -102,8 +85,7 @@ input {
   padding: 0;
 }
 
-ul,
-ol {
+ul, ol {
   list-style: none;
 }
 

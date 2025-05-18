@@ -19,7 +19,8 @@ const pages = {
       activeChat: chats.find((chat) => chat.isActive),
     },
   ],
-  emptyChats: [Pages.PageChats, { chats: chats }], // Явно передаем пустой массив
+  emptyChats: [Pages.PageChats, { chats: chats }],
+  profile: [Pages.ProfilePage],
 };
 
 Object.entries(Components).forEach(([name, template]) => {
@@ -45,7 +46,7 @@ const navigate = (page: string) => {
   container.innerHTML = templatingFunction(context);
 };
 
-document.addEventListener('DOMContentLoaded', () => navigate('emptyChats'));
+document.addEventListener('DOMContentLoaded', () => navigate('profile'));
 
 document.addEventListener('click', (e) => {
   //@ts-ignore

@@ -1,0 +1,18 @@
+<div class="profile">
+    <div class="profile__info">
+        {{> UiProfileAvatar type='large' src=profileAvatar alt=profileName }}
+        <h2 class="profile__name">{{profileName}}</h2>
+    </div>
+    <form action="" class="profile__form">
+        {{> ProfileInput profile=true placeholder='Почта' type='email' value='pochta@yandex.ru' name='profile' }}
+        {{> ProfileInput profile=true placeholder='Логин' type='text' value='ivanovivan' name='profile' }}
+        {{> ProfileInput profile=true placeholder='Имя' type='text' value='Иван' name='profile' }}
+        {{> ProfileInput profile=true placeholder='Фамилия' type='text' value='Иванов' name='profile' }}
+        {{> ProfileInput profile=true placeholder='Телефон' type='text' value='89998371261' name='profile' }}
+        <div class="profile__form_buttons">
+            {{> UiLink type='primary' name='Изменить данные' border=true }}
+            {{> UiLink type='primary' name='Изменить пароль' border=true }}
+            {{> UiLink type='error' name='Выйти' border=true }}
+        </div>
+    </form>
+</div>

@@ -1,0 +1,29 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.profile__info {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+
+.profile__name {
+  font-size: 16px;
+}
+
+.profile__form {
+  width: 30vw;
+  padding-top: 60px;
+}
+
+.profile__form_buttons {
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

@@ -2,6 +2,19 @@
   color: inherit;
   text-decoration: none;
   padding: 0;
+  border-bottom: 1px solid;
+}
+
+.link:hover {
+  opacity: 0.6;
+  transition: ease-in 0.1s opacity;
+}
+
+.link_no-border {
+  border: none;
+}
+
+.link:nth-last-child(1) {
   border: none;
 }
 

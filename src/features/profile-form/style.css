@@ -1,0 +1,52 @@
+.profile-page {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+.button__sidebar {
+  box-sizing: border-box;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  min-width: 64px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-primary);
+  z-index: 100;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.profile__info {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+
+.profile__name {
+  font-size: 16px;
+}
+
+.profile__form {
+  width: 30vw;
+  padding-top: 60px;
+}
+
+.profile__form_buttons {
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

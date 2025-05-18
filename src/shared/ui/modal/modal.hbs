@@ -1,0 +1,17 @@
+<div class="modal modal__{{status}}">
+    <div class="modal__overlay">
+        <div class="modal__container">
+            <h4 class="modal__title">{{title}}</h4>
+            <div class="modal__content modal__content_{{type}}">
+                {{> @partial-block }}
+            </div>
+            <div class="modal__buttons">
+                {{> UiButton type='primary' label=buttonLabel}}
+                {{#if error}}
+                    <p class="modal__error">{{error}}</p>
+                {{/if}}
+                <button type="reset" aria-label="закрыть" class="button modal__close-btn"></button>
+            </div>
+        </div>
+    </div>
+</div>

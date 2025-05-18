@@ -1,0 +1,29 @@
+.chat-sidebar {
+  overflow-y: auto;
+  width: 310px;
+  min-width: 310px;
+  height: 100%;
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-primary);
+  box-sizing: border-box;
+}
+
+.chat-sidebar__button {
+  width: fit-content;
+  margin-left: auto;
+  padding: 21px 20px 10px;
+}
+
+.chat-sidebar__input {
+  padding: 20px 10px 15px;
+}
+
+.chat-sidebar__list {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin: 0;
+  list-style: none;
+  scrollbar-width: none;
+}

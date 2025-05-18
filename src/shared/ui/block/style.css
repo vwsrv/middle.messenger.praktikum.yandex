@@ -1,0 +1,27 @@
+.block {
+  position: relative;
+  background-color: white;
+}
+
+.block__container_message {
+  padding: 12px 0 12px;
+  background-color: var(--color-bg-primary);
+}
+
+.block__container_message:hover {
+  background-color: var(--color-bg-accent);
+}
+
+.block__container_message {
+  padding: 12px 0 12px;
+  background-color: var(--color-bg-primary);
+}
+
+.block__container_selected {
+  background-color: var(--color-bg-accent);
+}
+
+.block__container {
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}

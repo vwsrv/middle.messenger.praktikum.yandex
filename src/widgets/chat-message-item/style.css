@@ -4,15 +4,17 @@
   padding: 11px;
   width: 100%;
   overflow: hidden;
-}
-
-.message__inbox {
-  align-self: flex-end;
-  background-color: var(--color-bg-accent);
-  border-radius: 15px 15px 0 15px;
+  max-width: 50%;
 }
 
 .message__outgoing {
+  align-self: flex-end;
+  background-color: var(--color-bg-accent);
+  border-radius: 15px 15px 0 15px;
+  margin-left: auto;
+}
+
+.message__inbox {
   align-self: flex-start;
   border-radius: 15px 15px 15px 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -48,5 +50,5 @@
 }
 
 .message__status_read {
-  background-image: url('../../../../public/icons/read-icn.svg');
+  background-image: url('../../../public/icons/read-icn.svg');
 }

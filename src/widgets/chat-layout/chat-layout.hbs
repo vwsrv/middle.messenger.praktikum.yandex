@@ -1,9 +1,9 @@
 <div class="chat-page">
-    {{> ChatSideBar chats=chats }}
+    {{#if chats}}
+        {{> ChatSideBar chats=chats }}
 
-    <main class="chat-main">
-        {{#if (findActiveChat chats)}}
-            {{#with (findActiveChat chats) as |activeChat|}}
+        <main class="chat-main">
+            {{#if activeChat}}
                 <div class="chat-messages_header">
                     {{> ChatHeader
                             profileName=activeChat.profileName
@@ -11,14 +11,21 @@
                     }}
                 </div>
                 <div class="chat-messages">
-
+                    {{> ChatDialog
+                            createDate="Сегодня"
+                            messages=activeChat.messages
+                    }}
                 </div>
                 <div class="chat-messages_textarea">
                     {{> ChatTextArea }}
                 </div>
-            {{/with}}
-        {{else}}
-            {{> ChatEmptyState }}
-        {{/if}}
-    </main>
+            {{else}}
+                {{> ChatEmptyState }}
+            {{/if}}
+        </main>
+    {{else}}
+        {{> ChatSideBar chats=chats }}
+
+        {{> ChatEmptyState }}
+    {{/if}}
 </div>

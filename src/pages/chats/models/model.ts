@@ -1,3 +1,4 @@
+// pages/chats.ts
 export const chats = [
   {
     id: 1,
@@ -7,6 +8,7 @@ export const chats = [
     messageText: 'Привет, как дела?',
     messageCount: 3,
     isActive: false,
+    messages: [],
   },
   {
     id: 2,
@@ -16,23 +18,20 @@ export const chats = [
     messageText: 'Документы готовы',
     messageCount: 0,
     isActive: true,
+    isSelected: true,
+    messages: [
+      {
+        type: 'outgoing',
+        text: 'Документы готовы к отправке',
+        time: '10:15',
+        status: 'read',
+      },
+      {
+        type: 'inbox',
+        text: 'Спасибо, я их проверю',
+        time: '10:18',
+        status: 'delivered',
+      },
+    ],
   },
 ];
-
-export const messages = {
-  1: [],
-  2: [
-    {
-      type: 'inbox',
-      text: 'Документы готовы к отправке',
-      time: '10:15',
-      status: 'read',
-    },
-    {
-      type: 'inbox',
-      text: 'Спасибо, я их проверю',
-      time: '10:18',
-      status: 'delivered',
-    },
-  ],
-};

@@ -12,7 +12,14 @@ const pages = {
   nav: [Pages.PageNavigate],
   notFound: [Pages.PageNotFoundError],
   serverError: [Pages.PageServerError],
-  chats: [Pages.PageChats, { chats: chats }],
+  chats: [
+    Pages.PageChats,
+    {
+      chats: chats,
+      activeChat: chats.find((chat) => chat.isActive),
+    },
+  ],
+  emptyChats: [Pages.PageChats, { chats: chats }], // Явно передаем пустой массив
 };
 
 Object.entries(Components).forEach(([name, template]) => {
@@ -25,6 +32,7 @@ Object.entries(Features).forEach(([name, template]) => {
 
 Object.entries(Widgets).forEach(([name, template]) => {
   Handlebars.registerPartial(name, template);
+  console.log(name);
 });
 
 const navigate = (page: string) => {
@@ -49,9 +57,3 @@ document.addEventListener('click', (e) => {
     e.stopImmediatePropagation();
   }
 });
-
-Handlebars.registerHelper('findActiveChat', function (chats) {
-  // @ts-ignore
-  return chats.find((chat) => chat.isActive);
-});
-

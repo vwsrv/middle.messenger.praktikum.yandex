@@ -24,6 +24,10 @@
   border-radius: 50%;
   min-height: 28px;
   width: 28px;
+
+  &:hover {
+    opacity: 0.4;
+  }
 }
 
 .button__arrow-unstyled {

@@ -1,8 +1,40 @@
 .chat__dialog {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
-.message__row-item {
-  padding: 1000px;
+.chat__messages-flow {
+  margin-top: auto; /* Ключевое свойство */
+  overflow-y: auto; /* Для прокрутки при необходимости */
+  width: 100%;
+  padding: 20px 0;
+}
+
+/* Добавляем пустой блок-распорку в начало */
+.chat__messages-flow::before {
+  content: '';
+  flex: 1;
+  min-height: 0;
+}
+
+.chat__messages-flow {
+  flex-grow: 1; /* Занимает всё доступное пространство */
+  overflow-y: auto; /* Добавляет прокрутку при необходимости */
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Прижимает сообщения к низу */
+}
+
+.chat__dialog_date {
+  color: var(--color-text-secondary);
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.message-row {
+  margin-top: 10px;
 }

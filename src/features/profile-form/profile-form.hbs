@@ -1,4 +1,10 @@
-<div class="profile">
+<main class="profile-page">
+    <aside class="button__sidebar">
+        <div class="button__container">
+            {{> UiButton type='arrow-left' }}
+        </div>
+    </aside>
+    <div class="profile">
     <div class="profile__info">
         {{> UiProfileAvatar type='large' src=profileAvatar alt=profileName }}
         <h2 class="profile__name">{{profileName}}</h2>
@@ -15,4 +21,5 @@
             {{> UiLink type='error' name='Выйти' border=true }}
         </div>
     </form>
-</div>
+    </div>
+</main>

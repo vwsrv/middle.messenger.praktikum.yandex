@@ -5,7 +5,7 @@
   padding: 10px 0 10px;
 }
 
-.profile__info {
+.chat__header_info {
   display: flex;
   flex-direction: row;
   justify-content: center;

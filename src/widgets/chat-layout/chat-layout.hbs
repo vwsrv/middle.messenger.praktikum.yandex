@@ -2,11 +2,21 @@
     {{> ChatSideBar chats=chats }}
 
     <main class="chat-main">
-        {{#if activeChat}}
-            {{> ChatHeader }}
-            <div class="chat-messages">
-            </div>
-            {{> ChatTextArea }}
+        {{#if (findActiveChat chats)}}
+            {{#with (findActiveChat chats) as |activeChat|}}
+                <div class="chat-messages_header">
+                    {{> ChatHeader
+                            profileName=activeChat.profileName
+                            profileAvatar=activeChat.avatar
+                    }}
+                </div>
+                <div class="chat-messages">
+
+                </div>
+                <div class="chat-messages_textarea">
+                    {{> ChatTextArea }}
+                </div>
+            {{/with}}
         {{else}}
             {{> ChatEmptyState }}
         {{/if}}

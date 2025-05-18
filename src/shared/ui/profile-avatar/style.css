@@ -62,5 +62,5 @@
 
 .profile__avatar_small .profile__avatar_overlay,
 .profile__avatar_default .profile__avatar_overlay {
-  display: none !important;
+  display: none;
 }

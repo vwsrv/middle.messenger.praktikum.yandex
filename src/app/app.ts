@@ -37,7 +37,7 @@ const navigate = (page: string) => {
   container.innerHTML = templatingFunction(context);
 };
 
-document.addEventListener('DOMContentLoaded', () => navigate('chats'));
+document.addEventListener('DOMContentLoaded', () => navigate('nav'));
 
 document.addEventListener('click', (e) => {
   //@ts-ignore
@@ -49,3 +49,9 @@ document.addEventListener('click', (e) => {
     e.stopImmediatePropagation();
   }
 });
+
+Handlebars.registerHelper('findActiveChat', function (chats) {
+  // @ts-ignore
+  return chats.find((chat) => chat.isActive);
+});
+

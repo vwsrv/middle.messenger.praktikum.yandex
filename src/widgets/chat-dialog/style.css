@@ -1,0 +1,8 @@
+.chat__dialog {
+  display: flex;
+  flex-direction: column;
+}
+
+.message__row-item {
+  padding: 1000px;
+}

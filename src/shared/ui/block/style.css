@@ -3,17 +3,22 @@
   background-color: white;
 }
 
-.block__container_white {
-  padding: 10px 21px;
+.block__container_message {
+  padding: 12px 0 12px;
+  background-color: var(--color-bg-primary);
 }
 
-.block__container_gray {
+.block__container_message:hover {
+  background-color: var(--color-bg-accent);
+}
+
+.block__container_message {
   padding: 12px 0 12px;
-  background-color: var(--color-bg-primary) !important;
+  background-color: var(--color-bg-primary);
 }
 
 .block__container_selected {
-  background-color: var(--color-bg-accent) !important;
+  background-color: var(--color-bg-accent);
 }
 
 .block__container {

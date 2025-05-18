@@ -1,0 +1,16 @@
+<div class="chat__dialog">
+    <h3 class="chat__date-divider">{{createDate}}</h3>
+    <div class="chat__messages-flow">
+        {{#each messages}}
+            <div class="message-row">
+                    {{#> UiMessageItem
+                            type=messageType
+                            status=messageStatus
+                            time=messageTime
+                    }}
+                        {{messageText}}
+                    {{/UiMessageItem}}
+            </div>
+        {{/each}}
+    </div>
+</div>

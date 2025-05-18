@@ -1,2 +1,4 @@
 import './style.css';
-export { default as ChatHeader } from './chat-header.hbs?raw';
+import template from './chat-header.hbs?raw';
+
+export { template as ChatHeader };

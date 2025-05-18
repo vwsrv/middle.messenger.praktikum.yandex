@@ -1,9 +1,8 @@
-<div class="chat">
-    {{#> UiBlock type='gray' selected=isSelected id=chatId}}
+{{#> UiBlock type='message' selected=isSelected id=chatId}}
         <div class="chat__preview">
             {{> UiProfileAvatar type='small' src=avatarSrc alt=avatarName}}
             <div class="chat__content">
-                <div class="chat__header">
+                <div class="chat__content_header">
                     <h5 class="chat__name">{{name}}</h5>
                     <p class="message__time">{{time}}</p>
                 </div>
@@ -13,5 +12,5 @@
                 <span class="message__count">{{count}}</span>
             {{/if}}
         </div>
-    {{/UiBlock}}
-</div>
+{{/UiBlock}}
+

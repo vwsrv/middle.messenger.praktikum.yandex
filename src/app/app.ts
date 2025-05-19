@@ -16,7 +16,7 @@ const pages = {
     Pages.PageChats,
     {
       chats: chats,
-      activeChat: chats.find((chat) => chat.isActive),
+      activeChat: chats.find(chat => chat.isActive),
     },
   ],
   emptyChats: [Pages.PageChats, { chats: chats }],
@@ -48,7 +48,7 @@ const navigate = (page: string) => {
 
 document.addEventListener('DOMContentLoaded', () => navigate('nav'));
 
-document.addEventListener('click', (e) => {
+document.addEventListener('click', e => {
   //@ts-ignore
   const page = e.target.getAttribute('page');
   if (page) {

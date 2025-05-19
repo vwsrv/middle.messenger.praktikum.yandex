@@ -11,8 +11,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "prepare": "husky install",
-    "lint": "eslint --config eslint.config.cjs . --ext .ts,.tsx",
-    "lint:fix": "eslint --config eslint.config.cjs . --ext .ts,.tsx --fix",
+    "lint": "eslint --config eslint.config.cjs . --ext .ts,.tsx,.js",
+    "lint:fix": "eslint --config eslint.config.cjs . --ext .ts,.tsx,.js --fix",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,scss,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,scss,md}\""
   },
@@ -33,7 +33,7 @@
     "handlebars": "^4.7.8"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
+    "*.{ts,tsx,js}": [
       "eslint --config eslint.config.cjs --fix",
       "prettier --write"
     ],

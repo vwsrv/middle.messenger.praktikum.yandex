@@ -7,4 +7,3 @@ coverage
 .husky
 .idea
 public
-*.d.ts 

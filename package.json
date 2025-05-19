@@ -11,10 +11,10 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "prepare": "husky install",
-    "lint": "eslint --config eslint.config.cjs \"src/**/*.{ts,tsx,js,jsx}\"",
-    "lint:fix": "eslint --config eslint.config.cjs \"src/**/*.{ts,tsx,js,jsx}\" --fix",
-    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\""
+    "lint": "eslint \"**/*.{js,ts}\"",
+    "lint:fix": "eslint \"**/*.{js,ts}\" --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,scss,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,scss,md}\""
   },
   "devDependencies": {
     "@eslint/js": "^8.56.0",
@@ -33,11 +33,11 @@
     "handlebars": "^4.7.8"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx,js,jsx}": [
-      "eslint --config eslint.config.cjs --fix",
+    "**/*.{js,ts}": [
+      "eslint --fix",
       "prettier --write"
     ],
-    "src/**/*.{json,css,scss,md}": [
+    "**/*.{json,css,scss,md}": [
       "prettier --write"
     ]
   }

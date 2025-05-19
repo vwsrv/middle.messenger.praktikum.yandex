@@ -7,5 +7,14 @@
   "useTabs": false,
   "trailingComma": "all",
   "arrowParens": "always",
-  "bracketSameLine": false
+  "bracketSameLine": false,
+  "endOfLine": "lf",
+  "overrides": [
+    {
+      "files": "*.hbs",
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
 }

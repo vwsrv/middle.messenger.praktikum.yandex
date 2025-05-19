@@ -5,13 +5,12 @@
 }
 
 .chat__messages-flow {
-  margin-top: auto; /* Ключевое свойство */
-  overflow-y: auto; /* Для прокрутки при необходимости */
+  margin-top: auto;
+  overflow-y: auto;
   width: 100%;
   padding: 20px 0;
 }
 
-/* Добавляем пустой блок-распорку в начало */
 .chat__messages-flow::before {
   content: '';
   flex: 1;
@@ -19,12 +18,12 @@
 }
 
 .chat__messages-flow {
-  flex-grow: 1; /* Занимает всё доступное пространство */
-  overflow-y: auto; /* Добавляет прокрутку при необходимости */
+  flex-grow: 1;
+  overflow-y: auto;
   padding-top: 30px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* Прижимает сообщения к низу */
+  justify-content: flex-end;
 }
 
 .chat__dialog_date {

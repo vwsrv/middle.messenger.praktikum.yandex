@@ -25,4 +25,6 @@ module.exports = {
     'typescript-sort-keys/interface': 'error',
     'typescript-sort-keys/string-enum': 'error',
   },
+  ignorePatterns: ['node_modules/', 'dist/', 'build/', 'coverage/', '.git/', '.github/', '.husky/', '.idea/', 'public/', '*.d.ts'],
+  include: ['src/**/*.ts', 'src/**/*.tsx', 'src/**/*.js', 'src/**/*.jsx']
 }; 

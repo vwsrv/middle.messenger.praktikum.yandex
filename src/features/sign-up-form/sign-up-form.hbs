@@ -1,16 +1,16 @@
-<div class="login">
+<div class="auth">
     <form action="" class="form">
-        <h2 class="form__title">Авторизация</h2>
+        <h2 class="form__title">Регистрация</h2>
         <div class="form__input-group">
-            {{> ProfileInput type='email' placeholder='Почта' value='123456@654321.ru' }}
-            {{> ProfileInput type='text' placeholder='Логин' value='' }}
-            {{> ProfileInput type='text' placeholder='Имя' value='' }}
-            {{> ProfileInput type='text' placeholder='Фамилия' value='' }}
-            {{> ProfileInput type='text' placeholder='Телефон' value='' }}
-            {{> ProfileInput type='password' placeholder='Пароль' error='Пароли не совпадают' value='12345678' }}
-            {{> ProfileInput type='password' placeholder='Пароль (еще раз)' error='Пароли не совпадают' value='12345678' }}
+            {{> ProfileInput type='email' placeholder='Почта' value='123456@654321.ru' name='email' }}
+            {{> ProfileInput type='text' placeholder='Логин' value='' name='login' }}
+            {{> ProfileInput type='text' placeholder='Имя' value='' name='first_name' }}
+            {{> ProfileInput type='text' placeholder='Фамилия' value='' name='second_name' }}
+            {{> ProfileInput type='number' placeholder='Телефон' value='' name='phone' }}
+            {{> ProfileInput type='password' placeholder='Пароль' error='Пароли не совпадают' value='12345678' name='password' }}
+            {{> ProfileInput type='password' placeholder='Пароль (еще раз)' error='Пароли не совпадают' value='12345678' name='password' }}
         </div>
-        <div class="form__button-group form__button_type-signup">
+        <div class="form__button-group form__button-group_type-signup">
             {{> UiButton type='primary' label='Зарегистрироваться' }}
             <div class="form__link">
                 {{> UiLink type='primary' border=false label='Войти' }}

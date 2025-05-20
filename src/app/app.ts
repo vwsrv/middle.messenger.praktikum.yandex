@@ -21,6 +21,7 @@ const pages = {
   ],
   emptyChats: [Pages.PageChats, { chats: chats }],
   profile: [Pages.ProfilePage],
+  profilePassword: [Pages.ProfilePassword]
 };
 
 Object.entries(Components).forEach(([name, template]) => {

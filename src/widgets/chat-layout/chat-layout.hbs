@@ -2,7 +2,7 @@
     {{#if chats}}
         {{> ChatSideBar chats=chats }}
 
-        <main class="chat-main">
+        <div class="chat-main">
             {{#if activeChat}}
                 <div class="chat-messages_header">
                     {{> ChatHeader
@@ -22,7 +22,7 @@
             {{else}}
                 {{> ChatDialogEmpty }}
             {{/if}}
-        </main>
+        </div>
     {{else}}
         {{> ChatSideBar chats=chats }}
 

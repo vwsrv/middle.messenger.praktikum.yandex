@@ -1,0 +1,27 @@
+.input_message,
+.input_search {
+  border: none;
+  padding: 0;
+  background-color: var(--color-bg-secondary);
+}
+
+.input_message {
+  border-radius: 38px;
+}
+
+.input_search {
+  position: relative;
+  border-radius: 5px;
+}
+
+.input__field {
+  padding: 10px 20px;
+  border-bottom: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input_search .input__field_search::placeholder {
+  font-size: 12px;
+  text-align: center;
+}

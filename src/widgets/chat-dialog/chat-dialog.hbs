@@ -1,0 +1,17 @@
+<div class="chat__dialog">
+    <div class="chat__messages-flow">
+        <h3 class="chat__dialog_date">{{createDate}}</h3>
+        {{#each messages}}
+            <div class="message-row">
+                    {{#> MessageItem
+                            type=type
+                            status=status
+                            time=time
+                            isSelected=active
+                    }}
+                        {{text}}
+                    {{/MessageItem}}
+            </div>
+        {{/each}}
+    </div>
+</div>

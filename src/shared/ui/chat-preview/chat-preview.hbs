@@ -1,0 +1,16 @@
+{{#> UiBlock type='message' selected=isSelected id=chatId}}
+        <div class="chat__preview">
+            {{> UiProfileAvatar type='small' src=avatarSrc alt=avatarName}}
+            <div class="chat__content">
+                <div class="chat__content_header">
+                    <h5 class="chat__name">{{name}}</h5>
+                    <p class="message__time">{{time}}</p>
+                </div>
+                <p class="chat__message text-xsmall">{{{message}}}</p>
+            </div>
+            {{#if count}}
+                <span class="message__count">{{count}}</span>
+            {{/if}}
+        </div>
+{{/UiBlock}}
+

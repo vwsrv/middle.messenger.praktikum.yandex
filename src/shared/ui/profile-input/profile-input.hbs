@@ -6,8 +6,11 @@
       class="text-xsmall input input__{{className}} input__float-label"
       value="{{value}}"
       name="{{name}}"
+      autocomplete="off"
     />
     <span class="input__placeholder">{{placeholder}}</span>
-    <span class="text-xxsmall input__error">{{error}}</span>
+    {{#if error}}
+      <span class="text-xxsmall input__error">{{error}}</span>
+    {{/if}}
   </label>
 </div>

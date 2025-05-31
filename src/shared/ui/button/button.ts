@@ -4,7 +4,6 @@ import template from './button.hbs?raw';
 import { TButton } from "./types";
 
 interface IProps extends TBlock {
-    type: 'submit' | 'button';
     theme: TButton
     label: string;
     events?: {

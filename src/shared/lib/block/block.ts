@@ -133,7 +133,8 @@ abstract class Block<P extends TBlock = TBlock> {
             this._createResources();
         }
         this._render();
-        return this._element!;
+        const content = this._element!.firstElementChild as HTMLElement;
+        return content || this._element!;
     }
 
     private _makePropsProxy(props: P): P {

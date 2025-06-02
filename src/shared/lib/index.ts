@@ -1,3 +1,4 @@
 export * from './block';
 export * from './event-bus';
-export * from './validation';
+export * from './register-component';
+export * from './render-dom';

@@ -1,1 +1,1 @@
-export { default as PasswordChangeForm} from './profile-form-password-change.hbs?raw';
+export { default as PasswordChangeForm } from './profile-form-password-change.hbs?raw';

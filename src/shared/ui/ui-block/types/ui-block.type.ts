@@ -1,1 +1,1 @@
-export type TUiBlock = | 'message' | 'selected';
+export type TUiBlock = 'message' | 'selected';

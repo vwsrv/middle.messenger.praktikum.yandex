@@ -1,20 +1,19 @@
-import { Block } from '../../shared/lib/block/block';
-import { IComponentConstructor } from '../../shared/lib/types';
+import { IComponentConstructor } from '../../shared/lib';
 
 export type TPageSource = string | IComponentConstructor;
 export type TPageContext = Record<string, unknown>;
 
 export interface IPage {
-    source: TPageSource;
-    context: TPageContext;
+  source: TPageSource;
+  context: TPageContext;
 }
 
 export interface IPages {
-    [key: string]: [TPageSource, TPageContext];
+  [key: string]: [TPageSource, TPageContext];
 }
 
 export interface INavigateEvent extends MouseEvent {
-    target: HTMLElement;
+  target: HTMLElement;
 }
 
-export type TNavigate = (page: string) => void; 
+export type TNavigate = (page: string) => void;

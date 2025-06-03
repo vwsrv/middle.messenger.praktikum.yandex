@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import {IRegisterComponentOptions, TComponentId} from "./types/register-components.type.ts";
+import { IRegisterComponentOptions, TComponentId } from './types';
 
 export const registerComponent = ({ name, Component }: IRegisterComponentOptions): void => {
   if (name in Handlebars.helpers) {

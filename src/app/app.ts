@@ -1,14 +1,37 @@
-import Handlebars from "handlebars";
+import './styles/global.css';
+import Handlebars from 'handlebars';
+
+import * as Features from '../features';
+import * as Pages from '../pages';
+import { renderDom } from '../shared/lib';
 import * as Components from '../shared/ui';
-import { renderDom } from "../shared/lib/render-dom/render-dom";
-import { IPages,  TNavigate } from './types/types';
+import * as Widgets from '../widgets';
+
+import { IPages, TNavigate } from './types';
+
+import '../shared/lib/helpers/helpers';
 
 const pages: IPages = {
-//todo
+  signUp: [Pages.SignUpPage, {}],
+  nav: [Pages.PageNavigate, {}],
 };
 
 Object.entries(Components).forEach(([name, template]) => {
-  if (typeof template === "function") {
+  if (typeof template === 'function') {
+    return;
+  }
+  Handlebars.registerPartial(name, template);
+});
+
+Object.entries(Features).forEach(([name, template]) => {
+  if (typeof template === 'function') {
+    return;
+  }
+  Handlebars.registerPartial(name, template);
+});
+
+Object.entries(Widgets).forEach(([name, template]) => {
+  if (typeof template === 'function') {
     return;
   }
   Handlebars.registerPartial(name, template);
@@ -16,12 +39,12 @@ Object.entries(Components).forEach(([name, template]) => {
 
 const navigate: TNavigate = (page: string) => {
   const [source, context] = pages[page];
-  if (typeof source === "function") {
+  if (typeof source === 'function') {
     renderDom({ query: '#app', block: new source({}) });
     return;
   }
 
-  const container = document.getElementById("app");
+  const container = document.getElementById('app');
   if (!container) {
     throw new Error('Root element #app not found');
   }
@@ -30,12 +53,12 @@ const navigate: TNavigate = (page: string) => {
   container.innerHTML = temlpatingFunction(context);
 };
 
-document.addEventListener("DOMContentLoaded", () => navigate("nav"));
+document.addEventListener('DOMContentLoaded', () => navigate('signUp'));
 
-document.addEventListener("click", (e: MouseEvent) => {
+document.addEventListener('click', (e: MouseEvent) => {
   const target = e.target as HTMLElement;
-  const page = target.getAttribute("data-page");
-  
+  const page = target.getAttribute('data-page');
+
   if (page) {
     navigate(page);
     e.preventDefault();

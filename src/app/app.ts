@@ -1,18 +1,16 @@
 import './styles/global.css';
 import Handlebars from 'handlebars';
-
 import * as Features from '../features';
 import * as Pages from '../pages';
 import { renderDom } from '../shared/lib';
 import * as Components from '../shared/ui';
 import * as Widgets from '../widgets';
-
 import { IPages, TNavigate } from './types';
-
 import '../shared/lib/helpers/helpers';
 
 const pages: IPages = {
   signUp: [Pages.SignUpPage, {}],
+  signIn: [Pages.SignInPage, {}],
   nav: [Pages.PageNavigate, {}],
 };
 
@@ -53,7 +51,7 @@ const navigate: TNavigate = (page: string) => {
   container.innerHTML = temlpatingFunction(context);
 };
 
-document.addEventListener('DOMContentLoaded', () => navigate('signUp'));
+document.addEventListener('DOMContentLoaded', () => navigate('nav'));
 
 document.addEventListener('click', (e: MouseEvent) => {
   const target = e.target as HTMLElement;

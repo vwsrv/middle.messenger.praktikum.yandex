@@ -3,14 +3,9 @@ import { IBlockProps } from '../../shared/lib/block/interfaces';
 import Button from '../../shared/ui/button/button.ts';
 import Link from '../../shared/ui/link/link.ts';
 import ProfileInput from '../../shared/ui/profile-input/profile-input.ts';
-
 import template from './sign-up-form.hbs?raw';
 
 interface IProps extends IBlockProps {
-  type: string;
-}
-
-interface IFormState {
   email: string;
   login: string;
   first_name: string;
@@ -21,10 +16,10 @@ interface IFormState {
 }
 
 class SignUpForm extends Block {
-  private formState: IFormState;
+  private readonly formState: IProps;
 
   constructor(props: IProps) {
-    const initialState: IFormState = {
+    const INITIAL_STATE: IProps = {
       email: '',
       login: '',
       first_name: '',
@@ -37,12 +32,12 @@ class SignUpForm extends Block {
     super('div', {
       ...props,
       className: 'sign-up-form',
-      formState: initialState,
+      formState: INITIAL_STATE,
       EmailInput: new ProfileInput({
         type: 'email',
         name: 'email',
         placeholder: 'Почта',
-        value: initialState.email,
+        value: INITIAL_STATE.email,
         onInput: value => {
           this.updateField('email', value);
         },
@@ -51,7 +46,7 @@ class SignUpForm extends Block {
         type: 'text',
         name: 'login',
         placeholder: 'Логин',
-        value: initialState.login,
+        value: INITIAL_STATE.login,
         onInput: value => {
           this.updateField('login', value);
         },
@@ -60,7 +55,7 @@ class SignUpForm extends Block {
         type: 'text',
         name: 'first_name',
         placeholder: 'Имя',
-        value: initialState.first_name,
+        value: INITIAL_STATE.first_name,
         onInput: value => {
           this.updateField('first_name', value);
         },
@@ -69,7 +64,7 @@ class SignUpForm extends Block {
         type: 'text',
         name: 'second_name',
         placeholder: 'Фамилия',
-        value: initialState.second_name,
+        value: INITIAL_STATE.second_name,
         onInput: value => {
           this.updateField('second_name', value);
         },
@@ -78,7 +73,7 @@ class SignUpForm extends Block {
         type: 'tel',
         name: 'phone',
         placeholder: 'Телефон',
-        value: initialState.phone,
+        value: INITIAL_STATE.phone,
         onInput: value => {
           this.updateField('phone', value);
         },
@@ -87,7 +82,7 @@ class SignUpForm extends Block {
         type: 'password',
         name: 'password',
         placeholder: 'Пароль',
-        value: initialState.password,
+        value: INITIAL_STATE.password,
         onInput: value => {
           this.updateField('password', value);
         },
@@ -96,7 +91,7 @@ class SignUpForm extends Block {
         type: 'password',
         name: 'password',
         placeholder: 'Пароль (еще раз)',
-        value: initialState.password_confirm,
+        value: INITIAL_STATE.password_confirm,
         onInput: value => {
           this.updateField('password_confirm', value);
         },
@@ -118,10 +113,10 @@ class SignUpForm extends Block {
       }),
     });
 
-    this.formState = initialState;
+    this.formState = INITIAL_STATE;
   }
 
-  private updateField(field: keyof IFormState, value: string): void {
+  private updateField(field: keyof IProps, value: string): void {
     this.formState[field] = value;
     this.updateButtonState();
   }

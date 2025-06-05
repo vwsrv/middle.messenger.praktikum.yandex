@@ -3,14 +3,12 @@
         <div class="modal__container">
             <h4 class="modal__title">{{title}}</h4>
             <div class="modal__content modal__content_{{type}}">
-                {{> @partial-block }}
+                {{{content}}}
             </div>
             <div class="modal__buttons">
-                {{> UiButton type='primary' label=buttonLabel}}
-                {{#if error}}
-                    <p class="modal__error">{{error}}</p>
-                {{/if}}
-                <button type="reset" aria-label="закрыть" class="button modal__close-btn"></button>
+                {{{SaveButton}}}
+                {{{CancelButton}}}
+                <button type="button" aria-label="закрыть" class="button modal__close-btn"></button>
             </div>
         </div>
     </div>

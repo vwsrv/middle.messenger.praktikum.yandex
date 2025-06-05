@@ -3,6 +3,8 @@
 }
 
 .button:disabled {
+  background-color: rgb(206 200 200);
+  color: gray;
   opacity: 0.5;
   cursor: not-allowed;
 }

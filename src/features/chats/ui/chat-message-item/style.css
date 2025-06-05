@@ -10,14 +10,14 @@
 .message__outgoing {
   align-self: flex-end;
   background-color: var(--color-bg-accent);
-  border-radius: 15px 15px 0 15px;
+  border-radius: 15px 15px 0;
   margin-left: auto;
 }
 
 .message__inbox {
   align-self: flex-start;
   border-radius: 15px 15px 15px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
 }
 
 .message__content {
@@ -36,7 +36,7 @@
 
 .message__time_type_chat {
   font-size: 9px;
-  color: rgba(0, 0, 0, 0.4);
+  color: rgb(0 0 0 / 40%);
   white-space: nowrap;
   line-height: 1.2; /* Убираем лишний отступ снизу */
 }
@@ -50,5 +50,5 @@
 }
 
 .message__status_read {
-  background-image: url('../../../public/icons/read-icn.svg');
+  background-image: url('../../../../../public/icons/read-icn.svg');
 }

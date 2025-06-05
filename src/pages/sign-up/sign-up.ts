@@ -2,14 +2,11 @@ import SignUpForm from '../../features/sign-up-form/sign-up-form';
 import Block from '../../shared/lib/block/block';
 import template from './sign-up.hbs?raw';
 
-interface IProps {}
-
 export class SignUpPage extends Block {
-  constructor(props: IProps) {
+  constructor() {
     super('main', {
-      ...props,
       className: 'sign-up-page',
-      signUpForm: new SignUpForm({
+      SignUpForm: new SignUpForm({
         email: '',
         first_name: '',
         login: '',

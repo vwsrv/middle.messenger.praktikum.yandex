@@ -1,11 +1,11 @@
 import Block from '../../lib/block/block';
 import { IBlockProps } from '../../lib/block/interfaces';
-
 import template from './profile-input.hbs?raw';
-import { TProfileInput, TInputType, VALIDATION_RULES } from './types';
+import { TProfileInput, TInput } from './types';
+import { validateField } from '../../lib/validation';
 
 interface IProps extends IBlockProps {
-  type: TInputType;
+  type: TInput;
   name: string;
   placeholder: string;
   value?: string;
@@ -29,7 +29,7 @@ class ProfileInput extends Block {
           const value = target.value;
 
           this.inputValue = value;
-          this.inputError = this.validate(value);
+          this.inputError = validateField(this.props.name, value);
 
           const errorElement = this.element?.querySelector('.input__error') as HTMLElement;
           if (errorElement) {
@@ -67,30 +67,7 @@ class ProfileInput extends Block {
     return false;
   }
 
-  private validate(value: string): string {
-    const rule = VALIDATION_RULES[this.props.name];
-
-    if (!rule) {
-      return '';
-    }
-
-    if (!value.trim()) {
-      return '';
-    }
-
-    const isValid = rule.pattern.test(value);
-    return isValid ? '' : rule.message;
-  }
-
-  public getValue(): string {
-    return this.inputValue;
-  }
-
-  public getError(): string {
-    return this.inputError;
-  }
-
-  public render(): string {
+  render() {
     return template;
   }
 }

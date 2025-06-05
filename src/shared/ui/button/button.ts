@@ -20,7 +20,6 @@ class Button extends Block {
       events: {
         click: props.onClick,
       } as TEvents,
-      disabled: props.disabled,
     });
   }
 

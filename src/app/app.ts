@@ -4,13 +4,13 @@ import * as Features from '../features';
 import * as Pages from '../pages';
 import { renderDom } from '../shared/lib';
 import * as Components from '../shared/ui';
-import * as Widgets from '../widgets';
 import { IPages, TNavigate } from './types';
 import '../shared/lib/helpers/helpers';
 
 const pages: IPages = {
   signUp: [Pages.SignUpPage, {}],
   signIn: [Pages.SignInPage, {}],
+  changePassword: [Pages.ChangePasswordPage, {}],
   nav: [Pages.PageNavigate, {}],
 };
 
@@ -22,13 +22,6 @@ Object.entries(Components).forEach(([name, template]) => {
 });
 
 Object.entries(Features).forEach(([name, template]) => {
-  if (typeof template === 'function') {
-    return;
-  }
-  Handlebars.registerPartial(name, template);
-});
-
-Object.entries(Widgets).forEach(([name, template]) => {
   if (typeof template === 'function') {
     return;
   }

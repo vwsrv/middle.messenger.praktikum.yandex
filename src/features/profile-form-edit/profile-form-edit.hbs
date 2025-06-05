@@ -1,25 +1,26 @@
 <div class="profile">
     <aside class="button__sidebar">
         <div class="button__container">
-            {{> UiButton type='arrow-left' }}
+            {{{BackButton}}}
         </div>
     </aside>
     <div class="profile-container">
         <div class="profile__info">
-            {{> UiProfileAvatar type='large' src=profileAvatar alt=profileName }}
-            <h2 class="profile__name">{{profileName}}</h2>
+            {{{ProfileAvatar}}}
+            <h2 class="profile__name">{{{profileName}}}</h2>
         </div>
         <form action="" class="profile__form">
-            {{> ProfileInput profile=true placeholder='Почта' type='email' value='pochta@yandex.ru' className='profile' name='email' }}
-            {{> ProfileInput profile=true placeholder='Логин' type='text' value='ivanovivan' className='profile' name='login' }}
-            {{> ProfileInput profile=true placeholder='Имя' type='text' value='Иван' className='profile' name='first_name' }}
-            {{> ProfileInput profile=true placeholder='Фамилия' type='text' value='Иванов' className='profile' name='second_name' }}
-            {{> ProfileInput profile=true placeholder='Телефон' type='text' value='89998371261' className='profile' name='phone' }}
+            {{{EmailInput}}}
+            {{{LoginInput}}}
+            {{{NameInput}}}
+            {{{SecondNameInput}}}
+            {{{PhoneInput}}}
             <div class="profile__form_buttons">
-                {{> UiLink type='primary' name='Изменить данные' border=true }}
-                {{> UiLink type='primary' name='Изменить пароль' border=true }}
-                {{> UiLink type='error' name='Выйти' border=true }}
+                {{{ConfirmLink}}}
+                {{{PasswordEditLink}}}
+                {{{ExitLink}}}
             </div>
         </form>
     </div>
+    {{{AvatarModal}}}
 </div>

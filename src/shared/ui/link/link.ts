@@ -1,14 +1,14 @@
 import Block from '../../lib/block/block';
 import { IBlockProps } from '../../lib/block/interfaces';
-
 import template from './link.hbs?raw';
 import { TLink } from './types';
+import { TEvents } from '../../lib/block/interfaces';
 
 interface IProps extends IBlockProps {
   name: string;
-  border: boolean;
   theme: TLink;
-  path: URL;
+  path?: URL;
+  onClick?: (e: MouseEvent) => void;
 }
 
 class Link extends Block {
@@ -16,14 +16,21 @@ class Link extends Block {
     super('a', {
       ...props,
       className: `link link_${props.theme} link_border ${!props.border ? 'link_no-border' : ''}`,
-      href: props.path.toString(),
+      href: props.path?.toString() || '#',
+      path: props.path,
       events: {
-        click: (...args: unknown[]) => {
-          const e = args[0] as MouseEvent;
-          e.preventDefault();
-          window.location.href = props.path.toString();
+        click: (e: MouseEvent) => {
+          e.preventDefault(); // Отменяем стандартное поведение
+          if (props.path) {
+            // Вариант 1: Через window.location
+            window.location.href = props.path.toString();
+
+            // Или вариант 2: Через роутер (если есть)
+            // router.go(props.path.pathname);
+          }
+          props.onClick?.(e); // Дополнительный кастомный обработчик
         },
-      },
+      } as TEvents,
     });
   }
 

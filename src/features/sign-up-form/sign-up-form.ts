@@ -107,9 +107,8 @@ class SignUpForm extends Block {
       }),
       SignUpLink: new Link({
         name: 'Уже зарегистрированы? Войти',
-        border: false,
         theme: 'primary',
-        path: new URL('/sign-in', window.location.origin),
+        path: new URL('http://localhost:3000/sign-in'),
       }),
     });
 

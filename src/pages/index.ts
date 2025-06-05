@@ -1,6 +1,7 @@
 export { SignUpPage } from './sign-up';
 export { SignInPage } from './sign-in';
 export { ChangePasswordPage } from './profile-password';
+export { ProfileEditPage } from './profile-edit';
 export * from './navigate';
 export * from './not-found';
 export * from './server-error';

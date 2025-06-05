@@ -11,6 +11,7 @@ const pages: IPages = {
   signUp: [Pages.SignUpPage, {}],
   signIn: [Pages.SignInPage, {}],
   changePassword: [Pages.ChangePasswordPage, {}],
+  profileEdit: [Pages.ProfileEditPage, {}],
   nav: [Pages.PageNavigate, {}],
 };
 

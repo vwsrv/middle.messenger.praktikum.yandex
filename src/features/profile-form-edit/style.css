@@ -33,6 +33,7 @@
 
 .profile__name {
   font-size: 16px;
+  text-align: center;
 }
 
 .profile__form {

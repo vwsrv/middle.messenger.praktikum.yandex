@@ -1,29 +1,36 @@
-import Block from '../../shared/lib/block/block';
-import { IBlockProps, TEvents } from '../../shared/lib/block/interfaces';
-import ProfileInput from '../../shared/ui/profile-input/profile-input';
-import ProfileAvatar from '../../shared/ui/profile-avatar/profile-avatar';
-import Button from '../../shared/ui/button/button';
-import Modal from '../../shared/ui/modal/modal';
-import template from './profile-form-password.hbs?raw';
+import Block from '../../shared/lib/block/block.ts';
+import { IBlockProps } from '../../shared/lib/block/interfaces';
+import Link from '../../shared/ui/link/link.ts';
+import ProfileInput from '../../shared/ui/profile-input/profile-input.ts';
+import template from './profile-form-edit.hbs?raw';
+import ProfileAvatar from '../../shared/ui/profile-avatar/profile-avatar.ts';
 import { ChangeAvatarForm } from '../change-avatar-modal';
+import Modal from '../../shared/ui/modal/modal.ts';
+import Button from '../../shared/ui/button/button.ts';
+import { TEvents } from '../../shared/lib/block/interfaces';
 
 interface IProps extends IBlockProps {
-  onBack?: () => void;
-  oldPassword: string;
-  password: string;
-  passwordConfirm: string;
+  email: string;
+  login: string;
+  first_name: string;
+  second_name: string;
+  phone: string;
+  profileName: string;
   disabled?: boolean;
 }
 
-class ProfileFormPassword extends Block {
+class ProfileFormEdit extends Block {
   private readonly formState: IProps;
   private avatarModal: Modal;
 
   constructor(props: IProps) {
     const INITIAL_STATE: IProps = {
-      oldPassword: '',
-      password: '',
-      passwordConfirm: '',
+      email: '',
+      login: '',
+      first_name: 'Иван',
+      second_name: 'Иванов',
+      phone: '',
+      profileName: `${props.first_name} ${props.second_name}`,
     };
 
     const changeAvatarForm = new ChangeAvatarForm({
@@ -69,46 +76,81 @@ class ProfileFormPassword extends Block {
 
       AvatarModal: avatarModal,
 
-      OldPassword: new ProfileInput({
-        type: 'password',
-        name: 'password',
-        placeholder: 'Старый пароль',
-        value: INITIAL_STATE.oldPassword,
+      EmailInput: new ProfileInput({
+        type: 'tel',
+        name: 'email',
+        placeholder: 'Почта',
+        value: INITIAL_STATE.email,
         onInput: value => {
-          this.updateField('oldPassword', value);
+          this.updateField('email', value);
         },
       }),
 
-      NewPassword: new ProfileInput({
-        type: 'password',
-        name: 'password',
-        placeholder: 'Новый пароль',
-        value: INITIAL_STATE.password,
+      LoginInput: new ProfileInput({
+        type: 'text',
+        name: 'login',
+        placeholder: 'Логин',
+        value: INITIAL_STATE.login,
         onInput: value => {
           this.updateField('password', value);
         },
       }),
 
-      NewPasswordConfirm: new ProfileInput({
-        type: 'password',
-        name: 'password',
+      NameInput: new ProfileInput({
+        type: 'text',
+        name: 'Имя',
         placeholder: 'Повторите новый пароль',
         value: INITIAL_STATE.passwordConfirm,
         onInput: value => {
-          this.updateField('passwordConfirm', value);
+          this.updateField('first_name', value);
         },
       }),
 
-      SubmitButton: new Button({
-        type: 'submit',
+      SecondNameInput: new ProfileInput({
+        type: 'text',
+        name: 'second_name',
+        placeholder: 'Фамилия',
+        value: INITIAL_STATE.second_name,
+        onInput: value => {
+          this.updateField('second_name', value);
+        },
+      }),
+
+      PhoneInput: new ProfileInput({
+        type: 'tel',
+        name: 'phone',
+        placeholder: 'Телефон',
+        value: INITIAL_STATE.phone,
+        onInput: value => {
+          this.updateField('phone', value);
+        },
+      }),
+
+      ConfirmLink: new Link({
+        name: 'Изменить данные',
+        border: false,
         theme: 'primary',
-        label: 'Сохранить',
-        disabled: true,
         onClick: (e: MouseEvent) => {
+          console.log('Изменить данные');
           e.preventDefault();
           this.handleSubmit();
         },
       }),
+
+      PasswordEditLink: new Link({
+        name: 'Изменить пароль',
+        border: false,
+        theme: 'primary',
+        path: new URL('/profile-edit', window.location.origin),
+      }),
+
+      ExitLink: new Link({
+        name: 'Выйти',
+        border: false,
+        theme: 'primary',
+        path: new URL('/sign-out', window.location.origin),
+      }),
+
       events: {
         submit: (e: Event) => {
           e.preventDefault();
@@ -142,6 +184,7 @@ class ProfileFormPassword extends Block {
   }
 
   private handleSubmit(): void {
+    console.log('Форма обработана без перезагрузки');
     const isPasswordMatch = this.formState.password === this.formState.passwordConfirm;
 
     if (!isPasswordMatch) {
@@ -159,4 +202,4 @@ class ProfileFormPassword extends Block {
   }
 }
 
-export default ProfileFormPassword;
+export default ProfileFormEdit;

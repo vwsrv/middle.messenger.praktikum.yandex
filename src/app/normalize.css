@@ -53,7 +53,7 @@ hr {
  */
 
 pre {
-  font-family: 'system-ui', 'ALSHauss', monospace, monospace; /* 1 */
+  font-family: monospace; /* 1 */
   font-size: 1em; /* 2 */
 }
 
@@ -86,7 +86,7 @@ abbr[title] {
 code,
 kbd,
 samp {
-  font-family: 'system-ui', 'ALSHauss', monospace, monospace; /* 1 */
+  font-family: monospace; /* 1 */
   font-size: 1em; /* 2 */
 }
 

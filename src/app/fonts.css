@@ -1,6 +1,5 @@
-// Bold
 @font-face {
-  font-family: 'Inter';
+  font-family: Inter;
   font-display: swap;
   src:
     url('/public/fonts/Inter_18pt-Bold.ttf') format('ttf'),
@@ -9,9 +8,8 @@
   font-style: normal;
 }
 
-// Semi Bold
 @font-face {
-  font-family: 'Inter';
+  font-family: Inter;
   font-display: swap;
   src:
     url('/public/fonts/Inter_18pt-SemiBold.ttf') format('ttf'),
@@ -20,9 +18,8 @@
   font-style: italic;
 }
 
-// Regular
 @font-face {
-  font-family: 'Inter';
+  font-family: Inter;
   font-display: swap;
   src:
     url('/public/fonts/Inter_18pt-Regular.ttf') format('ttf'),
@@ -31,9 +28,8 @@
   font-style: normal;
 }
 
-// Medium
 @font-face {
-  font-family: 'Inter';
+  font-family: Inter;
   font-display: swap;
   src:
     url('/public/fonts/Inter_24pt-Medium.ttf') format('ttf'),

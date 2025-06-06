@@ -17,6 +17,7 @@
     "strictPropertyInitialization": true,
     "esModuleInterop": true,
     "sourceMap": true,
+    "noUnusedLocals": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]

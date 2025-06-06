@@ -71,12 +71,8 @@ class ChatLayout extends Block {
       this.props.chats?.map((c: IChat) => c.id),
     );
     const selectedChat = this.props.chats?.find((chat: IChat) => chat.id === chatId);
-    console.log('Selected chat found:', selectedChat ? selectedChat.profileName : 'not found');
 
-    console.log('Updating sidebar with selected chatId:', chatId);
     this.sidebarComponent.updateSelectedChat(chatId);
-
-    console.log('Setting new props with selected chat:', selectedChat?.profileName);
 
     const newChildren: Record<string, Block | null> = {};
 

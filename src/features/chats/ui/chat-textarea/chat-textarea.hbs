@@ -1,13 +1,14 @@
 {{#> UiBlock}}
     <div class="chat__textarea">
         <div class="chat__textarea-button">
-            {{> UiButton type='attach' }}
+            {{{AttachButton}}}
+            {{{AttachDropdown}}}
         </div>
         <div class="chat__textarea-input">
-            {{> UiCombinedInput className='message' placeholder='Сообщение' }}
+            {{{MessageInput}}}
         </div>
         <div class="chat__textarea-button">
-            {{> UiButton type='arrow-right' }}
+            {{{SendButton}}}
         </div>
     </div>
 {{/UiBlock}}

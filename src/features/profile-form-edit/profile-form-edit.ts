@@ -99,7 +99,7 @@ class ProfileFormEdit extends Block {
       NameInput: new ProfileInput({
         type: 'text',
         name: 'Имя',
-        placeholder: 'Повторите новый пароль',
+        placeholder: 'Имя',
         value: INITIAL_STATE.passwordConfirm,
         onInput: value => {
           this.updateField('first_name', value);

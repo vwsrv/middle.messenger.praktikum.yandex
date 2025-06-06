@@ -1,2 +1,2 @@
 import './style.css';
-export * from './button';
+export { default } from './button';

@@ -1,13 +1,11 @@
-<aside class="chat-sidebar">
-    <div class="chat-sidebar__button">
-        {{> UiButton type='arrow-unstyled' label="Профиль" }}
-    </div>
-    <div class="chat-sidebar__input">
-        {{> UiCombinedInput className='search' placeholder='Поиск' }}
-    </div>
-    <ul class="chat-sidebar__list">
-        {{#each chats}}
-            {{> UiChatPreview name=profileName time=sentTime message=messageText count=messageCount}}
-        {{/each}}
-    </ul>
-</aside>
+<div class="chat-sidebar__button">
+    {{{ProfileButton}}}
+</div>
+<div class="chat-sidebar__input">
+    {{{SearchInput}}}
+</div>
+<ul class="chat-sidebar__list">
+    {{#each ChatPreviews}}
+        <li>{{{this}}}</li>
+    {{/each}}
+</ul>

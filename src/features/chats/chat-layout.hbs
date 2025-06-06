@@ -1,31 +1,17 @@
-<div class="chat-page">
-    {{#if chats}}
-        {{> ChatSideBar chats=chats }}
+{{{ChatSideBarComponent}}}
 
-        <div class="chat-main">
-            {{#if activeChat}}
-                <div class="chat-messages_header">
-                    {{> ChatHeader
-                            profileName=activeChat.profileName
-                            profileAvatar=activeChat.avatar
-                    }}
-                </div>
-                <div class="chat-messages">
-                    {{> ChatDialog
-                            createDate="Сегодня"
-                            messages=activeChat.messages
-                    }}
-                </div>
-                <div class="chat-messages_textarea">
-                    {{> ChatTextArea }}
-                </div>
-            {{else}}
-                {{> ChatDialogEmpty }}
-            {{/if}}
+<div class="chat-main">
+    {{#if ChatHeaderComponent}}
+        <div class="chat-messages_header">
+            {{{ChatHeaderComponent}}}
+        </div>
+        <div class="chat-messages">
+            {{{ChatDialogComponent}}}
+        </div>
+        <div class="chat-messages_textarea">
+            {{{ChatTextAreaComponent}}}
         </div>
     {{else}}
-        {{> ChatSideBar chats=chats }}
-
-        {{> ChatDialogEmpty }}
+        {{{ChatDialogEmptyComponent}}}
     {{/if}}
 </div>

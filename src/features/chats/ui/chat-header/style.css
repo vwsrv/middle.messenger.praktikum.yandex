@@ -12,3 +12,9 @@
   align-items: center;
   gap: 10px;
 }
+
+.chat__header_menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+}

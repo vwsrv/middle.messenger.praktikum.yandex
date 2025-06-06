@@ -1,11 +1,9 @@
-<div class="message message__{{type}}">
-    <div class="message__content">
-        {{> @partial-block }}
-        <div class="message__statuses">
-            {{#if status}}
-                <span class="message__status message__status_{{status}}"></span>
-            {{/if}}
-            <p class="message__time_type_chat">{{time}}</p>
-        </div>
+<div class="message__content">
+    <p class="message__text">{{text}}</p>
+    <div class="message__statuses">
+        {{#if status}}
+            <span class="message__status message__status_{{status}}"></span>
+        {{/if}}
+        <p class="message__time_type_chat">{{time}}</p>
     </div>
 </div>

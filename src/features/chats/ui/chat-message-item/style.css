@@ -14,7 +14,7 @@
   margin-left: auto;
 }
 
-.message__inbox {
+.message__incoming {
   align-self: flex-start;
   border-radius: 15px 15px 15px 0;
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);

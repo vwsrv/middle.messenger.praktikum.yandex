@@ -1,1 +1,1 @@
-export type TInput = 'profile' | 'search';
+export type TInput = 'profile' | 'search' | 'message';

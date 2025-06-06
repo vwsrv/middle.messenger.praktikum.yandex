@@ -4,6 +4,8 @@ import * as Features from '../features';
 import * as Pages from '../pages';
 import { renderDom } from '../shared/lib';
 import * as Components from '../shared/ui';
+import * as FeatureComponents from '../features';
+import { UiBlockTemplate } from '../shared/ui/ui-block';
 import { IPages, TNavigate } from './types';
 import '../shared/lib/helpers/helpers';
 
@@ -12,6 +14,7 @@ const pages: IPages = {
   signIn: [Pages.SignInPage, {}],
   changePassword: [Pages.ChangePasswordPage, {}],
   profileEdit: [Pages.ProfileEditPage, {}],
+  chats: [Pages.PageChats, {}],
   nav: [Pages.PageNavigate, {}],
 };
 
@@ -22,7 +25,16 @@ Object.entries(Components).forEach(([name, template]) => {
   Handlebars.registerPartial(name, template);
 });
 
+Handlebars.registerPartial('UiBlock', UiBlockTemplate);
+
 Object.entries(Features).forEach(([name, template]) => {
+  if (typeof template === 'function') {
+    return;
+  }
+  Handlebars.registerPartial(name, template);
+});
+
+Object.entries(FeatureComponents).forEach(([name, template]) => {
   if (typeof template === 'function') {
     return;
   }
@@ -51,7 +63,7 @@ document.addEventListener('click', (e: MouseEvent) => {
   const target = e.target as HTMLElement;
   const page = target.getAttribute('data-page');
 
-  if (page) {
+  if (page && !e.defaultPrevented) {
     navigate(page);
     e.preventDefault();
     e.stopImmediatePropagation();

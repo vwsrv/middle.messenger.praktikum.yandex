@@ -20,15 +20,11 @@ class Link extends Block {
       path: props.path,
       events: {
         click: (e: MouseEvent) => {
-          e.preventDefault(); // Отменяем стандартное поведение
+          e.preventDefault();
           if (props.path) {
-            // Вариант 1: Через window.location
             window.location.href = props.path.toString();
-
-            // Или вариант 2: Через роутер (если есть)
-            // router.go(props.path.pathname);
           }
-          props.onClick?.(e); // Дополнительный кастомный обработчик
+          props.onClick?.(e);
         },
       } as TEvents,
     });

@@ -17,7 +17,7 @@ class CombinedInput extends Block {
   constructor(props: IProps) {
     super('div', {
       ...props,
-      className: `input_${props.className}`,
+      className: props.className,
       events: {
         input: (...args: unknown[]) => {
           const e = args[0] as Event;

@@ -4,17 +4,12 @@
 }
 
 .block__container_message {
-  padding: 12px 0 12px;
+  padding: 12px 0;
   background-color: var(--color-bg-primary);
 }
 
 .block__container_message:hover {
   background-color: var(--color-bg-accent);
-}
-
-.block__container_message {
-  padding: 12px 0 12px;
-  background-color: var(--color-bg-primary);
 }
 
 .block__container_selected {

@@ -4,11 +4,11 @@ import Link from '../../shared/ui/link/link.ts';
 import ProfileInput from '../../shared/ui/profile-input/profile-input.ts';
 import template from './profile-form-edit.hbs?raw';
 import ProfileAvatar from '../../shared/ui/profile-avatar/profile-avatar.ts';
-import { ChangeAvatarForm } from '../change-avatar-modal';
+import { ChangeAvatarForm } from '@/features';
 import Modal from '../../shared/ui/modal/modal.ts';
 import Button from '../../shared/ui/button/button.ts';
-import { TEvents } from '../../shared/lib/block/interfaces';
-import { validateField } from '../../shared/lib/validation';
+import { TEvents } from '@/shared/lib/block/interfaces';
+import { validateField } from '@/shared/lib/validation';
 
 interface IProps extends IBlockProps {
   email: string;

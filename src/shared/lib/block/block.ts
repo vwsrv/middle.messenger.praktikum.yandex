@@ -1,10 +1,8 @@
 import Handlebars from 'handlebars';
 import { nanoid } from 'nanoid';
-
 import EventBus from '../event-bus/event-bus';
-
 import { IBlockProps, TChildren } from './interfaces';
-import { IMeta } from './types/types.ts';
+import { IMeta } from '@/shared/lib';
 
 class Block {
   static EVENTS = {

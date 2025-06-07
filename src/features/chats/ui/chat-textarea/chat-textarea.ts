@@ -5,7 +5,7 @@ import Button from '../../../../shared/ui/button/button';
 import CombinedInput from '../../../../shared/ui/combined-input/combined-input';
 import Dropdown from '../../../../shared/ui/dropdown/dropdown';
 import DropdownItem from '../../../../shared/ui/dropdown-item/dropdown-item';
-import { validateField } from '../../../../shared/lib/validation';
+import { validateField } from '@/shared/lib/validation';
 
 class ChatTextArea extends Block {
   private messageText: string = '';

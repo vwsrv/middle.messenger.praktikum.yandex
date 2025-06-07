@@ -1,5 +1,5 @@
 import Block from '../../shared/lib/block/block';
-import { IBlockProps, TEvents } from '../../shared/lib/block/interfaces';
+import { IBlockProps, TEvents } from '@/shared/lib/block/interfaces';
 import Button from '../../shared/ui/button/button';
 import template from './change-avatar-form.hbs?raw';
 

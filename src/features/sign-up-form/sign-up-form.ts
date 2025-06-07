@@ -1,9 +1,9 @@
 import Block from '../../shared/lib/block/block.ts';
-import { IBlockProps } from '../../shared/lib/block/interfaces';
+import { IBlockProps } from '@/shared/lib/block/interfaces';
 import Button from '../../shared/ui/button/button.ts';
 import Link from '../../shared/ui/link/link.ts';
 import ProfileInput from '../../shared/ui/profile-input/profile-input.ts';
-import { validateField } from '../../shared/lib/validation';
+import { validateField } from '@/shared/lib/validation';
 import template from './sign-up-form.hbs?raw';
 
 interface IProps extends IBlockProps {

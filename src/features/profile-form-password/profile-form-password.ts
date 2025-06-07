@@ -1,12 +1,12 @@
 import Block from '../../shared/lib/block/block';
-import { IBlockProps, TEvents } from '../../shared/lib/block/interfaces';
+import { IBlockProps, TEvents } from '@/shared/lib/block/interfaces';
 import ProfileInput from '../../shared/ui/profile-input/profile-input';
 import ProfileAvatar from '../../shared/ui/profile-avatar/profile-avatar';
 import Button from '../../shared/ui/button/button';
 import Modal from '../../shared/ui/modal/modal';
 import template from './profile-form-password.hbs?raw';
-import { ChangeAvatarForm } from '../change-avatar-modal';
-import { validateField } from '../../shared/lib/validation';
+import { ChangeAvatarForm } from '@/features';
+import { validateField } from '@/shared/lib/validation';
 
 interface IProps extends IBlockProps {
   onBack?: () => void;

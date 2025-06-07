@@ -1,4 +1,4 @@
-import { IValidationRules } from '../interfaces/validation.interface.ts';
+import { IValidationRules } from '@/shared/lib/validation';
 
 export const VALIDATION_RULES: IValidationRules = {
   email: {

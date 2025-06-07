@@ -74,7 +74,23 @@ class Block {
       });
     }
 
+    // Обработка стандартных HTML атрибутов
+    if (props.disabled !== undefined && this._element) {
+      if (props.disabled) {
+        this._element.setAttribute('disabled', 'true');
+      } else {
+        this._element.removeAttribute('disabled');
+      }
+    }
+
+    if (props.type !== undefined && this._element) {
+      this._element.setAttribute('type', props.type as string);
+    }
+
     if (this._element) {
+      if (this._element.tagName === 'BUTTON') {
+        this._element.textContent = '';
+      }
       this._element.appendChild(fragment);
     }
   }
@@ -125,6 +141,7 @@ class Block {
 
   _componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps): void {
     const response = this.componentDidUpdate(oldProps, newProps);
+
     if (!response) {
       return;
     }
@@ -215,9 +232,25 @@ class Block {
     }
 
     this._removeEvents();
+
+    if (this.props.disabled !== undefined) {
+      if (this.props.disabled) {
+        this._element.setAttribute('disabled', 'true');
+      } else {
+        this._element.removeAttribute('disabled');
+      }
+    }
+
+    if (this.props.type !== undefined) {
+      this._element.setAttribute('type', this.props.type as string);
+    }
+
     const block = this._compile();
 
-    if (this._element.children.length === 0) {
+    if (this._element.tagName === 'BUTTON') {
+      this._element.textContent = '';
+      this._element.appendChild(block);
+    } else if (this._element.children.length === 0) {
       this._element.appendChild(block);
     } else {
       this._element.replaceChildren(block);

@@ -12,6 +12,7 @@ interface IProps extends IBlockProps {
   className?: TProfileInput;
   error?: string;
   onInput?: (value: string) => void;
+  onBlur?: (value: string) => void;
 }
 
 class ProfileInput extends Block {
@@ -39,6 +40,15 @@ class ProfileInput extends Block {
 
           if (this.props.onInput) {
             this.props.onInput(value);
+          }
+        },
+        blur: (...args: unknown[]) => {
+          const e = args[0] as Event;
+          const target = e.target as HTMLInputElement;
+          const value = target.value;
+
+          if (this.props.onBlur) {
+            this.props.onBlur(value);
           }
         },
       },

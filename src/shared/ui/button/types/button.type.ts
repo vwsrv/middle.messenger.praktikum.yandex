@@ -5,4 +5,5 @@ export type TButton =
   | 'arrow-left'
   | 'close'
   | 'attach'
-  | 'arrow-unstyled';
+  | 'arrow-unstyled'
+  | 'link-style';

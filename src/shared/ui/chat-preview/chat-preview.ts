@@ -16,15 +16,8 @@ class ChatPreview extends Block {
       }),
       events: {
         click: (e: Event) => {
-          console.log('ChatPreview click triggered for chatId:', props.chatId);
           e.preventDefault();
           e.stopPropagation();
-          if (props.onClick) {
-            console.log('Calling props.onClick for chatId:', props.chatId);
-            props.onClick(e);
-          } else {
-            console.log('No onClick handler for chatId:', props.chatId);
-          }
         },
       } as TEvents,
     });

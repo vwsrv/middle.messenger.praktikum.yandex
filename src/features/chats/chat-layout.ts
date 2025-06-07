@@ -15,7 +15,6 @@ class ChatLayout extends Block {
       chats: props.chats || [],
       selectedChatId: props.activeChat?.id,
       onChatSelect: (chatId: string) => {
-        console.log('ChatLayout onChatSelect triggered for chatId:', chatId);
         this.handleChatSelect(chatId);
       },
       onProfileClick: () => {
@@ -65,11 +64,6 @@ class ChatLayout extends Block {
   }
 
   private handleChatSelect = (chatId: string): void => {
-    console.log('ChatLayout handleChatSelect called for chatId:', chatId);
-    console.log(
-      'Available chats:',
-      this.props.chats?.map((c: IChat) => c.id),
-    );
     const selectedChat = this.props.chats?.find((chat: IChat) => chat.id === chatId);
 
     this.sidebarComponent.updateSelectedChat(chatId);

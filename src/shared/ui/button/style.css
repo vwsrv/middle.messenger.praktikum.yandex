@@ -1,3 +1,13 @@
+.button {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
 .button:active {
   transform: translateY(2px);
 }
@@ -7,6 +17,12 @@
   color: gray;
   opacity: 0.5;
   cursor: not-allowed;
+  transform: none !important;
+}
+
+.button:disabled:hover {
+  opacity: 0.5;
+  transform: none;
 }
 
 .button:hover {
@@ -87,4 +103,22 @@
 .button__attach {
   background-color: transparent;
   background-image: url('../../../../public/icons/button-attach.icon.svg');
+}
+
+.button__link-style {
+  font-size: 12px;
+  padding-left: 0;
+  padding-bottom: 10px;
+  border-radius: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+  border-bottom: 1px solid;
+  color: var(--color-primary);
+}
+
+.button__link-style:disabled {
+  background: none;
+  border-bottom: 1px solid var(--color-border);
 }

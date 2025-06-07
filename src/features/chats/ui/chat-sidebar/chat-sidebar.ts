@@ -19,15 +19,8 @@ class ChatSidebar extends Block {
           message: chat.messageText,
           count: chat.messageCount,
           onClick: (e: Event) => {
-            console.log('ChatSidebar constructor onClick triggered for chatId:', chat.id);
             e.preventDefault();
             e.stopPropagation();
-            if (props.onChatSelect) {
-              console.log('Calling props.onChatSelect from constructor for chatId:', chat.id);
-              props.onChatSelect(chat.id);
-            } else {
-              console.log('No onChatSelect handler in ChatSidebar constructor');
-            }
           },
         }),
     );
@@ -75,25 +68,14 @@ class ChatSidebar extends Block {
           message: chat.messageText,
           count: chat.messageCount,
           onClick: (e: Event) => {
-            console.log('ChatSidebar createChatPreviews onClick triggered for chatId:', chat.id);
             e.preventDefault();
             e.stopPropagation();
-            if (props.onChatSelect) {
-              console.log(
-                'Calling props.onChatSelect from createChatPreviews for chatId:',
-                chat.id,
-              );
-              props.onChatSelect(chat.id);
-            } else {
-              console.log('No onChatSelect handler in createChatPreviews');
-            }
           },
         }),
     );
   }
 
   public updateSelectedChat(selectedChatId: string): void {
-    console.log('ChatSidebar updateSelectedChat called for chatId:', selectedChatId);
     const newChatPreviews = this.createChatPreviews({
       chats: this.props.chats,
       selectedChatId,

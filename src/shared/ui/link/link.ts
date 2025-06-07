@@ -1,30 +1,50 @@
 import Block from '../../lib/block/block';
-import { IBlockProps } from '../../lib/block/interfaces';
+import { IBlockProps, TEvents } from '../../lib/block/interfaces';
 import template from './link.hbs?raw';
 import { TLink } from './types';
-import { TEvents } from '../../lib/block/interfaces';
 
 interface IProps extends IBlockProps {
   name: string;
   theme: TLink;
   path?: URL;
   onClick?: (e: MouseEvent) => void;
+  disabled?: boolean;
 }
 
 class Link extends Block {
   constructor(props: IProps) {
+    const disabledClass = props.disabled ? 'link_disabled' : '';
+    const borderClass = !props.border ? 'link_no-border' : '';
+    const classes = [
+      'link',
+      `link_${props.theme}`,
+      'link_border',
+      borderClass,
+      disabledClass,
+    ].filter(Boolean);
+
     super('a', {
       ...props,
-      className: `link link_${props.theme} link_border ${!props.border ? 'link_no-border' : ''}`,
-      href: props.path?.toString() || '#',
+      className: classes.join(' '),
+      href: props.disabled ? undefined : props.path?.toString() || '#',
       path: props.path,
       events: {
         click: (e: MouseEvent) => {
-          e.preventDefault();
-          if (props.path) {
-            window.location.href = props.path.toString();
+          if (this.props.disabled) {
+            e.preventDefault();
+            e.stopPropagation();
+            return;
           }
-          props.onClick?.(e);
+
+          e.preventDefault();
+          if (this.props.path) {
+            window.location.href = this.props.path.toString();
+          }
+
+          if (this.props.onClick) {
+            this.props.onClick(e);
+          } else {
+          }
         },
       } as TEvents,
     });
@@ -32,6 +52,33 @@ class Link extends Block {
 
   public render(): string {
     return template;
+  }
+
+  componentDidUpdate(oldProps: IProps, newProps: IProps): boolean {
+    if (
+      oldProps.disabled !== newProps.disabled ||
+      oldProps.theme !== newProps.theme ||
+      oldProps.name !== newProps.name
+    ) {
+      const disabledClass = newProps.disabled ? 'link_disabled' : '';
+      const borderClass = !newProps.border ? 'link_no-border' : '';
+      const classes = [
+        'link',
+        `link_${newProps.theme}`,
+        'link_border',
+        borderClass,
+        disabledClass,
+      ].filter(Boolean);
+
+      this.props.className = classes.join(' ');
+      this.props.href = newProps.disabled ? undefined : newProps.path?.toString() || '#';
+    }
+
+    return (
+      oldProps.disabled !== newProps.disabled ||
+      oldProps.name !== newProps.name ||
+      oldProps.theme !== newProps.theme
+    );
   }
 }
 

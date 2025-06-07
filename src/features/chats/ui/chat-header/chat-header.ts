@@ -29,7 +29,7 @@ class ChatHeader extends Block {
         view: false,
         DropdownItems: [
           new DropdownItem({
-            src: '/icons/add-user.svg',
+            src: '/icons/dropdown-add-user.icon.svg',
             name: 'Добавить пользователя',
             onClick: () => {
               console.log('Добавить пользователя');
@@ -37,7 +37,7 @@ class ChatHeader extends Block {
             },
           }),
           new DropdownItem({
-            src: '/icons/delete.svg',
+            src: '/icons/dropdown-delete-user.icon.svg',
             name: 'Удалить чат',
             onClick: () => {
               console.log('Удалить чат');
@@ -56,14 +56,14 @@ class ChatHeader extends Block {
       view: this.isMenuDropdownOpen,
       DropdownItems: [
         new DropdownItem({
-          src: '/icons/add-user.svg',
+          src: '/icons/dropdown-add-user.icon.svg',
           name: 'Добавить пользователя',
           onClick: () => {
             this.toggleMenuDropdown();
           },
         }),
         new DropdownItem({
-          src: '/icons/delete.svg',
+          src: '/icons/dropdown-delete-user.icon.svg',
           name: 'Удалить чат',
           onClick: () => {
             this.toggleMenuDropdown();

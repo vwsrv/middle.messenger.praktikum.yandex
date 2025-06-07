@@ -24,8 +24,6 @@ export class ChangeAvatarForm extends Block {
             '.change-avatar-form__input',
           ) as HTMLInputElement;
           if (fileInput?.files?.length) {
-            // TODO: Обработка загрузки файла
-            console.log('Upload file:', fileInput.files[0]);
             props.onSave?.();
           }
         },
@@ -42,7 +40,9 @@ export class ChangeAvatarForm extends Block {
         change: (e: Event) => {
           const target = e.target as HTMLInputElement;
           if (target.type === 'file') {
-            this.props.SaveButton?.setProps({ disabled: !target.files?.length });
+            const saveButton = this.children.SaveButton as Button;
+            const isFileSelected = Boolean(target.files?.length);
+            saveButton.setProps({ disabled: !isFileSelected });
           }
         },
       } as TEvents,

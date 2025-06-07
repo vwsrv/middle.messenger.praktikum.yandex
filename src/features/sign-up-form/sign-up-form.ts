@@ -3,6 +3,7 @@ import { IBlockProps } from '../../shared/lib/block/interfaces';
 import Button from '../../shared/ui/button/button.ts';
 import Link from '../../shared/ui/link/link.ts';
 import ProfileInput from '../../shared/ui/profile-input/profile-input.ts';
+import { validateField } from '../../shared/lib/validation';
 import template from './sign-up-form.hbs?raw';
 
 interface IProps extends IBlockProps {
@@ -113,29 +114,89 @@ class SignUpForm extends Block {
     });
 
     this.formState = INITIAL_STATE;
+    this.updateControlsState();
+    this.bindFormEvents();
+  }
+
+  private bindFormEvents(): void {
+    setTimeout(() => {
+      const formElement = this.getContent()?.querySelector('form');
+      if (formElement) {
+        formElement.addEventListener('submit', (e: Event) => {
+          e.preventDefault();
+          this.handleSubmit();
+        });
+      }
+    }, 0);
   }
 
   private updateField(field: keyof IProps, value: string): void {
     this.formState[field] = value;
-    this.updateButtonState();
+    this.updateControlsState();
   }
 
   private isFormValid(): boolean {
-    return Object.values(this.formState).every(value => value.length > 0);
+    const hasAllFields = Object.values(this.formState).every(value => value.length > 0);
+
+    if (!hasAllFields) {
+      return false;
+    }
+
+    const emailError = validateField('email', this.formState.email);
+    const loginError = validateField('login', this.formState.login);
+    const firstNameError = validateField('first_name', this.formState.first_name);
+    const secondNameError = validateField('second_name', this.formState.second_name);
+    const phoneError = validateField('phone', this.formState.phone);
+    const passwordError = validateField('password', this.formState.password);
+
+    const passwordsMatch = this.formState.password === this.formState.password_confirm;
+
+    return (
+      !emailError &&
+      !loginError &&
+      !firstNameError &&
+      !secondNameError &&
+      !phoneError &&
+      !passwordError &&
+      passwordsMatch
+    );
   }
 
-  private updateButtonState(): void {
-    const isDisabled = !this.isFormValid();
-    this.props.SignUpButton?.setProps?.({ disabled: isDisabled });
+  private updateControlsState(): void {
+    const isValid = this.isFormValid();
+
+    const buttonChild = this.children.SignUpButton as Button;
+    if (buttonChild && buttonChild.setProps) {
+      buttonChild.setProps({ disabled: !isValid });
+    }
+  }
+
+  private validateAllFields(): boolean {
+    let isAllValid = true;
+
+    Object.keys(this.formState).forEach(fieldName => {
+      if (fieldName === 'password_confirm') return;
+
+      const value = this.formState[fieldName as keyof IProps];
+      const errorMessage = validateField(fieldName, value);
+
+      if (errorMessage) {
+        isAllValid = false;
+      }
+    });
+
+    const passwordsMatch = this.formState.password === this.formState.password_confirm;
+    if (!passwordsMatch) {
+      isAllValid = false;
+    }
+
+    return isAllValid;
   }
 
   private handleSubmit(): void {
-    const isPasswordMatch = this.formState.password === this.formState.password_confirm;
+    const isFormValid = this.validateAllFields();
 
-    if (!isPasswordMatch) {
-      this.props.PasswordConfirmInput?.setProps?.({
-        error: 'Пароли не совпадают',
-      });
+    if (!isFormValid) {
       return;
     }
 

@@ -6,6 +6,7 @@ import Button from '../../shared/ui/button/button';
 import Modal from '../../shared/ui/modal/modal';
 import template from './profile-form-password.hbs?raw';
 import { ChangeAvatarForm } from '../change-avatar-modal';
+import { validateField } from '../../shared/lib/validation';
 
 interface IProps extends IBlockProps {
   onBack?: () => void;
@@ -119,26 +120,38 @@ class ProfileFormPassword extends Block {
 
     this.formState = INITIAL_STATE;
     this.avatarModal = avatarModal;
+    this.updateControlsState();
   }
 
   private updateField(field: keyof IProps, value: string): void {
     this.formState[field] = value;
-    this.updateButtonState();
+    this.updateControlsState();
   }
 
   private isFormValid(): boolean {
-    return Object.values(this.formState).every(value => value.length > 0);
+    const hasAllFields = Object.values(this.formState).every(value => value && value.length > 0);
+
+    if (!hasAllFields) {
+      return false;
+    }
+
+    const passwordError = validateField('password', this.formState.password);
+    const passwordsMatch = this.formState.password === this.formState.passwordConfirm;
+
+    return !passwordError && passwordsMatch && this.formState.oldPassword.length > 0;
   }
 
-  private updateButtonState(): void {
-    const isDisabled = !this.isFormValid();
-    this.props.SubmitButton?.setProps?.({ disabled: isDisabled });
+  private updateControlsState(): void {
+    const isValid = this.isFormValid();
+
+    const buttonChild = this.children.SubmitButton as Button;
+    if (buttonChild && buttonChild.setProps) {
+      buttonChild.setProps({ disabled: !isValid });
+    }
   }
 
   private handleAvatarClick(): void {
-    console.log('Avatar clicked, current modal status:', this.avatarModal.element?.className);
     this.avatarModal.setProps({ isOpen: true, status: 'opened' });
-    console.log('Modal status after update:', this.avatarModal.element?.className);
   }
 
   private handleSubmit(): void {

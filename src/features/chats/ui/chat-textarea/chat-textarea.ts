@@ -5,6 +5,7 @@ import Button from '../../../../shared/ui/button/button';
 import CombinedInput from '../../../../shared/ui/combined-input/combined-input';
 import Dropdown from '../../../../shared/ui/dropdown/dropdown';
 import DropdownItem from '../../../../shared/ui/dropdown-item/dropdown-item';
+import { validateField } from '../../../../shared/lib/validation';
 
 class ChatTextArea extends Block {
   private messageText: string = '';
@@ -59,20 +60,37 @@ class ChatTextArea extends Block {
         value: '',
         onInput: (value: string) => {
           this.messageText = value;
+          this.updateSendButtonState();
         },
       }),
       SendButton: new Button({
         type: 'button',
         theme: 'arrow-right',
+        disabled: true,
         onClick: () => {
-          if (this.messageText.trim() && props.onSendMessage) {
+          const messageError = validateField('message', this.messageText);
+
+          if (!messageError && props.onSendMessage) {
             props.onSendMessage(this.messageText);
             this.messageText = '';
             this.props.MessageInput?.setProps?.({ value: '' });
+            this.updateSendButtonState();
           }
         },
       }),
     });
+
+    this.updateSendButtonState();
+  }
+
+  private updateSendButtonState(): void {
+    const messageError = validateField('message', this.messageText);
+    const isDisabled = !!messageError;
+
+    const buttonChild = this.children.SendButton as Button;
+    if (buttonChild && buttonChild.setProps) {
+      buttonChild.setProps({ disabled: isDisabled });
+    }
   }
 
   private toggleAttachDropdown = (): void => {
@@ -83,7 +101,7 @@ class ChatTextArea extends Block {
       className: 'dropdown-attach',
       DropdownItems: [
         new DropdownItem({
-          src: '/icons/photo.svg',
+          src: '/icons/dropdown-photo.icon.svg',
           name: 'Фото или Видео',
           onClick: () => {
             console.log('Прикрепить фото/видео');
@@ -91,7 +109,7 @@ class ChatTextArea extends Block {
           },
         }),
         new DropdownItem({
-          src: '/icons/file.svg',
+          src: '/icons/dropdown-file.icon.svg',
           name: 'Файл',
           onClick: () => {
             console.log('Прикрепить файл');
@@ -99,7 +117,7 @@ class ChatTextArea extends Block {
           },
         }),
         new DropdownItem({
-          src: '/icons/location.svg',
+          src: '/icons/dropdown-location.icon.svg',
           name: 'Локация',
           onClick: () => {
             console.log('Прикрепить локацию');
@@ -116,8 +134,6 @@ class ChatTextArea extends Block {
     });
 
     this._render();
-
-    console.log('ChatTextArea dropdown updated, view:', this.isAttachDropdownOpen);
   };
 
   render(): string {

@@ -3,6 +3,7 @@ import { IBlockProps } from '../../shared/lib/block/interfaces';
 import Button from '../../shared/ui/button/button.ts';
 import Link from '../../shared/ui/link/link.ts';
 import ProfileInput from '../../shared/ui/profile-input/profile-input.ts';
+import { validateField, showFieldError, clearFieldError } from '../../shared/lib/validation';
 import template from './sign-in-form.hbs?raw';
 
 interface IProps extends IBlockProps {
@@ -31,6 +32,9 @@ class SignInForm extends Block {
         onInput: value => {
           this.updateField('login', value);
         },
+        onBlur: value => {
+          this.validateFieldOnBlur('login', value);
+        },
       }),
       PasswordInput: new ProfileInput({
         type: 'password',
@@ -39,6 +43,9 @@ class SignInForm extends Block {
         value: INITIAL_STATE.password,
         onInput: value => {
           this.updateField('password', value);
+        },
+        onBlur: value => {
+          this.validateFieldOnBlur('password', value);
         },
       }),
       SignInButton: new Button({
@@ -59,24 +66,93 @@ class SignInForm extends Block {
     });
 
     this.formState = INITIAL_STATE;
+    this.updateControlsState();
+    this.bindFormEvents();
+  }
+
+  private bindFormEvents(): void {
+    setTimeout(() => {
+      const formElement = this.getContent()?.querySelector('form');
+      if (formElement) {
+        formElement.addEventListener('submit', (e: Event) => {
+          e.preventDefault();
+          this.handleSubmit();
+        });
+      }
+    }, 0);
   }
 
   private updateField(field: keyof IProps, value: string): void {
     this.formState[field] = value;
-    this.updateButtonState();
+    this.updateControlsState();
+  }
+
+  private validateFieldOnBlur(fieldName: Extract<keyof IProps, string>, value: string): void {
+    const errorMessage = validateField(fieldName, value);
+    const inputElement = this.getInputElement(fieldName);
+
+    if (errorMessage) {
+      showFieldError(fieldName, errorMessage, inputElement);
+    } else {
+      clearFieldError(inputElement);
+    }
+
+    this.updateControlsState();
+  }
+
+  private getInputElement(fieldName: string): HTMLInputElement | undefined {
+    const form = this.getContent()?.querySelector('form');
+    return form?.querySelector(`input[name="${fieldName}"]`) as HTMLInputElement;
   }
 
   private isFormValid(): boolean {
-    return Object.values(this.formState).every(value => value.length > 0);
+    const hasAllFields = Object.values(this.formState).every(value => value.length > 0);
+
+    if (!hasAllFields) {
+      return false;
+    }
+
+    const loginError = validateField('login', this.formState.login);
+    const passwordError = validateField('password', this.formState.password);
+
+    return !loginError && !passwordError;
   }
 
-  private updateButtonState(): void {
-    const isDisabled = !this.isFormValid();
-    this.props.SignUpButton?.setProps?.({ disabled: isDisabled });
+  private updateControlsState(): void {
+    const isValid = this.isFormValid();
+
+    const buttonChild = this.children.SignInButton as Button;
+    if (buttonChild && buttonChild.setProps) {
+      buttonChild.setProps({ disabled: !isValid });
+    }
+  }
+
+  private validateAllFields(): boolean {
+    let isAllValid = true;
+
+    Object.keys(this.formState).forEach(fieldName => {
+      const value = this.formState[fieldName as keyof IProps];
+      const errorMessage = validateField(fieldName, value);
+      const inputElement = this.getInputElement(fieldName);
+
+      if (errorMessage) {
+        showFieldError(fieldName, errorMessage, inputElement);
+        isAllValid = false;
+      } else {
+        clearFieldError(inputElement);
+      }
+    });
+
+    return isAllValid;
   }
 
   private handleSubmit(): void {
-    //TODO: body на бэк
+    const isFormValid = this.validateAllFields();
+
+    if (!isFormValid) {
+      return;
+    }
+
     console.log('Форма отправлена:', this.formState);
   }
 

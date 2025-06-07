@@ -17,6 +17,8 @@ class Button extends Block {
     super('button', {
       ...props,
       className: `button button__${props.theme || 'default'}`,
+      disabled: props.disabled,
+      type: props.type || 'button',
       events: {
         click: props.onClick,
       } as TEvents,
@@ -25,6 +27,14 @@ class Button extends Block {
 
   public render(): string {
     return template;
+  }
+
+  componentDidUpdate(oldProps: IProps, newProps: IProps): boolean {
+    return (
+      oldProps.disabled !== newProps.disabled ||
+      oldProps.label !== newProps.label ||
+      oldProps.theme !== newProps.theme
+    );
   }
 }
 

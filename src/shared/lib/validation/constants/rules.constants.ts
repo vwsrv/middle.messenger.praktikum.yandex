@@ -25,4 +25,8 @@ export const VALIDATION_RULES: IValidationRules = {
     pattern: /^\+?\d{10,15}$/,
     message: 'Телефон должен содержать от 10 до 15 цифр',
   },
+  message: {
+    pattern: /^.+$/,
+    message: 'Сообщение не может быть пустым',
+  },
 };

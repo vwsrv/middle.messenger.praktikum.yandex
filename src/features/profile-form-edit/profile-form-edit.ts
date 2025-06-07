@@ -1,5 +1,5 @@
 import Block from '../../shared/lib/block/block.ts';
-import { IBlockProps } from '../../shared/lib/block/interfaces';
+import { IBlockProps } from '@/shared/lib/block/interfaces';
 import Link from '../../shared/ui/link/link.ts';
 import ProfileInput from '../../shared/ui/profile-input/profile-input.ts';
 import template from './profile-form-edit.hbs?raw';
@@ -8,6 +8,7 @@ import { ChangeAvatarForm } from '../change-avatar-modal';
 import Modal from '../../shared/ui/modal/modal.ts';
 import Button from '../../shared/ui/button/button.ts';
 import { TEvents } from '../../shared/lib/block/interfaces';
+import { validateField } from '../../shared/lib/validation';
 
 interface IProps extends IBlockProps {
   email: string;
@@ -92,7 +93,7 @@ class ProfileFormEdit extends Block {
         placeholder: 'Логин',
         value: INITIAL_STATE.login,
         onInput: value => {
-          this.updateField('password', value);
+          this.updateField('login', value);
         },
       }),
 
@@ -100,7 +101,7 @@ class ProfileFormEdit extends Block {
         type: 'text',
         name: 'Имя',
         placeholder: 'Имя',
-        value: INITIAL_STATE.passwordConfirm,
+        value: INITIAL_STATE.first_name,
         onInput: value => {
           this.updateField('first_name', value);
         },
@@ -126,12 +127,11 @@ class ProfileFormEdit extends Block {
         },
       }),
 
-      ConfirmLink: new Link({
-        name: 'Изменить данные',
-        border: false,
-        theme: 'primary',
+      SubmitButton: new Button({
+        label: 'Изменить данные',
+        theme: 'link-style',
+        disabled: true,
         onClick: (e: MouseEvent) => {
-          console.log('Изменить данные');
           e.preventDefault();
           this.handleSubmit();
         },
@@ -161,36 +161,77 @@ class ProfileFormEdit extends Block {
 
     this.formState = INITIAL_STATE;
     this.avatarModal = avatarModal;
+    this.updateControlsState();
+    this.bindFormEvents();
+  }
+
+  private bindFormEvents(): void {
+    setTimeout(() => {
+      const formElement = this.getContent()?.querySelector('form');
+      if (formElement) {
+        formElement.addEventListener('submit', (e: Event) => {
+          e.preventDefault();
+          this.handleSubmit();
+        });
+      }
+    }, 0);
   }
 
   private updateField(field: keyof IProps, value: string): void {
     this.formState[field] = value;
-    this.updateButtonState();
+    this.updateControlsState();
   }
 
   private isFormValid(): boolean {
-    return Object.values(this.formState).every(value => value.length > 0);
+    const hasAllFields = Object.values(this.formState).every(value => value && value.length > 0);
+
+    if (!hasAllFields) {
+      return false;
+    }
+
+    const emailError = validateField('email', this.formState.email);
+    const loginError = validateField('login', this.formState.login);
+    const firstNameError = validateField('first_name', this.formState.first_name);
+    const secondNameError = validateField('second_name', this.formState.second_name);
+    const phoneError = validateField('phone', this.formState.phone);
+
+    return !emailError && !loginError && !firstNameError && !secondNameError && !phoneError;
   }
 
-  private updateButtonState(): void {
-    const isDisabled = !this.isFormValid();
-    this.props.SubmitButton?.setProps?.({ disabled: isDisabled });
+  private updateControlsState(): void {
+    const isValid = this.isFormValid();
+
+    const buttonChild = this.children.SubmitButton as Button;
+    if (buttonChild && buttonChild.setProps) {
+      buttonChild.setProps({ disabled: !isValid });
+    } else {
+    }
+  }
+
+  private validateAllFields(): boolean {
+    let isAllValid = true;
+
+    Object.keys(this.formState).forEach(fieldName => {
+      if (fieldName === 'profileName') return;
+
+      const value = this.formState[fieldName as keyof IProps];
+      const errorMessage = validateField(fieldName, value as string);
+
+      if (errorMessage) {
+        isAllValid = false;
+      }
+    });
+
+    return isAllValid;
   }
 
   private handleAvatarClick(): void {
-    console.log('Avatar clicked, current modal status:', this.avatarModal.element?.className);
     this.avatarModal.setProps({ isOpen: true, status: 'opened' });
-    console.log('Modal status after update:', this.avatarModal.element?.className);
   }
 
   private handleSubmit(): void {
-    console.log('Форма обработана без перезагрузки');
-    const isPasswordMatch = this.formState.password === this.formState.passwordConfirm;
-
-    if (!isPasswordMatch) {
-      this.props.NewPasswordConfirm?.setProps?.({
-        error: 'Пароли не совпадают',
-      });
+    const isFormValid = this.validateAllFields();
+    if (!isFormValid) {
       return;
     }
 

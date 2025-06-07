@@ -1,14 +1,16 @@
 <div class="auth">
     <form action="" class="form">
-        <h2 class="form__title">Авторизация</h2>
+        <h2 class="form__title">Вход</h2>
+        
         <div class="form__input-group">
-            {{> ProfileInput type='text' placeholder='Логин' value='123456@654321.ru' name='login' }}
-            {{> ProfileInput type='password' placeholder='Пароль' error='Пароль введен неверно' value='12345678' name='password' }}
+            {{{LoginInput}}}
+            {{{PasswordInput}}}
         </div>
+
         <div class="form__button-group">
-            {{> UiButton type='primary' label='Войти' }}
+            {{{SignInButton}}}
             <div class="form__link">
-                {{> UiLink type='primary' border=false name='Ещё не зарегистрированы?' }}
+                {{{SignInLink}}}
             </div>
         </div>
     </form>

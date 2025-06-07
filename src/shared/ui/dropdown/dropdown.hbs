@@ -1,5 +1,7 @@
 {{#if view}}
     <div class="dropdown">
-        {{> @partial-block }}
+        {{#each DropdownItems}}
+            {{{this}}}
+        {{/each}}
     </div>
 {{/if}}

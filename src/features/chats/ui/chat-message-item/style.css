@@ -1,0 +1,54 @@
+.message {
+  display: flex;
+  flex-direction: column;
+  padding: 11px;
+  width: 100%;
+  overflow: hidden;
+  max-width: 50%;
+}
+
+.message__outgoing {
+  align-self: flex-end;
+  background-color: var(--color-bg-accent);
+  border-radius: 15px 15px 0;
+  margin-left: auto;
+}
+
+.message__incoming {
+  align-self: flex-start;
+  border-radius: 15px 15px 15px 0;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+}
+
+.message__content {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: flex-end; /* Выравнивание по нижней строке */
+  gap: 4px; /* Отступ между текстом и временем/статусом */
+  max-width: 100%;
+}
+
+.message__statuses {
+  display: flex;
+  align-items: flex-end; /* Выравнивание времени и статуса по нижнему краю */
+  margin-left: auto; /* Прижимаем вправо */
+}
+
+.message__time_type_chat {
+  font-size: 9px;
+  color: rgb(0 0 0 / 40%);
+  white-space: nowrap;
+  line-height: 1.2; /* Убираем лишний отступ снизу */
+}
+
+.message__status {
+  background-repeat: no-repeat;
+  margin-right: 4px;
+  height: 10px;
+  width: 10px;
+  background-position: center;
+}
+
+.message__status_read {
+  background-image: url('../../../../../public/icons/read-icn.svg');
+}

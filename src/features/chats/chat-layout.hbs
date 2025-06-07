@@ -1,0 +1,17 @@
+{{{ChatSideBarComponent}}}
+
+<div class="chat-main">
+    {{#if ChatHeaderComponent}}
+        <div class="chat-messages_header">
+            {{{ChatHeaderComponent}}}
+        </div>
+        <div class="chat-messages">
+            {{{ChatDialogComponent}}}
+        </div>
+        <div class="chat-messages_textarea">
+            {{{ChatTextAreaComponent}}}
+        </div>
+    {{else}}
+        {{{ChatDialogEmptyComponent}}}
+    {{/if}}
+</div>

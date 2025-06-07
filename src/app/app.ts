@@ -1,60 +1,70 @@
-import Handlebars from 'handlebars';
 import './styles/global.css';
-import * as Components from '../shared/ui';
+import Handlebars from 'handlebars';
 import * as Features from '../features';
 import * as Pages from '../pages';
-import * as Widgets from '../widgets';
-import { chats } from '../pages';
+import { renderDom } from '@/shared/lib';
+import * as Components from '../shared/ui';
+import * as FeatureComponents from '../features';
+import { UiBlockTemplate } from '../shared/ui/ui-block';
+import { IPages, TNavigate } from './types';
+import '../shared/lib/helpers/helpers';
 
-const pages = {
-  login: [Pages.PageSignIn],
-  signup: [Pages.PageSignUp],
-  nav: [Pages.PageNavigate],
-  notFound: [Pages.PageNotFoundError],
-  serverError: [Pages.PageServerError],
-  chats: [
-    Pages.PageChats,
-    {
-      chats: chats,
-      activeChat: chats.find(chat => chat.isActive),
-    },
-  ],
-  emptyChats: [Pages.PageChats, { chats: chats }],
-  profile: [Pages.ProfilePage],
-  profilePassword: [Pages.ProfilePassword]
+const pages: IPages = {
+  signUp: [Pages.SignUpPage, {}],
+  signIn: [Pages.SignInPage, {}],
+  changePassword: [Pages.ChangePasswordPage, {}],
+  profileEdit: [Pages.ProfileEditPage, {}],
+  chats: [Pages.PageChats, {}],
+  nav: [Pages.PageNavigate, {}],
 };
 
 Object.entries(Components).forEach(([name, template]) => {
+  if (typeof template === 'function') {
+    return;
+  }
   Handlebars.registerPartial(name, template);
 });
+
+Handlebars.registerPartial('UiBlock', UiBlockTemplate);
 
 Object.entries(Features).forEach(([name, template]) => {
+  if (typeof template === 'function') {
+    return;
+  }
   Handlebars.registerPartial(name, template);
 });
 
-Object.entries(Widgets).forEach(([name, template]) => {
+Object.entries(FeatureComponents).forEach(([name, template]) => {
+  if (typeof template === 'function') {
+    return;
+  }
   Handlebars.registerPartial(name, template);
-  console.log(name);
 });
 
-const navigate = (page: string) => {
-  // @ts-ignore
+const navigate: TNavigate = (page: string) => {
   const [source, context] = pages[page];
-  const container = document.getElementById('app');
+  if (typeof source === 'function') {
+    renderDom({ query: '#app', block: new source({}) });
+    return;
+  }
 
-  const templatingFunction = Handlebars.compile(source);
-  // @ts-ignore
-  container.innerHTML = templatingFunction(context);
+  const container = document.getElementById('app');
+  if (!container) {
+    throw new Error('Root element #app not found');
+  }
+
+  const temlpatingFunction = Handlebars.compile(source as string);
+  container.innerHTML = temlpatingFunction(context);
 };
 
 document.addEventListener('DOMContentLoaded', () => navigate('nav'));
 
-document.addEventListener('click', e => {
-  //@ts-ignore
-  const page = e.target.getAttribute('page');
-  if (page) {
-    navigate(page);
+document.addEventListener('click', (e: MouseEvent) => {
+  const target = e.target as HTMLElement;
+  const page = target.getAttribute('data-page');
 
+  if (page && !e.defaultPrevented) {
+    navigate(page);
     e.preventDefault();
     e.stopImmediatePropagation();
   }

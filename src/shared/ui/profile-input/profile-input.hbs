@@ -1,13 +1,11 @@
-<div class="input__container">
-  <label class="input__label">
-    <input
-      type="{{type}}"
-      placeholder=" "
-      class="text-xsmall input input__{{className}} input__float-label"
-      value="{{value}}"
-      name="{{name}}"
-    />
-    <span class="input__placeholder">{{placeholder}}</span>
-    <span class="text-xxsmall input__error">{{error}}</span>
-  </label>
-</div>
+<label class="input__label">
+  <input
+    type="{{type}}"
+    placeholder=" "
+    class="text-xsmall input input__{{className}} input__float-label"
+    value="{{value}}"
+    name="{{name}}"
+  />
+  <span class="input__placeholder">{{placeholder}}</span>
+  <span class="text-xxsmall input__error" style="display: {{#if error}}block{{else}}none{{/if}}">{{error}}</span>
+</label>

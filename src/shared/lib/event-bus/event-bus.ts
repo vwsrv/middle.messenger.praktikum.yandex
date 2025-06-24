@@ -1,7 +1,7 @@
 import { THandler } from '@/shared/lib/event-bus/types/event-bus.type.ts';
 
 class EventBus {
-  private listeners: Record<string, THandler[]>;
+  private readonly listeners: Record<string, THandler[]>;
 
   constructor() {
     this.listeners = {};

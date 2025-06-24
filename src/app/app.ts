@@ -1,10 +1,10 @@
 import './styles/global.css';
 import Handlebars from 'handlebars';
 import * as Features from '../features';
+import * as FeatureComponents from '../features';
 import * as Pages from '../pages';
 import { renderDom } from '@/shared/lib';
 import * as Components from '../shared/ui';
-import * as FeatureComponents from '../features';
 import { UiBlockTemplate } from '../shared/ui/ui-block';
 import { IPages, TNavigate } from './types';
 import '../shared/lib/helpers/helpers';

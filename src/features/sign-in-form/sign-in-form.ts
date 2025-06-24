@@ -3,7 +3,7 @@ import { IBlockProps } from '@/shared/lib/block/interfaces';
 import Button from '../../shared/ui/button/button.ts';
 import Link from '../../shared/ui/link/link.ts';
 import ProfileInput from '../../shared/ui/profile-input/profile-input.ts';
-import { validateField, showFieldError, clearFieldError } from '@/shared/lib/validation';
+import { clearFieldError, showFieldError, validateField } from '@/shared/lib/validation';
 import template from './sign-in-form.hbs?raw';
 
 interface IProps extends IBlockProps {

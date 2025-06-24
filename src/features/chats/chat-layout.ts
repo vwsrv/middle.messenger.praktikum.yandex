@@ -1,6 +1,6 @@
 import Block from '../../shared/lib/block/block';
 import template from './chat-layout.hbs?raw';
-import { IProps, IChat } from './types/types';
+import { IChat, IProps } from './types/types';
 import ChatSideBar from './ui/chat-sidebar/chat-sidebar';
 import ChatHeader from './ui/chat-header/chat-header';
 import ChatDialog from './ui/chat-dialog/chat-dialog';

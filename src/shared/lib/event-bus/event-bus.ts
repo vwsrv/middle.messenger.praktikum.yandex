@@ -1,13 +1,13 @@
-type Handler = (...args: any[]) => void;
+import { THandler } from '@/shared/lib/event-bus/types/event-bus.type.ts';
 
 class EventBus {
-  private listeners: Record<string, Handler[]>;
+  private listeners: Record<string, THandler[]>;
 
   constructor() {
     this.listeners = {};
   }
 
-  on(event: string, callback: Handler): void {
+  on(event: string, callback: THandler): void {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
@@ -15,7 +15,7 @@ class EventBus {
     this.listeners[event].push(callback);
   }
 
-  off(event: string, callback: Handler): void {
+  off(event: string, callback: THandler): void {
     if (!this.listeners[event]) {
       return;
     }

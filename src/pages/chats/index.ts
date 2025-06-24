@@ -1,2 +1,2 @@
-export { default as PageChats } from './chats.hbs?raw';
-export * from './models';
+export { default as PageChats } from './chats';
+export { default as PageChatsTemplate } from './chats.hbs?raw';

@@ -33,5 +33,6 @@
   .dropdown__item_icon {
     border-radius: 30px;
     background-color: var(--color-bg-accent);
+    object-fit: contain;
   }
 }

@@ -1,6 +1,5 @@
 import { IRouting } from '@/shared/lib/routing/interfaces';
 import Block from '@/shared/lib/block/block.ts';
-import { TBlockConstructor } from '@/shared/lib/routing/route/types/block-constructor.type.ts';
 import { TRouter } from '@/shared/lib/routing/router/types';
 
 interface IProps {
@@ -10,7 +9,7 @@ interface IProps {
 
 class Route implements IRouting {
   private _path: string;
-  private readonly _blockClass: TBlockConstructor;
+  private readonly _blockClass: TRouter;
   private _block: Block | null;
   private _props: IProps;
 
@@ -18,7 +17,7 @@ class Route implements IRouting {
     this._path = path;
     this._blockClass = view;
     this._block = null;
-    this._props = props;
+    this._props = props as IProps;
   }
 
   navigate(path: string): void {
@@ -54,6 +53,7 @@ class Route implements IRouting {
 
     this._renderDom(this._props.rootQuery, this._block);
     this._block.componentDidMount();
+    this._block.show();
   }
 }
 

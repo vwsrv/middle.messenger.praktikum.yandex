@@ -1,10 +1,11 @@
-import Block from '../../shared/lib/block/block.ts';
+import Block from '../../../../shared/lib/block/block.ts';
 import { IBlockProps } from '@/shared/lib/block/interfaces';
-import Button from '../../shared/ui/button/button.ts';
-import Link from '../../shared/ui/link/link.ts';
-import ProfileInput from '../../shared/ui/profile-input/profile-input.ts';
+import Button from '../../../../shared/ui/button/button.ts';
+import Link from '../../../../shared/ui/link/link.ts';
+import ProfileInput from '../../../../shared/ui/profile-input/profile-input.ts';
 import { clearFieldError, showFieldError, validateField } from '@/shared/lib/validation';
 import template from './sign-in-form.hbs?raw';
+import Router from '@/shared/lib/routing/router/router.ts';
 
 interface IProps extends IBlockProps {
   login: string;
@@ -61,7 +62,7 @@ class SignInForm extends Block {
         name: 'Еще не зарегистрированы? Регистрация',
         border: false,
         theme: 'primary',
-        path: new URL('/sign-up', window.location.origin),
+        path: '/sign-up',
       }),
     });
 
@@ -153,7 +154,14 @@ class SignInForm extends Block {
       return;
     }
 
-    console.log('Форма отправлена:', this.formState);
+    try {
+      console.log('Форма отправлена:', this.formState);
+
+      const router = new Router('#app');
+      router.go('/messenger');
+    } catch (error) {
+      console.log(`Ошибка при отправке формы ${error}`);
+    }
   }
 
   public render(): string {

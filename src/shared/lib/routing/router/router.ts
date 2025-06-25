@@ -3,7 +3,7 @@ import { IRouting } from '@/shared/lib/routing/interfaces';
 import Route from '@/shared/lib/routing/route/route.ts';
 
 class Router {
-  private static __instance: Router; // Паттерн Singleton
+  private static __instance: Router;
   public routes: IRouting[] = [];
   private history: History = window.history;
   private _currentRoute: IRouting | null = null;

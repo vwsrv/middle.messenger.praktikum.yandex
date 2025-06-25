@@ -86,10 +86,10 @@ const MOCK_CHATS: IChat[] = [
   },
 ];
 
-class ChatsPage extends Block {
+export class MessengerPage extends Block {
   constructor() {
     super('main', {
-      className: 'chats-page',
+      className: 'messenger-page',
       ChatLayoutComponent: new ChatLayout({
         chats: MOCK_CHATS,
         activeChat: MOCK_CHATS[0],
@@ -122,4 +122,4 @@ class ChatsPage extends Block {
   }
 }
 
-export default ChatsPage;
+export default MessengerPage;

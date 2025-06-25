@@ -8,6 +8,7 @@ import { ChangeAvatarForm } from '@/features';
 import Modal from '../../shared/ui/modal/modal.ts';
 import Button from '../../shared/ui/button/button.ts';
 import { validateField } from '@/shared/lib/validation';
+import Router from '@/shared/lib/routing/router/router.ts';
 
 interface IProps extends IBlockProps {
   email: string;
@@ -61,7 +62,8 @@ class ProfileFormEdit extends Block {
         theme: 'arrow-left',
         onClick: (e: MouseEvent) => {
           e.preventDefault();
-          props.onBack?.();
+          const router = new Router('#app');
+          router.back();
         },
       }),
 
@@ -140,14 +142,14 @@ class ProfileFormEdit extends Block {
         name: 'Изменить пароль',
         border: false,
         theme: 'primary',
-        path: new URL('/profile-edit', window.location.origin),
+        path: '/settings/password',
       }),
 
       ExitLink: new Link({
         name: 'Выйти',
         border: false,
         theme: 'primary',
-        path: new URL('/sign-out', window.location.origin),
+        path: '/logout',
       }),
 
       events: {

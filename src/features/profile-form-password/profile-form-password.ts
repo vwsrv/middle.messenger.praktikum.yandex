@@ -7,6 +7,7 @@ import Modal from '../../shared/ui/modal/modal';
 import template from './profile-form-password.hbs?raw';
 import { ChangeAvatarForm } from '@/features';
 import { validateField } from '@/shared/lib/validation';
+import Router from '@/shared/lib/routing/router/router.ts';
 
 interface IProps extends IBlockProps {
   onBack?: () => void;
@@ -55,7 +56,8 @@ class ProfileFormPassword extends Block {
         theme: 'arrow-left',
         onClick: (e: MouseEvent) => {
           e.preventDefault();
-          props.onBack?.();
+          const router = new Router('#app');
+          router.back();
         },
       }),
 

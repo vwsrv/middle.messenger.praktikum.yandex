@@ -1,4 +1,4 @@
-import SignInForm from '../../features/sign-in-form/sign-in-form.ts';
+import SignInForm from '@/features/auth/login/sign-in-form/sign-in-form.ts';
 import Block from '../../shared/lib/block/block.ts';
 import template from './sign-in.hbs?raw';
 

@@ -2,11 +2,12 @@ import Block from '../../lib/block/block';
 import { IBlockProps, TEvents } from '../../lib/block/interfaces';
 import template from './link.hbs?raw';
 import { TLink } from './types';
+import Router from '@/shared/lib/routing/router/router.ts';
 
 interface IProps extends IBlockProps {
   name: string;
   theme: TLink;
-  path?: URL;
+  path?: string;
   onClick?: (e: MouseEvent) => void;
   disabled?: boolean;
 }
@@ -26,8 +27,7 @@ class Link extends Block {
     super('a', {
       ...props,
       className: classes.join(' '),
-      href: props.disabled ? undefined : props.path?.toString() || '#',
-      path: props.path,
+      href: props.disabled ? undefined : props.path || '#',
       events: {
         click: (e: MouseEvent) => {
           if (this.props.disabled) {
@@ -37,13 +37,14 @@ class Link extends Block {
           }
 
           e.preventDefault();
+
           if (this.props.path) {
-            window.location.href = this.props.path.toString();
+            const router = new Router('#app');
+            router.go(this.props.path);
           }
 
           if (this.props.onClick) {
             this.props.onClick(e);
-          } else {
           }
         },
       } as TEvents,
@@ -71,7 +72,7 @@ class Link extends Block {
       ].filter(Boolean);
 
       this.props.className = classes.join(' ');
-      this.props.href = newProps.disabled ? undefined : newProps.path?.toString() || '#';
+      this.props.href = newProps.disabled ? undefined : newProps.path || '#';
     }
 
     return (

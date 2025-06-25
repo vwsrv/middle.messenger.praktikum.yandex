@@ -1,14 +1,14 @@
-import ProfileFormEdit from '../../features/profile-form-edit/profile-form-edit.ts';
-import Block from '../../shared/lib/block/block';
+import ProfileFormEdit from '../../../features/profile-form-edit/profile-form-edit.ts';
+import Block from '../../../shared/lib/block/block.ts';
 import template from './profile.hbs?raw';
-import { IBlockProps } from '../../shared/lib/block/interfaces';
+import { IBlockProps } from '@/shared/lib/block/interfaces';
 
 interface IProps extends IBlockProps {
   first_name?: string;
   second_name?: string;
 }
 
-export class ProfileEditPage extends Block {
+export class Settings extends Block {
   constructor(props: IProps = {}) {
     super('main', {
       ...props,
@@ -16,12 +16,12 @@ export class ProfileEditPage extends Block {
       ProfileEditForm: new ProfileFormEdit({
         email: '',
         login: '',
-        first_name: props.first_name || 'Иван',
-        second_name: props.second_name || 'Иванов',
+        first_name: props.first_name!,
+        second_name: props.second_name!,
         phone: '',
         password: '',
         password_confirm: '',
-        profileName: `${props.first_name || 'Иван'} ${props.second_name || 'Иванов'}`,
+        profileName: `${props.first_name} ${props.second_name!}`,
       }),
     });
   }

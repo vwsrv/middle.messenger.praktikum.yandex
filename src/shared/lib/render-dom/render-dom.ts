@@ -1,4 +1,4 @@
-import { IRenderDomOptions } from '../register-component';
+import { IRenderDomOptions } from '@/shared/lib';
 
 export const renderDom = ({ query, block }: IRenderDomOptions): void => {
   const root = document.querySelector(query);

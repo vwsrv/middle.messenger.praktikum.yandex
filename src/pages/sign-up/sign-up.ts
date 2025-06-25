@@ -1,4 +1,4 @@
-import SignUpForm from '../../features/sign-up-form/sign-up-form';
+import SignUpForm from '@/features/auth/register/sign-up-form/sign-up-form';
 import Block from '../../shared/lib/block/block';
 import template from './sign-up.hbs?raw';
 

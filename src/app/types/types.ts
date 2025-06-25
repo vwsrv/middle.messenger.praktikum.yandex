@@ -1,4 +1,4 @@
-import { IComponentConstructor } from '../../shared/lib';
+import { IComponentConstructor } from '@/shared/lib';
 
 export type TPageSource = string | IComponentConstructor;
 export type TPageContext = Record<string, unknown>;

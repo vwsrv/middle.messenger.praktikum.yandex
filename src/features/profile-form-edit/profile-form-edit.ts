@@ -1,5 +1,5 @@
 import Block from '../../shared/lib/block/block.ts';
-import { IBlockProps } from '@/shared/lib/block/interfaces';
+import { IBlockProps, TEvents } from '@/shared/lib/block/interfaces';
 import Link from '../../shared/ui/link/link.ts';
 import ProfileInput from '../../shared/ui/profile-input/profile-input.ts';
 import template from './profile-form-edit.hbs?raw';
@@ -7,8 +7,8 @@ import ProfileAvatar from '../../shared/ui/profile-avatar/profile-avatar.ts';
 import { ChangeAvatarForm } from '@/features';
 import Modal from '../../shared/ui/modal/modal.ts';
 import Button from '../../shared/ui/button/button.ts';
-import { TEvents } from '@/shared/lib/block/interfaces';
 import { validateField } from '@/shared/lib/validation';
+import Router from '@/shared/lib/routing/router/router.ts';
 
 interface IProps extends IBlockProps {
   email: string;
@@ -62,7 +62,8 @@ class ProfileFormEdit extends Block {
         theme: 'arrow-left',
         onClick: (e: MouseEvent) => {
           e.preventDefault();
-          props.onBack?.();
+          const router = new Router('#app');
+          router.back();
         },
       }),
 
@@ -141,14 +142,14 @@ class ProfileFormEdit extends Block {
         name: 'Изменить пароль',
         border: false,
         theme: 'primary',
-        path: new URL('/profile-edit', window.location.origin),
+        path: '/settings/password',
       }),
 
       ExitLink: new Link({
         name: 'Выйти',
         border: false,
         theme: 'primary',
-        path: new URL('/sign-out', window.location.origin),
+        path: '/logout',
       }),
 
       events: {

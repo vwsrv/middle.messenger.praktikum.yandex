@@ -4,6 +4,7 @@ import { IProps } from './types/types';
 import Button from '../../../../shared/ui/button/button';
 import CombinedInput from '../../../../shared/ui/combined-input/combined-input';
 import ChatPreview from '../../../../shared/ui/chat-preview/chat-preview';
+import Router from '@/shared/lib/routing/router/router.ts';
 
 class ChatSidebar extends Block {
   constructor(props: IProps) {
@@ -34,9 +35,8 @@ class ChatSidebar extends Block {
         theme: 'arrow-unstyled',
         label: 'Профиль',
         onClick: () => {
-          if (props.onProfileClick) {
-            props.onProfileClick();
-          }
+          const router = new Router('#app');
+          router.go('/settings');
         },
       }),
       SearchInput: new CombinedInput({

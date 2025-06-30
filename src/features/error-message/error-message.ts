@@ -1,6 +1,6 @@
 import Block from '@/shared/lib/block/block';
 import Link from '@/shared/ui/link/link';
-import Router from '@/shared/lib/routing/router/router';
+import { router } from '@/shared/lib/routing/router/router';
 import template from './error-message.hbs?raw';
 import { IBlockProps } from '@/shared/lib/block/interfaces';
 
@@ -21,7 +21,6 @@ class ErrorMessage extends Block {
         border: false,
         onClick: (e: MouseEvent) => {
           e.preventDefault();
-          const router = new Router('#app');
           router.back();
         },
       }),

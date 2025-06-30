@@ -1,18 +1,21 @@
-import Block from '../../../../shared/lib/block/block.ts';
+import Block from '../../../shared/lib/block/block.ts';
 import { IBlockProps } from '@/shared/lib/block/interfaces';
-import Button from '../../../../shared/ui/button/button.ts';
-import Link from '../../../../shared/ui/link/link.ts';
-import ProfileInput from '../../../../shared/ui/profile-input/profile-input.ts';
+import Button from '../../../shared/ui/button/button.ts';
+import Link from '../../../shared/ui/link/link.ts';
+import ProfileInput from '../../../shared/ui/profile-input/profile-input.ts';
 import { clearFieldError, showFieldError, validateField } from '@/shared/lib/validation';
-import template from './sign-in-form.hbs?raw';
-import Router from '@/shared/lib/routing/router/router.ts';
+import template from './login.hbs?raw';
+import UserApi from '@/entities/user/api/user.api.ts';
+import { IUserDataResponse } from '@/entities/user/models/interfaces/user-data/user-data-response.interface.ts';
 
 interface IProps extends IBlockProps {
   login: string;
   password: string;
+  onSuccess?: (userData: IUserDataResponse) => void;
+  onError?: (error: Error) => void;
 }
 
-class SignInForm extends Block {
+class Login extends Block {
   private readonly formState: IProps;
 
   constructor(props: IProps) {
@@ -67,7 +70,6 @@ class SignInForm extends Block {
     });
 
     this.formState = INITIAL_STATE;
-    this.updateControlsState();
     this.bindFormEvents();
   }
 
@@ -147,20 +149,33 @@ class SignInForm extends Block {
     return isAllValid;
   }
 
-  private handleSubmit(): void {
-    const isFormValid = this.validateAllFields();
+  private setLoading(isLoading: boolean): void {
+    const button = this.children.SignInButton as Button;
+    button.setProps({
+      disabled: isLoading,
+      label: isLoading ? 'Вход...' : 'Войти',
+    });
+  }
 
-    if (!isFormValid) {
-      return;
-    }
+  private async handleSubmit(): Promise<void> {
+    const isFormValid = this.validateAllFields();
+    if (!isFormValid) return;
 
     try {
-      console.log('Форма отправлена:', this.formState);
+      this.setLoading(true);
 
-      const router = new Router('#app');
-      router.go('/messenger');
+      await UserApi.signIn({
+        login: this.formState.login,
+        password: this.formState.password,
+      });
+
+      const user = await UserApi.getUser();
+
+      this.props.onSuccess?.(user);
     } catch (error) {
-      console.log(`Ошибка при отправке формы ${error}`);
+      this.props.onError?.(error);
+    } finally {
+      this.setLoading(false);
     }
   }
 
@@ -169,4 +184,4 @@ class SignInForm extends Block {
   }
 }
 
-export default SignInForm;
+export default Login;

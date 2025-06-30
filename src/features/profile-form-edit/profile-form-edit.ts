@@ -8,7 +8,7 @@ import { ChangeAvatarForm } from '@/features';
 import Modal from '../../shared/ui/modal/modal.ts';
 import Button from '../../shared/ui/button/button.ts';
 import { validateField } from '@/shared/lib/validation';
-import Router from '@/shared/lib/routing/router/router.ts';
+import { router } from '@/shared/lib/routing/router/router.ts';
 
 interface IProps extends IBlockProps {
   email: string;
@@ -62,7 +62,6 @@ class ProfileFormEdit extends Block {
         theme: 'arrow-left',
         onClick: (e: MouseEvent) => {
           e.preventDefault();
-          const router = new Router('#app');
           router.back();
         },
       }),

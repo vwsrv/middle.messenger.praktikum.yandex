@@ -2,7 +2,7 @@ import Block from '../../lib/block/block';
 import { IBlockProps, TEvents } from '../../lib/block/interfaces';
 import template from './link.hbs?raw';
 import { TLink } from './types';
-import Router from '@/shared/lib/routing/router/router.ts';
+import { router } from '@/shared/lib/routing/router/router.ts';
 
 interface IProps extends IBlockProps {
   name: string;
@@ -39,7 +39,6 @@ class Link extends Block {
           e.preventDefault();
 
           if (this.props.path) {
-            const router = new Router('#app');
             router.go(this.props.path);
           }
 

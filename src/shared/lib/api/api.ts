@@ -69,10 +69,7 @@ class HTTPTransport {
       xhr.onload = () => {
         if (xhr.status >= 200 && xhr.status < 300) {
           try {
-            const response =
-              responseType === 'json' && xhr.responseText
-                ? JSON.parse(xhr.responseText)
-                : xhr.response;
+            const response = xhr.response || xhr.responseText;
             resolve(response);
           } catch (e) {
             reject(new Error(`Failed to parse response: ${e}`));
@@ -119,5 +116,7 @@ class HTTPTransport {
   public options: TMethod = (url, options = {}) =>
     this.request(url, { ...options, method: METHODS.OPTIONS }, options.timeout);
 }
+
+export const api = new HTTPTransport('https://ya-praktikum.tech/api/v2');
 
 export default HTTPTransport;

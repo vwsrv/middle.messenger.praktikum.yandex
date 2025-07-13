@@ -8,6 +8,8 @@ import template from './profile-form-password.hbs?raw';
 import { ChangeAvatarForm } from '@/features';
 import { validateField } from '@/shared/lib/validation';
 import { router } from '@/shared/lib/routing/router/router.ts';
+import UserApi from '@/entities/user/api/user.api';
+import { authStore } from '@/app/resources/store/auth.store';
 
 interface IProps extends IBlockProps {
   onBack?: () => void;
@@ -15,6 +17,7 @@ interface IProps extends IBlockProps {
   password: string;
   passwordConfirm: string;
   disabled?: boolean;
+  profileName?: string;
 }
 
 class ProfileFormPassword extends Block {
@@ -73,7 +76,7 @@ class ProfileFormPassword extends Block {
 
       OldPassword: new ProfileInput({
         type: 'password',
-        name: 'password',
+        name: 'oldPassword',
         placeholder: 'Старый пароль',
         value: INITIAL_STATE.oldPassword,
         onInput: value => {
@@ -83,7 +86,7 @@ class ProfileFormPassword extends Block {
 
       NewPassword: new ProfileInput({
         type: 'password',
-        name: 'password',
+        name: 'newPassword',
         placeholder: 'Новый пароль',
         value: INITIAL_STATE.password,
         onInput: value => {
@@ -93,7 +96,7 @@ class ProfileFormPassword extends Block {
 
       NewPasswordConfirm: new ProfileInput({
         type: 'password',
-        name: 'password',
+        name: 'confirmPassword',
         placeholder: 'Повторите новый пароль',
         value: INITIAL_STATE.passwordConfirm,
         onInput: value => {
@@ -122,6 +125,7 @@ class ProfileFormPassword extends Block {
     this.formState = INITIAL_STATE;
     this.avatarModal = avatarModal;
     this.updateControlsState();
+    this.loadUserData();
   }
 
   private updateField(field: keyof IProps, value: string): void {
@@ -138,8 +142,9 @@ class ProfileFormPassword extends Block {
 
     const passwordError = validateField('password', this.formState.password);
     const passwordsMatch = this.formState.password === this.formState.passwordConfirm;
+    const oldPasswordValid = this.formState.oldPassword.length >= 3;
 
-    return !passwordError && passwordsMatch && this.formState.oldPassword.length > 0;
+    return !passwordError && passwordsMatch && oldPasswordValid;
   }
 
   private updateControlsState(): void {
@@ -155,17 +160,78 @@ class ProfileFormPassword extends Block {
     this.avatarModal.setProps({ isOpen: true, status: 'opened' });
   }
 
-  private handleSubmit(): void {
+  private async loadUserData(): Promise<void> {
+    const user = authStore.getUser();
+    if (!user) {
+      await authStore.loadUser();
+    }
+    this.updateFormWithUserData();
+  }
+
+  private updateFormWithUserData(): void {
+    const user = authStore.getUser();
+    if (!user) return;
+
+    this.setProps({
+      profileName: user.display_name,
+    });
+  }
+
+  private setLoading(isLoading: boolean): void {
+    const button = this.children.SubmitButton as Button;
+    button.setProps({
+      disabled: isLoading,
+      label: isLoading ? 'Сохранение...' : 'Сохранить',
+    });
+  }
+
+  private async handleSubmit(): Promise<void> {
     const isPasswordMatch = this.formState.password === this.formState.passwordConfirm;
 
     if (!isPasswordMatch) {
-      this.props.NewPasswordConfirm?.setProps?.({
-        error: 'Пароли не совпадают',
-      });
+      const confirmInput = this.children.NewPasswordConfirm as ProfileInput;
+      if (confirmInput) {
+        confirmInput.setProps({ error: 'Пароли не совпадают' });
+      }
       return;
     }
 
-    console.log('Форма отправлена:', this.formState);
+    try {
+      this.setLoading(true);
+
+      await UserApi.updatePassword({
+        oldPassword: this.formState.oldPassword,
+        newPassword: this.formState.password,
+      });
+
+      console.log('Пароль успешно изменен');
+
+      this.formState.oldPassword = '';
+      this.formState.password = '';
+      this.formState.passwordConfirm = '';
+
+      this.updateInputValues();
+      this.updateControlsState();
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Ошибка смены пароля';
+      const oldPasswordInput = this.children.OldPassword as ProfileInput;
+      if (oldPasswordInput) {
+        oldPasswordInput.setProps({ error: errorMessage });
+      }
+      console.error('Ошибка смены пароля:', errorMessage);
+    } finally {
+      this.setLoading(false);
+    }
+  }
+
+  private updateInputValues(): void {
+    const oldPasswordInput = this.children.OldPassword as ProfileInput;
+    const newPasswordInput = this.children.NewPassword as ProfileInput;
+    const confirmInput = this.children.NewPasswordConfirm as ProfileInput;
+
+    if (oldPasswordInput) oldPasswordInput.setProps({ value: this.formState.oldPassword });
+    if (newPasswordInput) newPasswordInput.setProps({ value: this.formState.password });
+    if (confirmInput) confirmInput.setProps({ value: this.formState.passwordConfirm });
   }
 
   render(): string {

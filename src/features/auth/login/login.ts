@@ -173,7 +173,12 @@ class Login extends Block {
 
       this.props.onSuccess?.(user);
     } catch (error) {
-      this.props.onError?.(error);
+      const errorMessage = error instanceof Error ? error.message : 'Ошибка входа';
+      const passwordInput = this.children.PasswordInput as ProfileInput;
+      if (passwordInput) {
+        passwordInput.setProps({ error: errorMessage });
+      }
+      this.props.onError?.(error as Error);
     } finally {
       this.setLoading(false);
     }

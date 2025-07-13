@@ -9,6 +9,9 @@ import Modal from '../../shared/ui/modal/modal.ts';
 import Button from '../../shared/ui/button/button.ts';
 import { validateField } from '@/shared/lib/validation';
 import { router } from '@/shared/lib/routing/router/router.ts';
+import UserApi from '@/entities/user/api/user.api.ts';
+import { authStore } from '@/app/resources/store/auth.store';
+import { RESOURCES_BASE_URL } from '@/shared/lib/api/constants';
 
 interface IProps extends IBlockProps {
   email: string;
@@ -23,15 +26,14 @@ interface IProps extends IBlockProps {
 class ProfileFormEdit extends Block {
   private readonly formState: IProps;
   private avatarModal: Modal;
-
   constructor(props: IProps) {
     const INITIAL_STATE: IProps = {
       email: '',
       login: '',
-      first_name: 'Иван',
-      second_name: 'Иванов',
+      first_name: '',
+      second_name: '',
       phone: '',
-      profileName: `${props.first_name} ${props.second_name}`,
+      profileName: ``,
     };
 
     const changeAvatarForm = new ChangeAvatarForm({
@@ -40,6 +42,9 @@ class ProfileFormEdit extends Block {
       },
       onCancel: () => {
         avatarModal.setProps({ isOpen: false, status: 'closed' });
+      },
+      onAvatarUpdated: () => {
+        this.updateAvatarDisplay();
       },
     });
 
@@ -69,7 +74,14 @@ class ProfileFormEdit extends Block {
       ProfileAvatar: new ProfileAvatar({
         type: 'large',
         name: 'profileAvatar',
-        url: 'https://via.placeholder.com/150',
+        url: (() => {
+          const user = authStore.getUser();
+          const avatarUrl = user?.avatar
+            ? `${RESOURCES_BASE_URL}${user.avatar}`
+            : 'https://via.placeholder.com/150';
+          console.log('Инициализация аватара:', avatarUrl);
+          return avatarUrl;
+        })(),
         onClick: () => {
           this.handleAvatarClick();
         },
@@ -148,7 +160,10 @@ class ProfileFormEdit extends Block {
         name: 'Выйти',
         border: false,
         theme: 'primary',
-        path: '/logout',
+        onClick: (e: MouseEvent) => {
+          e.preventDefault();
+          this.handleExitClick();
+        },
       }),
 
       events: {
@@ -163,6 +178,7 @@ class ProfileFormEdit extends Block {
     this.avatarModal = avatarModal;
     this.updateControlsState();
     this.bindFormEvents();
+    this.loadUserData();
   }
 
   private bindFormEvents(): void {
@@ -229,13 +245,96 @@ class ProfileFormEdit extends Block {
     this.avatarModal.setProps({ isOpen: true, status: 'opened' });
   }
 
-  private handleSubmit(): void {
+  private updateAvatarDisplay(): void {
+    const user = authStore.getUser();
+    const profileAvatar = this.children.ProfileAvatar as ProfileAvatar;
+    if (profileAvatar && user?.avatar) {
+      const avatarUrl = `${RESOURCES_BASE_URL}${user.avatar}?t=${Date.now()}`;
+      console.log('Обновление аватара:', avatarUrl);
+      profileAvatar.setProps({ url: avatarUrl });
+    }
+  }
+
+  private async handleExitClick(): Promise<void> {
+    await UserApi.logout();
+    router.go('/');
+  }
+
+  private async loadUserData(): Promise<void> {
+    const user = authStore.getUser();
+    if (!user) {
+      await authStore.loadUser();
+    }
+    this.updateFormWithUserData();
+  }
+
+  private updateFormWithUserData(): void {
+    const user = authStore.getUser();
+    if (!user) return;
+
+    this.formState.email = user.email;
+    this.formState.login = user.login;
+    this.formState.first_name = user.first_name;
+    this.formState.second_name = user.second_name;
+    this.formState.phone = user.phone;
+    this.formState.profileName = user.display_name;
+
+    this.updateInputValues();
+    this.updateControlsState();
+    this.updateAvatarDisplay();
+
+    this.setProps({
+      profileName: user.display_name,
+    });
+  }
+
+  private updateInputValues(): void {
+    const emailInput = this.children.EmailInput as ProfileInput;
+    const loginInput = this.children.LoginInput as ProfileInput;
+    const nameInput = this.children.NameInput as ProfileInput;
+    const secondNameInput = this.children.SecondNameInput as ProfileInput;
+    const phoneInput = this.children.PhoneInput as ProfileInput;
+
+    if (emailInput) emailInput.setProps({ value: this.formState.email });
+    if (loginInput) loginInput.setProps({ value: this.formState.login });
+    if (nameInput) nameInput.setProps({ value: this.formState.first_name });
+    if (secondNameInput) secondNameInput.setProps({ value: this.formState.second_name });
+    if (phoneInput) phoneInput.setProps({ value: this.formState.phone });
+  }
+
+  private async handleSubmit(): Promise<void> {
     const isFormValid = this.validateAllFields();
     if (!isFormValid) {
       return;
     }
 
-    console.log('Форма отправлена:', this.formState);
+    try {
+      await UserApi.updateProfile({
+        email: this.formState.email,
+        login: this.formState.login,
+        first_name: this.formState.first_name,
+        second_name: this.formState.second_name,
+        phone: this.formState.phone,
+        display_name: this.formState.profileName,
+      });
+
+      const user = authStore.getUser();
+      if (user) {
+        authStore.setUser({
+          ...user,
+          email: this.formState.email,
+          login: this.formState.login,
+          first_name: this.formState.first_name,
+          second_name: this.formState.second_name,
+          phone: this.formState.phone,
+          display_name: this.formState.profileName,
+        });
+      }
+
+      console.log('Профиль успешно обновлен');
+    } catch (error) {
+      console.error('Ошибка обновления профиля:', error);
+    }
   }
 
   render(): string {

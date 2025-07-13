@@ -2,7 +2,6 @@ import { api } from '@/shared/lib/api';
 import { IBaseResponse } from '@/shared/lib/api/models';
 import { ISignInRequest, ISignUpRequest } from '@/entities/user/models/interfaces/auth';
 import { IUserDataRequest, IUserDataResponse } from '@/entities/user/models/interfaces/user-data';
-import { IUserAvatarRequest } from '@/entities/user/models/interfaces/user-avatar';
 import { IUserPasswordRequest } from '@/entities/user/models/interfaces/user-password';
 import { IFindUserRequest, IFindUserResponse } from '@/entities/user/models/interfaces/find-user';
 
@@ -16,7 +15,7 @@ class UserApi {
 
   private static readonly PROFILE_ENDPOINTS = {
     PROFILE: '/user/profile',
-    AVATAR: '/user/avatar',
+    AVATAR: '/user/profile/avatar',
     PASSWORD: '/user/password',
     SEARCH: '/user/search',
   };
@@ -38,15 +37,18 @@ class UserApi {
   }
 
   static async updateProfile(data: IUserDataRequest): Promise<IBaseResponse> {
-    return api.post(UserApi.PROFILE_ENDPOINTS.PROFILE, { data, withCredentials: true });
+    return api.put(UserApi.PROFILE_ENDPOINTS.PROFILE, { data, withCredentials: true });
   }
 
-  static async updateAvatar(data: IUserAvatarRequest): Promise<IBaseResponse> {
-    return api.post(UserApi.PROFILE_ENDPOINTS.AVATAR, { data, withCredentials: true });
+  static async updateAvatar(data: FormData): Promise<IBaseResponse> {
+    return api.put(UserApi.PROFILE_ENDPOINTS.AVATAR, {
+      data,
+      withCredentials: true,
+    });
   }
 
   static async updatePassword(data: IUserPasswordRequest): Promise<IBaseResponse> {
-    return api.post(UserApi.PROFILE_ENDPOINTS.PASSWORD, { data, withCredentials: true });
+    return api.put(UserApi.PROFILE_ENDPOINTS.PASSWORD, { data, withCredentials: true });
   }
 
   static async searchUser(data: IFindUserRequest): Promise<IFindUserResponse> {

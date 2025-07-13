@@ -69,7 +69,12 @@ class HTTPTransport {
       xhr.onload = () => {
         if (xhr.status >= 200 && xhr.status < 300) {
           try {
-            const response = xhr.response || xhr.responseText;
+            let response;
+            if (responseType === 'json') {
+              response = xhr.response;
+            } else {
+              response = xhr.responseText;
+            }
             resolve(response);
           } catch (e) {
             reject(new Error(`Failed to parse response: ${e}`));

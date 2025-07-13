@@ -2,10 +2,13 @@ import Block from '../../shared/lib/block/block';
 import { IBlockProps, TEvents } from '@/shared/lib/block/interfaces';
 import Button from '../../shared/ui/button/button';
 import template from './change-avatar-form.hbs?raw';
+import UserApi from '@/entities/user/api/user.api';
+import { authStore } from '@/app/resources/store/auth.store';
 
 interface IProps extends IBlockProps {
   onSave?: () => void;
   onCancel?: () => void;
+  onAvatarUpdated?: () => void;
   events?: TEvents;
 }
 
@@ -19,12 +22,15 @@ export class ChangeAvatarForm extends Block {
         type: 'button',
         theme: 'primary',
         disabled: true,
-        onClick: () => {
+        onClick: async () => {
           const fileInput = document.querySelector(
             '.change-avatar-form__input',
           ) as HTMLInputElement;
           if (fileInput?.files?.length) {
-            props.onSave?.();
+            const success = await this.handleAvatarUpload(fileInput.files[0]);
+            if (success) {
+              props.onSave?.();
+            }
           }
         },
       }),
@@ -47,6 +53,32 @@ export class ChangeAvatarForm extends Block {
         },
       } as TEvents,
     });
+  }
+
+  private async handleAvatarUpload(file: File): Promise<boolean> {
+    try {
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+
+      if (!allowedTypes.includes(file.type)) {
+        console.error('Неподдерживаемый тип файла. Разрешены только JPEG, JPG, PNG, GIF');
+        return false;
+      }
+
+      const formData = new FormData();
+      formData.append('avatar', file);
+
+      await UserApi.updateAvatar(formData);
+
+      const updatedUser = await UserApi.getUser();
+      authStore.updateUser(updatedUser);
+
+      console.log('Аватар успешно обновлен');
+      this.props.onAvatarUpdated?.();
+      return true;
+    } catch (error) {
+      console.error('Ошибка загрузки аватара:', error);
+      return false;
+    }
   }
 
   render() {

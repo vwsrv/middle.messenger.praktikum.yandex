@@ -1,1 +1,3 @@
-export { default as ChatApi } from './chat.api';
+export * from './chat.api';
+export { webSocketManager } from './websocket-manager';
+export * from './websocket.service';

@@ -25,12 +25,27 @@ class CombinedInput extends Block {
           const value = target.value;
           this.props.onInput?.(value);
         },
+        keyup: (...args: unknown[]) => {
+          const e = args[0] as Event;
+          const target = e.target as HTMLInputElement;
+          const value = target.value;
+          this.props.onInput?.(value);
+        },
       },
     });
   }
 
   public render(): string {
     return template;
+  }
+
+  componentDidUpdate(_oldProps: IProps, newProps: IProps): boolean {
+    // Обновляем значение input в DOM
+    const inputElement = this.element?.querySelector('input') as HTMLInputElement;
+    if (inputElement && _oldProps.value !== newProps.value) {
+      inputElement.value = newProps.value;
+    }
+    return true;
   }
 }
 

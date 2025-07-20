@@ -19,10 +19,7 @@ class ChatSidebar extends Block {
           time: chat.sentTime,
           message: chat.messageText,
           count: chat.messageCount,
-          onClick: (e: Event) => {
-            e.preventDefault();
-            e.stopPropagation();
-          },
+          onChatSelect: props.onChatSelect,
         }),
     );
 
@@ -66,10 +63,7 @@ class ChatSidebar extends Block {
           time: chat.sentTime,
           message: chat.messageText,
           count: chat.messageCount,
-          onClick: (e: Event) => {
-            e.preventDefault();
-            e.stopPropagation();
-          },
+          onChatSelect: props.onChatSelect,
         }),
     );
   }
@@ -85,8 +79,35 @@ class ChatSidebar extends Block {
 
     this.setProps({
       selectedChatId,
-      ChatPreviews: newChatPreviews,
     });
+
+    this.children.ChatPreviews = newChatPreviews;
+    this._render();
+  }
+
+  public updateProps(newProps: Partial<IProps>): void {
+    if (newProps.chats) {
+      const newChatPreviews = newProps.chats.map(
+        chat =>
+          new ChatPreview({
+            isSelected: chat.id === newProps.selectedChatId,
+            chatId: chat.id,
+            avatarSrc: chat.avatar,
+            avatarName: chat.profileName,
+            name: chat.profileName,
+            time: chat.sentTime,
+            message: chat.messageText,
+            count: chat.messageCount,
+            onChatSelect: this.props.onChatSelect,
+          }),
+      );
+
+      this.children.ChatPreviews = newChatPreviews;
+    }
+
+    this.setProps(newProps);
+
+    this._render();
   }
 
   render(): string {

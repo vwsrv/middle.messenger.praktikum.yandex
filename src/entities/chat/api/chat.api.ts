@@ -1,80 +1,47 @@
-import { api } from '@/shared/lib/api';
-import { IBaseResponse } from '@/shared/lib/api/models';
-import {
-  IChatResponse,
-  IChatCreateRequest,
-  IChatAddUsersRequest,
-  IChatRemoveUsersRequest,
-  TChatUsersList,
-} from '@/entities/chat/models/interfaces';
+import { api } from '@/shared/lib/api/api';
+import { IChatResponse } from '@/entities/chat/models/interfaces';
 
-class ChatApi {
-  private static readonly CHAT_ENDPOINTS = {
-    CHATS: '/chats',
-    CHAT_USERS: '/chats/{{chatId}}/users',
-    CHAT_ADD_USERS: '/chats/{{chatId}}/users',
-    CHAT_REMOVE_USERS: '/chats/{{chatId}}/users',
-    CHAT_TOKEN: '/chats/token/{{chatId}}',
-  };
-
+export class ChatApi {
   /**
-   * Получить все чаты пользователя
+   * Получить список чатов
    */
   static async getChats(): Promise<IChatResponse[]> {
-    return api.get(ChatApi.CHAT_ENDPOINTS.CHATS, { withCredentials: true });
+    const response = await api.get<IChatResponse[]>('/chats', { withCredentials: true });
+    return response;
+  }
+
+  /**
+   * Получить токен для WebSocket подключения к чату
+   */
+  static async getChatToken(chatId: number): Promise<{ token: string }> {
+    const response = await api.post<{ token: string }>(`/chats/token/${chatId}`, {
+      withCredentials: true,
+    });
+    return response;
   }
 
   /**
    * Создать новый чат
    */
-  static async createChat(data: IChatCreateRequest): Promise<IBaseResponse> {
-    return api.post(ChatApi.CHAT_ENDPOINTS.CHATS, { data, withCredentials: true });
+  static async createChat(title: string): Promise<{ id: number }> {
+    const response = await api.post<{ id: number }>('/chats', {
+      data: { title },
+      withCredentials: true,
+    });
+    return response;
   }
 
   /**
-   * Удалить чат
+   * Добавить пользователя в чат
    */
-  static async deleteChat(chatId: number): Promise<IBaseResponse> {
-    return api.delete(`${ChatApi.CHAT_ENDPOINTS.CHATS}/${chatId}`, { withCredentials: true });
+  static async addUserToChat(chatId: number, userId: number): Promise<void> {
+    await api.put(`/chats/users`, { data: { users: [userId], chatId }, withCredentials: true });
   }
 
   /**
-   * Получить пользователей чата
+   * Удалить пользователя из чата
    */
-  static async getChatUsers(chatId: number): Promise<TChatUsersList> {
-    const endpoint = ChatApi.CHAT_ENDPOINTS.CHAT_USERS.replace('{{chatId}}', chatId.toString());
-    return api.get(endpoint, { withCredentials: true });
-  }
-
-  /**
-   * Добавить пользователей в чат
-   */
-  static async addChatUsers(data: IChatAddUsersRequest): Promise<IBaseResponse> {
-    const endpoint = ChatApi.CHAT_ENDPOINTS.CHAT_ADD_USERS.replace(
-      '{{chatId}}',
-      data.chatId.toString(),
-    );
-    return api.put(endpoint, { data: { users: data.users }, withCredentials: true });
-  }
-
-  /**
-   * Удалить пользователей из чата
-   */
-  static async removeChatUsers(data: IChatRemoveUsersRequest): Promise<IBaseResponse> {
-    const endpoint = ChatApi.CHAT_ENDPOINTS.CHAT_REMOVE_USERS.replace(
-      '{{chatId}}',
-      data.chatId.toString(),
-    );
-    return api.delete(endpoint, { data: { users: data.users }, withCredentials: true });
-  }
-
-  /**
-   * Получить токен для подключения к WebSocket чата
-   */
-  static async getChatToken(chatId: number): Promise<{ token: string }> {
-    const endpoint = ChatApi.CHAT_ENDPOINTS.CHAT_TOKEN.replace('{{chatId}}', chatId.toString());
-    return api.post(endpoint, { withCredentials: true });
+  static async removeUserFromChat(chatId: number, userId: number): Promise<void> {
+    await api.delete(`/chats/users`, { data: { users: [userId], chatId }, withCredentials: true });
   }
 }
-
-export default ChatApi;

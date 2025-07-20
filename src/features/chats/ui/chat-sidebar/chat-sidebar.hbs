@@ -4,8 +4,8 @@
 <div class="chat-sidebar__input">
     {{{SearchInput}}}
 </div>
-<ul class="chat-sidebar__list">
+<div class="chat-sidebar__list">
     {{#each ChatPreviews}}
-        <li>{{{this}}}</li>
+        <div class="chat-preview-item">{{{this}}}</div>
     {{/each}}
-</ul>
+</div>

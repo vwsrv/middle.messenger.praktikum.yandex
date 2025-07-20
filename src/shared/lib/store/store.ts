@@ -7,21 +7,15 @@ import { IStoreState } from './types';
  * Класс стора для управления глобальным состоянием приложения
  */
 export class Store<T extends IStoreState> extends EventBus implements IStore<T> {
-  private static __instance: Store<any> | null = null;
   private state!: T;
 
   /**
    * Создает экземпляр стора
    */
   constructor(defaultState: T) {
-    if (Store.__instance) {
-      return Store.__instance as Store<T>;
-    }
-
     super();
     this.state = defaultState;
     this.set(defaultState);
-    Store.__instance = this;
   }
 
   /**

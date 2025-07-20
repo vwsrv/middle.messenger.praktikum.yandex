@@ -7,6 +7,6 @@ import { AuthProvider } from '@/app/providers/auth-provider';
 registerComponents();
 
 document.addEventListener('DOMContentLoaded', async () => {
-  routerProvider.start();
   await AuthProvider.initialize();
+  routerProvider.start();
 });

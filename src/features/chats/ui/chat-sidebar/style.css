@@ -11,8 +11,8 @@
 }
 
 .chat-sidebar__button {
-  width: fit-content;
-  margin-left: auto;
+  display: flex;
+  flex-direction: row;
   padding: 21px 20px 10px;
 }
 

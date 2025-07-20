@@ -10,6 +10,10 @@ class ChatMessageItem extends Block {
     });
   }
 
+  public getId(): string | undefined {
+    return this.props.id;
+  }
+
   render(): string {
     return template;
   }

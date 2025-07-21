@@ -40,7 +40,9 @@
 .button__arrow-right,
 .button__arrow-left,
 .button__close,
-.button__attach {
+.button__attach,
+.button__create-chat,
+.button__create-message {
   background-repeat: no-repeat;
   background-position: center;
   padding: 0;
@@ -62,7 +64,7 @@
 .button__arrow-unstyled::after {
   content: '';
   transform: translateY(50%);
-  top: 0;
+  top: 5px;
   right: -13px;
   display: block;
   position: absolute;
@@ -103,6 +105,18 @@
 .button__attach {
   background-color: transparent;
   background-image: url('../../../../public/icons/button-attach.icon.svg');
+}
+
+.button__create-chat {
+  background-image: url('../../../../public/icons/create-chat.svg');
+}
+
+.button__create-message {
+  background-color: transparent;
+  background-image: url('../../../../public/icons/create-message.svg');
+  border-radius: 0;
+  width: 24px;
+  height: 24px;
 }
 
 .button__link-style {

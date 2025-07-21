@@ -64,7 +64,6 @@ class WebSocketManager implements IWebSocketManager {
 
                 if (Array.isArray(data)) {
                   if (data.length === 0) {
-                    // История сообщений пуста
                   } else {
                     data.forEach(message => {
                       this.messageCallbacks.forEach(callback => callback(message));
@@ -73,9 +72,7 @@ class WebSocketManager implements IWebSocketManager {
                 } else if (data && typeof data === 'object') {
                   this.messageCallbacks.forEach(callback => callback(data));
                 }
-              } catch (error) {
-                console.error('Ошибка парсинга сообщения:', error);
-              }
+              } catch {}
             };
 
             this.ws.onerror = error => {
@@ -111,8 +108,6 @@ class WebSocketManager implements IWebSocketManager {
         type: 'message',
       };
       this.ws.send(JSON.stringify(message));
-    } else {
-      console.error('WebSocket не подключен');
     }
   }
 
@@ -123,8 +118,6 @@ class WebSocketManager implements IWebSocketManager {
         type: 'get old',
       };
       this.ws.send(JSON.stringify(message));
-    } else {
-      console.error('WebSocket не подключен');
     }
   }
 

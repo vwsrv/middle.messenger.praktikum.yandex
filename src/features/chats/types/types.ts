@@ -6,6 +6,7 @@ export interface IMessage {
   type: 'incoming' | 'outgoing';
   status?: 'sent' | 'delivered' | 'read';
   time: string;
+  originalTime?: string;
   active?: boolean;
 }
 

@@ -21,7 +21,7 @@ export const mapChatsFromApi = (chatsResponse: IChatResponse[]): IChat[] => {
   return chatsResponse.map(mapChatFromApi);
 };
 
-export const mapMessageFromWebSocket = (wsMessage: any): IMessage => {
+export const mapMessageFromWebSocket = (wsMessage: any, currentUserId: number): IMessage => {
   if (!wsMessage || typeof wsMessage !== 'object') {
     throw new Error('Некорректная структура сообщения');
   }
@@ -32,7 +32,6 @@ export const mapMessageFromWebSocket = (wsMessage: any): IMessage => {
     throw new Error('Отсутствуют обязательные поля в сообщении');
   }
 
-  const currentUserId = 4313;
   const isOutgoing = wsMessage.user_id === currentUserId;
 
   const mappedMessage: IMessage = {
@@ -41,6 +40,7 @@ export const mapMessageFromWebSocket = (wsMessage: any): IMessage => {
     type: isOutgoing ? 'outgoing' : 'incoming',
     status: 'read',
     time: formatTime(wsMessage.time),
+    originalTime: wsMessage.time,
     active: false,
   };
 

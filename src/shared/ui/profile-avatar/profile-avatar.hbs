@@ -1,5 +1,9 @@
   <div class="profile__avatar_container">
-    <img src="{{url}}" alt="{{alt}}" class="profile__avatar_image" />
+    {{#if url}}
+      <img src="{{url}}" alt="{{alt}}" class="profile__avatar_image" />
+    {{else}}
+      <span class="profile__avatar_letter">{{name.[0]}}</span>
+    {{/if}}
   </div>
   <div class="profile__avatar_overlay">
     <p class="profile__avatar_overlay-text">Поменять аватар</p>

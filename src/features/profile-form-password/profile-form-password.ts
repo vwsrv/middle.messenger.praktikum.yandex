@@ -204,8 +204,6 @@ class ProfileFormPassword extends Block {
         newPassword: this.formState.password,
       });
 
-      console.log('Пароль успешно изменен');
-
       this.formState.oldPassword = '';
       this.formState.password = '';
       this.formState.passwordConfirm = '';
@@ -218,7 +216,6 @@ class ProfileFormPassword extends Block {
       if (oldPasswordInput) {
         oldPasswordInput.setProps({ error: errorMessage });
       }
-      console.error('Ошибка смены пароля:', errorMessage);
     } finally {
       this.setLoading(false);
     }

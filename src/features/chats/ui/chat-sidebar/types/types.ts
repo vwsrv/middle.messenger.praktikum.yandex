@@ -9,4 +9,5 @@ export interface IProps extends IBlockProps {
   onChatSelect?: (chatId: string) => void;
   onProfileClick?: () => void;
   onSearch?: (query: string) => void;
+  onCreateChat?: () => void;
 }

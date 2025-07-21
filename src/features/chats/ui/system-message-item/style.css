@@ -1,0 +1,11 @@
+.system-message {
+  color: var(--color-text-secondary);
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.system-message-row {
+  margin: 5px 0;
+}

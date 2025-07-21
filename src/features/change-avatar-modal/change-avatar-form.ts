@@ -72,7 +72,6 @@ export class ChangeAvatarForm extends Block {
       const updatedUser = await UserApi.getUser();
       authStore.updateUser(updatedUser);
 
-      console.log('Аватар успешно обновлен');
       this.props.onAvatarUpdated?.();
       return true;
     } catch (error) {

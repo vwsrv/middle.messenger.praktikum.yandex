@@ -1,7 +1,8 @@
 import Block from '../../../../shared/lib/block/block';
 import template from './chat-dialog.hbs?raw';
-import { IProps } from './types/types';
+import { IProps, ISystemMessage } from './types/types';
 import ChatMessageItem from '../chat-message-item/chat-message-item';
+import SystemMessageItem from '../system-message-item/system-message-item';
 
 class ChatDialog extends Block {
   constructor(props: IProps) {
@@ -17,10 +18,20 @@ class ChatDialog extends Block {
         }),
     );
 
+    const systemMessageItems = (props.systemMessages || []).map(
+      systemMessage =>
+        new SystemMessageItem({
+          id: systemMessage.id,
+          type: systemMessage.type,
+          content: systemMessage.content,
+        }),
+    );
+
     super('div', {
       ...props,
       className: 'chat__dialog',
       MessageItems: messageItems,
+      SystemMessages: systemMessageItems,
     });
   }
 
@@ -34,6 +45,17 @@ class ChatDialog extends Block {
           time: message.time,
           isSelected: message.active,
           text: message.text,
+        }),
+    );
+  }
+
+  private createSystemMessageItems(systemMessages: ISystemMessage[]): SystemMessageItem[] {
+    return systemMessages.map(
+      systemMessage =>
+        new SystemMessageItem({
+          id: systemMessage.id,
+          type: systemMessage.type,
+          content: systemMessage.content,
         }),
     );
   }
@@ -62,6 +84,31 @@ class ChatDialog extends Block {
     this.setProps({ messages });
 
     this._render();
+  }
+
+  public updateSystemMessages(systemMessages: ISystemMessage[]): void {
+    // Проверяем, есть ли изменения в системных сообщениях
+    const currentSystemMessages = this.props.systemMessages || [];
+    const hasChanges =
+      currentSystemMessages.length !== systemMessages.length ||
+      currentSystemMessages.some(
+        (message: ISystemMessage, index: number) => message.id !== systemMessages[index]?.id,
+      );
+
+    if (!hasChanges) {
+      return;
+    }
+
+    const newSystemMessageItems = this.createSystemMessageItems(systemMessages);
+    this.children.SystemMessages = newSystemMessageItems;
+    this.setProps({ systemMessages });
+    this._render();
+  }
+
+  public addSystemMessage(systemMessage: ISystemMessage): void {
+    const currentSystemMessages = this.props.systemMessages || [];
+    const updatedSystemMessages = [...currentSystemMessages, systemMessage];
+    this.updateSystemMessages(updatedSystemMessages);
   }
 
   render(): string {

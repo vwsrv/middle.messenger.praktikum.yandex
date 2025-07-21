@@ -5,18 +5,15 @@ import Button from '../../../../shared/ui/button/button';
 import ProfileAvatar from '../../../../shared/ui/profile-avatar/profile-avatar';
 import Dropdown from '../../../../shared/ui/dropdown/dropdown';
 import DropdownItem from '../../../../shared/ui/dropdown-item/dropdown-item';
-import UserSearchModal from '../user-search-modal/user-search-modal';
-import { ChatApi } from '@/entities/chat/api/chat.api';
 
 class ChatHeader extends Block {
   private isMenuDropdownOpen: boolean = false;
-  private userSearchModal!: UserSearchModal;
   private menuDropdown: Dropdown;
   private addUserItem: DropdownItem;
   private deleteChatItem: DropdownItem;
+  private deleteUserItem: DropdownItem;
 
   constructor(props: IProps) {
-    // Создаём DropdownItems один раз
     const addUserItem = new DropdownItem({
       src: '/icons/dropdown-add-user.icon.svg',
       name: 'Добавить пользователя',
@@ -25,23 +22,25 @@ class ChatHeader extends Block {
         this.toggleMenuDropdown();
       },
     });
+    const deleteUserItem = new DropdownItem({
+      src: '/icons/dropdown-delete-user.icon.svg',
+      name: 'Удалить пользователя',
+      onClick: () => {
+        this.handleDeleteUser();
+        this.toggleMenuDropdown();
+      },
+    });
     const deleteChatItem = new DropdownItem({
       src: '/icons/dropdown-delete-user.icon.svg',
       name: 'Удалить чат',
       onClick: () => {
-        console.log('Удалить чат');
+        this.handleDeleteChat();
         this.toggleMenuDropdown();
       },
     });
     const menuDropdown = new Dropdown({
       view: false,
-      DropdownItems: [addUserItem, deleteChatItem],
-    });
-
-    // Создаём модалку сразу
-    const userSearchModal = new UserSearchModal({
-      onClose: () => {},
-      onCreateChat: async (_userIds: number[]) => {},
+      DropdownItems: [addUserItem, deleteUserItem, deleteChatItem],
     });
 
     super('div', {
@@ -60,46 +59,29 @@ class ChatHeader extends Block {
         },
       }),
       MenuDropdown: menuDropdown,
-      UserSearchModalComponent: userSearchModal,
     });
 
     this.menuDropdown = menuDropdown;
     this.addUserItem = addUserItem;
     this.deleteChatItem = deleteChatItem;
-    this.userSearchModal = userSearchModal;
-    this.initializeUserSearchModal();
+    this.deleteUserItem = deleteUserItem;
   }
 
-  private initializeUserSearchModal = (): void => {
-    this.userSearchModal.setProps({
-      onClose: () => {
-        this.userSearchModal.close();
-      },
-      onCreateChat: async (userIds: number[]) => {
-        await this.handleCreateChat(userIds);
-      },
-    });
-  };
-
   private handleAddUser = (): void => {
-    console.log('handleAddUser вызван');
-    this.userSearchModal.open();
+    if (this.props.onAddUser) {
+      this.props.onAddUser();
+    }
   };
 
-  private handleCreateChat = async (userIds: number[]): Promise<void> => {
-    try {
-      const chatTitle = `Чат с ${userIds.length} пользователем(ями)`;
-      const response = await ChatApi.createChat(chatTitle);
-      if (response && response.id) {
-        for (const userId of userIds) {
-          await ChatApi.addUserToChat(response.id, userId);
-        }
-        if (this.props.onChatCreated) {
-          this.props.onChatCreated(response.id);
-        }
-      }
-    } catch (error) {
-      console.error('Ошибка создания чата:', error);
+  private handleDeleteChat = (): void => {
+    if (this.props.onDeleteChat) {
+      this.props.onDeleteChat();
+    }
+  };
+
+  private handleDeleteUser = (): void => {
+    if (this.props.onDeleteUser) {
+      this.props.onDeleteUser();
     }
   };
 

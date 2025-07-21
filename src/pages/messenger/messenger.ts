@@ -31,12 +31,10 @@ export class MessengerPage extends Block {
    */
   private async initializePage(): Promise<void> {
     const isAuthenticated = authStore.getIsAuth();
-
     if (isAuthenticated) {
       await this.loadChats();
       this.setupStoreListeners();
     } else {
-      console.warn('Пользователь не авторизован, перенаправление на страницу входа');
       router.go('/');
     }
   }
@@ -48,24 +46,13 @@ export class MessengerPage extends Block {
     try {
       const chatsResponse = await ChatApi.getChats();
       const mappedChats = mapChatsFromApi(chatsResponse);
-
-      // Сохранить в стор
       chatStoreInstance.setChats(chatsResponse);
-
-      // Обновить компонент с преобразованными данными
       this.updateChatLayout(mappedChats);
     } catch (error) {
-      console.error('Ошибка загрузки чатов:', error);
-
-      // Если ошибка 401, перенаправить на страницу входа
       if (error instanceof Error && error.message.includes('401')) {
-        console.warn('Пользователь не авторизован, перенаправление на страницу входа');
         router.go('/');
         return;
       }
-
-      // Показать ошибку пользователю
-      console.error('Не удалось загрузить чаты:', error);
     }
   }
 
@@ -73,9 +60,7 @@ export class MessengerPage extends Block {
    * Настроить слушатели стора
    */
   private setupStoreListeners(): void {
-    // Слушать изменения в сторе
     chatStoreInstance.on('updated', (prevState, nextState) => {
-      // Обновить UI при изменении чатов или сообщений
       if (prevState.chats !== nextState.chats || prevState.messages !== nextState.messages) {
         this.updateChatLayout();
       }
@@ -89,13 +74,11 @@ export class MessengerPage extends Block {
     const state = chatStoreInstance.getState();
     const currentChat = chatStoreInstance.getCurrentChat();
 
-    // Если переданы преобразованные чаты, используем их
     const chats = mappedChats || mapChatsFromApi(state.chats);
     const activeChat = currentChat ? mapChatsFromApi([currentChat])[0] : undefined;
 
     const chatLayoutComponent = this.children.ChatLayoutComponent as ChatLayout;
     if (chatLayoutComponent && typeof chatLayoutComponent.updateChats === 'function') {
-      console.log('Обновляем чаты в ChatLayout:', chats);
       chatLayoutComponent.updateChats(chats);
 
       if (activeChat) {
@@ -121,9 +104,8 @@ export class MessengerPage extends Block {
     }
   };
 
-  private handleSendMessage = (message: string): void => {
-    console.log('Отправка сообщения:', message);
-    // Сообщение отправляется через WebSocket в ChatLayout
+  private handleSendMessage = (_message: string): void => {
+    // функция-заглушка
   };
 
   render(): string {

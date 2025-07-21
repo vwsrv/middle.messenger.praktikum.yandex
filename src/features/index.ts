@@ -4,3 +4,6 @@ export * from './change-avatar-modal';
 export * from './error-message';
 export * from './profile-form-edit';
 export * from './profile-form-password';
+export * from './create-chat-modal';
+export * from './delete-user-modal';
+export * from './user-select-modal';

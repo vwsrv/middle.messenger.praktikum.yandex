@@ -1,0 +1,67 @@
+<div class="user-select-modal__content">
+  <div class="user-select-modal__search">
+    {{{SearchInputComponent}}}
+  </div>
+  
+  {{#if isLoading}}
+    <div class="user-select-modal__loading">Поиск пользователей</div>
+  {{/if}}
+  
+  {{#if users.length}}
+    <div class="user-select-modal__users">
+      <h4 class="user-select-modal__subtitle">Найденные пользователи:</h4>
+      <div class="user-select-modal__users-list">
+        {{#each users}}
+          <div class="user-item {{#if isSelected}}selected{{/if}}" data-user-id="{{id}}">
+            <div class="user-avatar">
+              {{#if avatar}}
+                <img src="{{avatar}}" alt="Avatar" />
+              {{else}}
+                <div class="avatar-placeholder">{{first_name.[0]}}</div>
+              {{/if}}
+            </div>
+            <div class="user-info">
+              <div class="user-name">{{display_name}}</div>
+              <div class="user-login">@{{login}}</div>
+            </div>
+            {{#if isSelected}}
+              <div class="selected-indicator">✓</div>
+            {{/if}}
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  {{else if searchQuery.length}}
+    <div class="user-select-modal__no-results">
+      <div class="no-results-message">Пользователь не найден</div>
+    </div>
+  {{/if}}
+  
+  {{#if selectedUser}}
+    <div class="user-select-modal__selected">
+      <h4 class="user-select-modal__subtitle">Выбранный пользователь:</h4>
+      <div class="user-select-modal__selected-list">
+        <div class="user-item selected" data-user-id="{{selectedUser.id}}">
+          <div class="user-avatar">
+            {{#if selectedUser.avatar}}
+              <img src="{{selectedUser.avatar}}" alt="Avatar" />
+            {{else}}
+              <div class="avatar-placeholder">{{selectedUser.first_name.[0]}}</div>
+            {{/if}}
+          </div>
+          <div class="user-info">
+            <div class="user-name">{{selectedUser.display_name}}</div>
+            <div class="user-login">@{{selectedUser.login}}</div>
+          </div>
+          <div class="selected-indicator">✓</div>
+        </div>
+      </div>
+    </div>
+  {{/if}}
+  
+  <div class="user-select-modal__actions">
+    {{{CancelButtonComponent}}}
+    {{{CreateButtonComponent}}}
+  </div>
+</div> 
+ 

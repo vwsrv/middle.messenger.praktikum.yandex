@@ -1,6 +1,6 @@
 .chat-sidebar {
   overflow-y: auto;
-  width: 310px;
+  width: 15%;
   min-width: 310px;
   height: 100%;
   border-right: 1px solid var(--color-border);
@@ -10,9 +10,11 @@
   box-sizing: border-box;
 }
 
-.chat-sidebar__button {
+.chat-sidebar__buttons {
   display: flex;
+  justify-content: space-between;
   flex-direction: row;
+  gap: 10px;
   padding: 21px 20px 10px;
 }
 

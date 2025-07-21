@@ -5,8 +5,11 @@ import Button from '../../../../shared/ui/button/button';
 import CombinedInput from '../../../../shared/ui/combined-input/combined-input';
 import ChatPreview from '../../../../shared/ui/chat-preview/chat-preview';
 import { router } from '@/shared/lib/routing/router/router.ts';
+import debounce from '@/shared/utils/debounce';
 
 class ChatSidebar extends Block {
+  private debouncedSearch: ReturnType<typeof debounce>;
+
   constructor(props: IProps) {
     const chatPreviews = props.chats.map(
       chat =>
@@ -35,6 +38,16 @@ class ChatSidebar extends Block {
           router.go('/settings');
         },
       }),
+      CreateChatButton: new Button({
+        type: 'button',
+        theme: 'create-message',
+        label: '',
+        onClick: () => {
+          if (props.onCreateChat) {
+            props.onCreateChat();
+          }
+        },
+      }),
       SearchInput: new CombinedInput({
         className: 'input_search',
         type: 'text',
@@ -42,13 +55,20 @@ class ChatSidebar extends Block {
         placeholder: 'Поиск',
         value: '',
         onInput: (value: string) => {
-          if (props.onSearch) {
-            props.onSearch(value);
-          }
+          this.debouncedSearch(value);
         },
       }),
       ChatPreviews: chatPreviews,
     });
+
+    this.debouncedSearch = debounce(
+      (value: string) => {
+        if (props.onSearch) {
+          props.onSearch(value);
+        }
+      },
+      { delay: 300 },
+    );
   }
 
   private createChatPreviews(props: IProps): ChatPreview[] {
@@ -75,14 +95,17 @@ class ChatSidebar extends Block {
       onChatSelect: this.props.onChatSelect,
       onProfileClick: this.props.onProfileClick,
       onSearch: this.props.onSearch,
+      onCreateChat: this.props.onCreateChat,
     });
 
     this.setProps({
       selectedChatId,
+      ChatPreviews: newChatPreviews,
     });
+  }
 
-    this.children.ChatPreviews = newChatPreviews;
-    this._render();
+  public getSelectedChatId(): string | undefined {
+    return this.props.selectedChatId;
   }
 
   public updateProps(newProps: Partial<IProps>): void {

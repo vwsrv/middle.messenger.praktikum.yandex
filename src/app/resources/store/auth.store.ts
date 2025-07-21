@@ -48,8 +48,27 @@ class AuthStore extends Store<IAuthStore> {
       this.setUser(user);
     } catch (error) {
       console.error('Ошибка загрузки пользователя:', error);
+      this.resetUser();
     } finally {
       this.setLoading(false);
+    }
+  }
+
+  /**
+   * Проверить и восстановить авторизацию
+   */
+  async checkAndRestoreAuth(): Promise<boolean> {
+    try {
+      const isAuthenticated = this.getIsAuth();
+      if (!isAuthenticated) {
+        await this.loadUser();
+        return this.getIsAuth();
+      }
+      return true;
+    } catch (error) {
+      console.error('Ошибка проверки авторизации:', error);
+      this.resetUser();
+      return false;
     }
   }
 }

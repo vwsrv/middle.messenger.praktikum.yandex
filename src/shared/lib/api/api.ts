@@ -80,13 +80,37 @@ class HTTPTransport {
             reject(new Error(`Failed to parse response: ${e}`));
           }
         } else {
-          reject(new Error(`Request failed with status ${xhr.status}`));
+          let errorMessage = `Request failed with status ${xhr.status}`;
+
+          if (xhr.status === 401) {
+            errorMessage = 'Unauthorized: cookie is not valid';
+          } else if (xhr.status === 403) {
+            errorMessage = 'Forbidden: access denied';
+          } else if (xhr.status === 404) {
+            errorMessage = 'Not found';
+          } else if (xhr.status === 400) {
+            errorMessage = 'Bad request: invalid data';
+          } else if (xhr.status === 500) {
+            errorMessage = 'Internal server error';
+          }
+
+          console.error('HTTPTransport: Ошибка запроса:', errorMessage);
+          reject(new Error(errorMessage));
         }
       };
 
-      xhr.onerror = () => reject(new Error('Network error'));
-      xhr.ontimeout = () => reject(new Error('Request timeout'));
-      xhr.onabort = () => reject(new Error('Request aborted'));
+      xhr.onerror = () => {
+        console.error('HTTPTransport: Ошибка сети');
+        reject(new Error('Network error'));
+      };
+      xhr.ontimeout = () => {
+        console.error('HTTPTransport: Таймаут запроса');
+        reject(new Error('Request timeout'));
+      };
+      xhr.onabort = () => {
+        console.error('HTTPTransport: Запрос прерван');
+        reject(new Error('Request aborted'));
+      };
 
       try {
         if (isGet || !data) {

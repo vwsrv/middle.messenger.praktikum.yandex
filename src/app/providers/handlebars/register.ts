@@ -19,4 +19,11 @@ export const registerComponents = (): void => {
     }
     Handlebars.registerPartial(name, template);
   });
+
+  Handlebars.registerHelper('renderComponent', function (component) {
+    if (component && typeof component.render === 'function') {
+      return component.render();
+    }
+    return '';
+  });
 };

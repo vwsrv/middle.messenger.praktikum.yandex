@@ -18,6 +18,14 @@ class ChatPreview extends Block {
         click: (e: Event) => {
           e.preventDefault();
           e.stopPropagation();
+
+          if (props.onClick) {
+            props.onClick(e);
+          }
+
+          if (props.onChatSelect && props.chatId) {
+            props.onChatSelect(props.chatId);
+          }
         },
       } as TEvents,
     });

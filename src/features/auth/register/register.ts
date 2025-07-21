@@ -1,11 +1,12 @@
-import Block from '../../../../shared/lib/block/block.ts';
+import Block from '../../../shared/lib/block/block.ts';
 import { IBlockProps } from '@/shared/lib/block/interfaces';
-import Button from '../../../../shared/ui/button/button.ts';
-import Link from '../../../../shared/ui/link/link.ts';
-import ProfileInput from '../../../../shared/ui/profile-input/profile-input.ts';
+import Button from '../../../shared/ui/button/button.ts';
+import Link from '../../../shared/ui/link/link.ts';
+import ProfileInput from '../../../shared/ui/profile-input/profile-input.ts';
 import { validateField } from '@/shared/lib/validation';
-import template from './sign-up-form.hbs?raw';
-import Router from '@/shared/lib/routing/router/router.ts';
+import template from './register.hbs?raw';
+import UserApi from '@/entities/user/api/user.api.ts';
+import { IUserDataResponse } from '@/entities/user/models/interfaces/user-data';
 
 interface IProps extends IBlockProps {
   email: string;
@@ -15,9 +16,11 @@ interface IProps extends IBlockProps {
   phone: string;
   password: string;
   password_confirm: string;
+  onSuccess?: (userData: IUserDataResponse) => void;
+  onError?: (error: any) => void;
 }
 
-class SignUpForm extends Block {
+class Register extends Block {
   private readonly formState: IProps;
 
   constructor(props: IProps) {
@@ -194,20 +197,27 @@ class SignUpForm extends Block {
     return isAllValid;
   }
 
-  private handleSubmit(): void {
+  private async handleSubmit(): Promise<void> {
     const isFormValid = this.validateAllFields();
-
-    if (!isFormValid) {
-      return;
-    }
+    if (!isFormValid) return;
 
     try {
-      console.log('Форма отправлена:', this.formState);
+      const registrationData = {
+        email: this.formState.email,
+        login: this.formState.login,
+        first_name: this.formState.first_name,
+        second_name: this.formState.second_name,
+        phone: this.formState.phone,
+        password: this.formState.password,
+      };
 
-      const router = new Router('#app');
-      router.go('/');
+      await UserApi.signUp(registrationData);
+
+      const userData = await UserApi.getUser();
+
+      this.props.onSuccess?.(userData);
     } catch (error) {
-      console.log(`При регистрации возникла ошибка ${error}`);
+      this.props.onError?.(error);
     }
   }
 
@@ -216,4 +226,4 @@ class SignUpForm extends Block {
   }
 }
 
-export default SignUpForm;
+export default Register;

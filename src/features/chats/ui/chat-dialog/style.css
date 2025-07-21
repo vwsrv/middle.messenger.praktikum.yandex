@@ -4,18 +4,6 @@
   height: 100%;
 }
 
-/* .chat__messages-flow { */
-
-/*  margin-top: auto; */
-
-/*  overflow-y: auto; */
-
-/*  width: 100%; */
-
-/*  padding: 20px 0; */
-
-/* } */
-
 .chat__messages-flow::before {
   content: '';
   flex: 1;
@@ -24,7 +12,6 @@
 
 .chat__messages-flow {
   flex-grow: 1;
-  overflow-y: auto;
   padding-top: 30px;
   display: flex;
   flex-direction: column;

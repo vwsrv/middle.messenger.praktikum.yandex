@@ -1,98 +1,19 @@
 import Block from '../../shared/lib/block/block';
 import template from './chats.hbs?raw';
 import { ChatLayout } from '../../features/chats';
-import { IChat, IMessage } from '../../features/chats/types/types';
-
-const MOCK_MESSAGES: IMessage[] = [
-  {
-    id: '1',
-    text: 'Привет! Как дела?',
-    type: 'incoming',
-    status: 'read',
-    time: '12:30',
-    active: false,
-  },
-  {
-    id: '2',
-    text: 'Привет! Все отлично, спасибо! А у тебя как?',
-    type: 'outgoing',
-    status: 'delivered',
-    time: '12:32',
-    active: false,
-  },
-  {
-    id: '3',
-    text: 'Тоже все хорошо! Планы на выходные есть?',
-    type: 'incoming',
-    status: 'read',
-    time: '12:35',
-    active: false,
-  },
-  {
-    id: '4',
-    text: 'Да, думаю съездить на дачу. А ты?',
-    type: 'outgoing',
-    status: 'sent',
-    time: '12:37',
-    active: false,
-  },
-];
-
-const MOCK_CHATS: IChat[] = [
-  {
-    id: '1',
-    profileName: 'Андрей',
-    avatar: 'https://via.placeholder.com/40',
-    sentTime: '12:37',
-    messageText: 'Да, думаю съездить на дачу. А ты?',
-    messageCount: 2,
-    messages: MOCK_MESSAGES,
-  },
-  {
-    id: '2',
-    profileName: 'Мария',
-    avatar: 'https://via.placeholder.com/40',
-    sentTime: '11:20',
-    messageText: 'Увидимся завтра!',
-    messageCount: 0,
-    messages: [
-      {
-        id: '5',
-        text: 'Увидимся завтра!',
-        type: 'incoming',
-        status: 'read',
-        time: '11:20',
-        active: false,
-      },
-    ],
-  },
-  {
-    id: '3',
-    profileName: 'Команда проекта',
-    avatar: 'https://via.placeholder.com/40',
-    sentTime: '10:15',
-    messageText: 'Встреча перенесена на 15:00',
-    messageCount: 5,
-    messages: [
-      {
-        id: '6',
-        text: 'Встреча перенесена на 15:00',
-        type: 'incoming',
-        status: 'read',
-        time: '10:15',
-        active: false,
-      },
-    ],
-  },
-];
+import { chatStoreInstance } from '@/app/resources/store/chat.store';
+import { authStore } from '@/app/resources/store/auth.store';
+import { ChatApi } from '@/entities/chat/api';
+import { mapChatsFromApi } from '@/entities/chat/utils/chat-mapper';
+import { router } from '@/shared/lib/routing/router/router';
 
 export class MessengerPage extends Block {
   constructor() {
     super('main', {
       className: 'messenger-page',
       ChatLayoutComponent: new ChatLayout({
-        chats: MOCK_CHATS,
-        activeChat: MOCK_CHATS[0],
+        chats: [],
+        activeChat: undefined,
         onChatSelect: (chatId: string) => {
           this.handleChatSelect(chatId);
         },
@@ -101,20 +22,90 @@ export class MessengerPage extends Block {
         },
       }),
     });
+
+    this.initializePage();
+  }
+
+  /**
+   * Инициализировать страницу
+   */
+  private async initializePage(): Promise<void> {
+    const isAuthenticated = authStore.getIsAuth();
+    if (isAuthenticated) {
+      await this.loadChats();
+      this.setupStoreListeners();
+    } else {
+      router.go('/');
+    }
+  }
+
+  /**
+   * Загрузить чаты с сервера
+   */
+  private async loadChats(): Promise<void> {
+    try {
+      const chatsResponse = await ChatApi.getChats();
+      const mappedChats = mapChatsFromApi(chatsResponse);
+      chatStoreInstance.setChats(chatsResponse);
+      this.updateChatLayout(mappedChats);
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('401')) {
+        router.go('/');
+        return;
+      }
+    }
+  }
+
+  /**
+   * Настроить слушатели стора
+   */
+  private setupStoreListeners(): void {
+    chatStoreInstance.on('updated', (prevState, nextState) => {
+      if (prevState.chats !== nextState.chats || prevState.messages !== nextState.messages) {
+        this.updateChatLayout();
+      }
+    });
+  }
+
+  /**
+   * Обновить ChatLayout с новыми данными
+   */
+  private updateChatLayout(mappedChats?: any[]): void {
+    const state = chatStoreInstance.getState();
+    const currentChat = chatStoreInstance.getCurrentChat();
+
+    const chats = mappedChats || mapChatsFromApi(state.chats);
+    const activeChat = currentChat ? mapChatsFromApi([currentChat])[0] : undefined;
+
+    const chatLayoutComponent = this.children.ChatLayoutComponent as ChatLayout;
+    if (chatLayoutComponent && typeof chatLayoutComponent.updateChats === 'function') {
+      chatLayoutComponent.updateChats(chats);
+
+      if (activeChat) {
+        chatLayoutComponent.setProps({
+          activeChat,
+        });
+      }
+    }
   }
 
   private handleChatSelect = (chatId: string): void => {
-    const selectedChat = MOCK_CHATS.find(chat => chat.id === chatId);
+    const state = chatStoreInstance.getState();
+    const selectedChat = state.chats.find(chat => chat.id.toString() === chatId);
+
     if (selectedChat) {
-      this.props.ChatLayoutComponent?.setProps?.({
-        activeChat: selectedChat,
-      });
+      const mappedChat = mapChatsFromApi([selectedChat])[0];
+      const chatLayoutComponent = this.children.ChatLayoutComponent as ChatLayout;
+      if (chatLayoutComponent && typeof chatLayoutComponent.setProps === 'function') {
+        chatLayoutComponent.setProps({
+          activeChat: mappedChat,
+        });
+      }
     }
   };
 
-  private handleSendMessage = (message: string): void => {
-    console.log('Отправка сообщения:', message);
-    // TODO: Здесь будет логика отправки сообщения через API
+  private handleSendMessage = (_message: string): void => {
+    // функция-заглушка
   };
 
   render(): string {

@@ -8,3 +8,4 @@ export * from './chat-preview';
 export * from './link';
 export * from './dropdown';
 export * from './dropdown-item';
+export * from './user-item';

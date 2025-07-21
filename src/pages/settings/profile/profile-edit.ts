@@ -16,12 +16,12 @@ export class Settings extends Block {
       ProfileEditForm: new ProfileFormEdit({
         email: '',
         login: '',
-        first_name: props.first_name!,
-        second_name: props.second_name!,
+        first_name: '',
+        second_name: '',
         phone: '',
         password: '',
         password_confirm: '',
-        profileName: `${props.first_name} ${props.second_name!}`,
+        profileName: '',
       }),
     });
   }

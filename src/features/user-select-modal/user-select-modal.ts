@@ -9,9 +9,7 @@ import debounce from '@/shared/utils/debounce';
 
 class UserSelectModalContent extends Block {
   private debouncedLoadUsers: ReturnType<typeof debounce>;
-  private currentSearchQuery: string = '';
   private currentUsers: IFindUserResponse[] = [];
-  private isLoading: boolean = false;
 
   constructor(props: {
     isOpen: boolean;
@@ -80,9 +78,7 @@ class UserSelectModalContent extends Block {
   }
 
   public resetState(): void {
-    this.currentSearchQuery = '';
     this.currentUsers = [];
-    this.isLoading = false;
 
     const searchInput = this.children.SearchInputComponent as Block;
     if (searchInput) {
@@ -129,7 +125,6 @@ class UserSelectModalContent extends Block {
   }
 
   private handleSearchInput = (value: string): void => {
-    this.currentSearchQuery = value;
     this.debouncedLoadUsers(value);
   };
 

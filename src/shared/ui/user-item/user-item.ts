@@ -23,10 +23,6 @@ class UserItem extends Block {
   render(): string {
     return template;
   }
-
-  public getProps(): IProps {
-    return this.props;
-  }
 }
 
 export default UserItem;

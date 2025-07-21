@@ -21,9 +21,7 @@ interface IAddUsersModalProps {
 
 class AddUsersModalContent extends Block {
   private debouncedLoadUsers: ReturnType<typeof debounce>;
-  private currentSearchQuery: string = '';
   private currentUsers: IFindUserResponse[] = [];
-  private isLoading: boolean = false;
   private selectedUsers: IFindUserResponse[] = [];
 
   constructor(props: IAddUsersModalProps) {
@@ -41,7 +39,7 @@ class AddUsersModalContent extends Block {
       theme: 'primary',
       disabled: true,
       onClick: () => {
-        this.handleAddUsers();
+        void this.handleAddUsers();
       },
     });
 
@@ -86,10 +84,8 @@ class AddUsersModalContent extends Block {
   }
 
   public resetState(): void {
-    this.currentSearchQuery = '';
     this.currentUsers = [];
     this.selectedUsers = [];
-    this.isLoading = false;
 
     const searchInput = this.children.SearchInputComponent as Block;
     if (searchInput) {
@@ -99,7 +95,6 @@ class AddUsersModalContent extends Block {
     this.setProps({
       users: [],
       selectedUsers: [],
-      isLoading: false,
       searchQuery: '',
     });
   }
@@ -141,7 +136,6 @@ class AddUsersModalContent extends Block {
   }
 
   private handleSearchInput = (value: string): void => {
-    this.currentSearchQuery = value;
     this.debouncedLoadUsers(value);
   };
 

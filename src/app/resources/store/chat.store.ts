@@ -136,7 +136,7 @@ class ChatStore extends Store<IChatStore> implements IChatStoreInstance {
   /**
    * Отправить сообщение через WebSocket
    */
-  sendMessage(chatId: number, message: string): void {
+  sendMessage(_chatId: number, message: string): void {
     try {
       webSocketManager.sendMessage(message);
     } catch (error) {

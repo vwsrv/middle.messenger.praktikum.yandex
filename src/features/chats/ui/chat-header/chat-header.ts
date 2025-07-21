@@ -9,9 +9,6 @@ import DropdownItem from '../../../../shared/ui/dropdown-item/dropdown-item';
 class ChatHeader extends Block {
   private isMenuDropdownOpen: boolean = false;
   private menuDropdown: Dropdown;
-  private addUserItem: DropdownItem;
-  private deleteChatItem: DropdownItem;
-  private deleteUserItem: DropdownItem;
 
   constructor(props: IProps) {
     const addUserItem = new DropdownItem({
@@ -62,9 +59,6 @@ class ChatHeader extends Block {
     });
 
     this.menuDropdown = menuDropdown;
-    this.addUserItem = addUserItem;
-    this.deleteChatItem = deleteChatItem;
-    this.deleteUserItem = deleteUserItem;
   }
 
   private handleAddUser = (): void => {

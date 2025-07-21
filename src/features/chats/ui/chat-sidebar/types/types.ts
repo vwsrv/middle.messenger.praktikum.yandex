@@ -1,4 +1,4 @@
-import { IBlockProps } from '../../../../../shared/lib/block/interfaces';
+import { IBlockProps } from '@/shared/lib/block/interfaces';
 import { IChat } from '../../../types/types';
 import ChatPreview from '../../../../../shared/ui/chat-preview/chat-preview';
 

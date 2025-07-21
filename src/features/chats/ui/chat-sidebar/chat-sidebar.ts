@@ -110,7 +110,7 @@ class ChatSidebar extends Block {
 
   public updateProps(newProps: Partial<IProps>): void {
     if (newProps.chats) {
-      const newChatPreviews = newProps.chats.map(
+      this.children.ChatPreviews = newProps.chats.map(
         chat =>
           new ChatPreview({
             isSelected: chat.id === newProps.selectedChatId,
@@ -124,8 +124,6 @@ class ChatSidebar extends Block {
             onChatSelect: this.props.onChatSelect,
           }),
       );
-
-      this.children.ChatPreviews = newChatPreviews;
     }
 
     this.setProps(newProps);

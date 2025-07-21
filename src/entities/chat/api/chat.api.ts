@@ -6,18 +6,16 @@ export class ChatApi {
    * Получить список чатов
    */
   static async getChats(): Promise<IChatResponse[]> {
-    const response = await api.get<IChatResponse[]>('/chats', { withCredentials: true });
-    return response;
+    return await api.get<IChatResponse[]>('/chats', { withCredentials: true });
   }
 
   /**
    * Получить токен для WebSocket подключения к чату
    */
   static async getChatToken(chatId: number): Promise<{ token: string }> {
-    const response = await api.post<{ token: string }>(`/chats/token/${chatId}`, {
+    return await api.post<{ token: string }>(`/chats/token/${chatId}`, {
       withCredentials: true,
     });
-    return response;
   }
 
   /**
@@ -29,11 +27,10 @@ export class ChatApi {
       data.users = users;
     }
 
-    const response = await api.post<{ id: number }>('/chats', {
+    return await api.post<{ id: number }>('/chats', {
       data,
       withCredentials: true,
     });
-    return response;
   }
 
   /**

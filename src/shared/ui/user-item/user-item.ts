@@ -1,7 +1,7 @@
 import Block from '@/shared/lib/block/block';
 import { TEvents } from '@/shared/lib/block/interfaces';
 import template from './user-item.hbs?raw';
-import { IProps } from './types/types';
+import { IProps } from '@/shared/ui';
 import './style.css';
 
 class UserItem extends Block {

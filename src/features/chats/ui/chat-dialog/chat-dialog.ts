@@ -77,9 +77,7 @@ class ChatDialog extends Block {
       return;
     }
 
-    const newMessageItems = this.createMessageItems(messages);
-
-    this.children.MessageItems = newMessageItems;
+    this.children.MessageItems = this.createMessageItems(messages);
 
     this.setProps({ messages });
 
@@ -99,8 +97,8 @@ class ChatDialog extends Block {
       return;
     }
 
-    const newSystemMessageItems = this.createSystemMessageItems(systemMessages);
-    this.children.SystemMessages = newSystemMessageItems;
+    this.children.SystemMessages = this.createSystemMessageItems(systemMessages);
+
     this.setProps({ systemMessages });
     this._render();
   }

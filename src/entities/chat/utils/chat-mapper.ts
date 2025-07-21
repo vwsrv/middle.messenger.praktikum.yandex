@@ -4,7 +4,7 @@ import { IChat, IMessage } from '@/features/chats/types/types';
 export const mapChatFromApi = (chatResponse: IChatResponse): IChat => {
   const lastMessage = chatResponse.last_message;
 
-  const mappedChat = {
+  return {
     id: chatResponse.id.toString(),
     profileName: chatResponse.title || lastMessage?.user.first_name || 'Пользователь',
     avatar: lastMessage?.user.avatar || chatResponse.avatar || undefined,
@@ -13,8 +13,6 @@ export const mapChatFromApi = (chatResponse: IChatResponse): IChat => {
     messageCount: chatResponse.unread_count,
     messages: [],
   };
-
-  return mappedChat;
 };
 
 export const mapChatsFromApi = (chatsResponse: IChatResponse[]): IChat[] => {
@@ -34,7 +32,7 @@ export const mapMessageFromWebSocket = (wsMessage: any, currentUserId: number): 
 
   const isOutgoing = wsMessage.user_id === currentUserId;
 
-  const mappedMessage: IMessage = {
+  return {
     id: wsMessage.id.toString(),
     text: wsMessage.content,
     type: isOutgoing ? 'outgoing' : 'incoming',
@@ -43,18 +41,16 @@ export const mapMessageFromWebSocket = (wsMessage: any, currentUserId: number): 
     originalTime: wsMessage.time,
     active: false,
   };
-
-  return mappedMessage;
 };
 
 const formatTime = (timeString: string): string => {
   try {
     const date = new Date(timeString);
-    const formattedTime = date.toLocaleTimeString('ru-RU', {
+
+    return date.toLocaleTimeString('ru-RU', {
       hour: '2-digit',
       minute: '2-digit',
     });
-    return formattedTime;
   } catch {
     return '00:00';
   }

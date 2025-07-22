@@ -3,7 +3,6 @@ import Modal from '../../shared/ui/modal/modal';
 import Button from '../../shared/ui/button/button';
 import ProfileInput from '../../shared/ui/profile-input/profile-input';
 import template from './create-chat-modal-content.hbs?raw';
-// import './style.css';
 
 interface ICreateChatModalProps {
   isOpen: boolean;

@@ -114,7 +114,7 @@ class ChatStore extends Store<IChatStore> implements IChatStoreInstance {
 
       await webSocketManager.connect(chatId);
       this.setCurrentChatId(chatId);
-      this.initializeWebSocketListeners(); // Initialize listeners after successful connection
+      this.initializeWebSocketListeners();
     } catch (error) {
       this.setError(error instanceof Error ? error.message : 'Ошибка подключения к чату');
       throw error;
@@ -168,7 +168,6 @@ class ChatStore extends Store<IChatStore> implements IChatStoreInstance {
     const filteredChats = currentChats.filter(chat => chat.id !== chatId);
     this.set({ chats: filteredChats });
 
-    // Отключиться от WebSocket чата
     this.disconnectFromChat(chatId);
   }
 

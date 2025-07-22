@@ -1,4 +1,3 @@
-// src/pages/sign-up/sign-up.ts
 import Block from '../../shared/lib/block/block';
 import template from './sign-up.hbs?raw';
 import Register from '@/features/auth/register/register.ts';

@@ -33,12 +33,8 @@ class ChatLayout extends Block {
       onChatSelect: (chatId: string) => {
         this.handleChatSelect(chatId);
       },
-      onProfileClick: () => {
-        // Переход в профиль
-      },
-      onSearch: (_query: string) => {
-        // Поиск
-      },
+      onProfileClick: () => {},
+      onSearch: (_query: string) => {},
       onCreateChat: () => {
         this.createChatModal.setProps({ isOpen: true });
       },
@@ -81,9 +77,7 @@ class ChatLayout extends Block {
       onClose: () => {
         this.deleteUserModal.setProps({ isOpen: false });
       },
-      onUserDeleted: (_userId: number) => {
-        // Можно обновить локальный список пользователей, если требуется
-      },
+      onUserDeleted: (_userId: number) => {},
       onSystemMessage: (systemMessage: any) => {
         this.addSystemMessage(systemMessage);
       },
@@ -101,10 +95,8 @@ class ChatLayout extends Block {
         ? new ChatHeader({
             profileName: props.activeChat.profileName,
             profileAvatar: props.activeChat.avatar,
-            onMenuClick: () => {
-              // Открыть меню чата
-            },
-            onAddUser: () => {
+            onMenuClick: (): void => {},
+            onAddUser: (): void => {
               const currentChatId = props.activeChat?.id;
 
               this.addUsersModal.setProps({
@@ -120,7 +112,7 @@ class ChatLayout extends Block {
               });
             },
             onDeleteChat: () => {
-              this.handleDeleteChat(props.activeChat!.id);
+              void this.handleDeleteChat(props.activeChat!.id);
             },
             onDeleteUser: () => {
               this.openDeleteUserModal();
@@ -140,9 +132,7 @@ class ChatLayout extends Block {
             onSendMessage: (message: string) => {
               this.handleSendMessage(message);
             },
-            onAttachFile: () => {
-              // Прикрепить файл
-            },
+            onAttachFile: () => {},
           })
         : null,
       ChatDialogEmptyComponent: !props.activeChat ? new ChatDialogEmpty() : null,
@@ -366,7 +356,6 @@ class ChatLayout extends Block {
 
         newChildren.ChatDialogEmptyComponent = null;
 
-        // Обновляем children и props
         Object.entries(newChildren).forEach(([key, component]) => {
           if (component) {
             this.children[key] = component;
@@ -390,7 +379,6 @@ class ChatLayout extends Block {
           },
         });
 
-        // Обновляем activeChatId у deleteUserModal
         this.deleteUserModal.setProps({ activeChatId: selectedChat.id });
 
         this._render();

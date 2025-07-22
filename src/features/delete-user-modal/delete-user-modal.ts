@@ -124,7 +124,6 @@ class DeleteUserModalContent extends Block {
       if (onSystemMessage) {
         onSystemMessage(systemMsg);
       }
-      // Сохраняем системное сообщение в LocalStorage
       if (activeChatId) {
         LocalStorage.addSystemMessage(activeChatId, systemMsg);
       }

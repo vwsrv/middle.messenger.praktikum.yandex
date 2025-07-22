@@ -104,9 +104,7 @@ export class MessengerPage extends Block {
     }
   };
 
-  private handleSendMessage = (_message: string): void => {
-    // функция-заглушка
-  };
+  private handleSendMessage = (_message: string): void => {};
 
   render(): string {
     return template;

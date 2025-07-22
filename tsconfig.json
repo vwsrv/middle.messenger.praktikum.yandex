@@ -16,7 +16,7 @@
     "strictPropertyInitialization": true,
     "sourceMap": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": false,
+    "noUnusedParameters": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",

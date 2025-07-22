@@ -1,0 +1,16 @@
+<div class="user-item {{#if isSelected}}selected{{/if}}" onclick="this.onSelect()">
+  <div class="user-avatar">
+    {{#if avatar}}
+      <img src="{{avatar}}" alt="Avatar" />
+    {{else}}
+      <div class="avatar-placeholder">{{first_name.[0]}}</div>
+    {{/if}}
+  </div>
+  <div class="user-info">
+    <div class="user-name">{{display_name}}</div>
+    <div class="user-login">@{{login}}</div>
+  </div>
+  {{#if isSelected}}
+    <div class="selected-indicator">✓</div>
+  {{/if}}
+</div> 

@@ -6,15 +6,19 @@
 
 .chat-messages {
   flex-grow: 1;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: none;
   padding: 20px;
+  overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .chat-main {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  height: 100vh;
 }
 
 .chat-messages_textarea,

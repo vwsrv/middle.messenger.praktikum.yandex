@@ -1,0 +1,37 @@
+<div class="delete-user-modal__content">
+  <div class="delete-user-modal__users">
+    <h4 class="delete-user-modal__subtitle">Пользователи чата:</h4>
+    <div class="delete-user-modal__users-list">
+      {{#if users.length}}
+        {{#each users}}
+          <div class="user-item {{#if isSelected}}selected{{/if}}" data-user-id="{{id}}">
+            <div class="user-avatar">
+              <div class="profile__avatar profile__avatar_small">
+                {{#if avatar}}
+                  <img src="{{avatar}}" alt="{{display_name}}" class="profile__avatar_image" />
+                {{else}}
+                  <span class="profile__avatar_letter">{{first_name.[0]}}</span>
+                {{/if}}
+              </div>
+            </div>
+            <div class="user-info">
+              <div class="user-name">{{display_name}}</div>
+              <div class="user-login">@{{login}}</div>
+            </div>
+            {{#if isSelected}}
+              <div class="selected-indicator">✓</div>
+            {{/if}}
+          </div>
+        {{/each}}
+      {{else}}
+        <div class="delete-user-modal__no-users">
+          <div class="no-users-message">В этом чате пока нет пользователей</div>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+  <div class="delete-user-modal__actions">
+    {{{CancelButtonComponent}}}
+    {{{DeleteButtonComponent}}}
+  </div>
+</div> 

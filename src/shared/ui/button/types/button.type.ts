@@ -6,4 +6,6 @@ export type TButton =
   | 'close'
   | 'attach'
   | 'arrow-unstyled'
-  | 'link-style';
+  | 'link-style'
+  | 'create-chat'
+  | 'create-message';

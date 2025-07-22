@@ -1,32 +1,6 @@
-const METHODS = {
-  GET: 'GET',
-  POST: 'POST',
-  PUT: 'PUT',
-  DELETE: 'DELETE',
-  PATCH: 'PATCH',
-  HEAD: 'HEAD',
-  OPTIONS: 'OPTIONS',
-} as const;
-
-type HTTPMethod = (typeof METHODS)[keyof typeof METHODS];
-
-interface HTTPHeaders {
-  [key: string]: string;
-}
-
-interface RequestOptions<D = any> {
-  headers?: HTTPHeaders;
-  data?: D;
-  timeout?: number;
-  withCredentials?: boolean;
-  responseType?: XMLHttpRequestResponseType;
-}
-
-interface FullRequestOptions<D = any> extends RequestOptions<D> {
-  method?: HTTPMethod;
-}
-
-type QueryParams = Record<string, string | number | boolean | null | undefined>;
+import { METHODS } from '@/shared/lib/api/constants';
+import { TMethod, TQueryParams } from '@/shared/lib/api/models/types';
+import { IRequestOptions } from '@/shared/lib/api/models/interfaces/request-options.interface.ts';
 
 class HTTPTransport {
   private baseUrl: string;
@@ -35,7 +9,7 @@ class HTTPTransport {
     this.baseUrl = baseUrl;
   }
 
-  private buildQueryString(params: QueryParams): string {
+  private buildQueryString(params: TQueryParams): string {
     const validParams = Object.entries(params)
       .filter(([_, value]) => value !== undefined && value !== null)
       .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`);
@@ -58,7 +32,7 @@ class HTTPTransport {
 
   private request<D = any, R = any>(
     url: string,
-    options: FullRequestOptions<D> = {},
+    options: IRequestOptions<D> = {},
     timeout: number = 5000,
   ): Promise<R> {
     const {
@@ -72,7 +46,7 @@ class HTTPTransport {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       const isGet = method === METHODS.GET;
-      const queryString = isGet && data ? this.buildQueryString(data as QueryParams) : '';
+      const queryString = isGet && data ? this.buildQueryString(data as TQueryParams) : '';
       const requestUrl = `${this.baseUrl}${url}${queryString}`;
 
       xhr.open(method, requestUrl);
@@ -81,7 +55,6 @@ class HTTPTransport {
       xhr.withCredentials = withCredentials;
       xhr.timeout = timeout;
 
-      // Set headers
       if (!(data instanceof FormData)) {
         const contentType = this.getContentTypeHeader(data);
         if (contentType) {
@@ -96,22 +69,48 @@ class HTTPTransport {
       xhr.onload = () => {
         if (xhr.status >= 200 && xhr.status < 300) {
           try {
-            const response =
-              responseType === 'json' && xhr.responseText
-                ? JSON.parse(xhr.responseText)
-                : xhr.response;
+            let response;
+            if (responseType === 'json') {
+              response = xhr.response;
+            } else {
+              response = xhr.responseText;
+            }
             resolve(response);
           } catch (e) {
             reject(new Error(`Failed to parse response: ${e}`));
           }
         } else {
-          reject(new Error(`Request failed with status ${xhr.status}`));
+          let errorMessage = `Request failed with status ${xhr.status}`;
+
+          if (xhr.status === 401) {
+            errorMessage = 'Unauthorized: cookie is not valid';
+          } else if (xhr.status === 403) {
+            errorMessage = 'Forbidden: access denied';
+          } else if (xhr.status === 404) {
+            errorMessage = 'Not found';
+          } else if (xhr.status === 400) {
+            errorMessage = 'Bad request: invalid data';
+          } else if (xhr.status === 500) {
+            errorMessage = 'Internal server error';
+          }
+
+          console.error('HTTPTransport: Ошибка запроса:', errorMessage);
+          reject(new Error(errorMessage));
         }
       };
 
-      xhr.onerror = () => reject(new Error('Network error'));
-      xhr.ontimeout = () => reject(new Error('Request timeout'));
-      xhr.onabort = () => reject(new Error('Request aborted'));
+      xhr.onerror = () => {
+        console.error('HTTPTransport: Ошибка сети');
+        reject(new Error('Network error'));
+      };
+      xhr.ontimeout = () => {
+        console.error('HTTPTransport: Таймаут запроса');
+        reject(new Error('Request timeout'));
+      };
+      xhr.onabort = () => {
+        console.error('HTTPTransport: Запрос прерван');
+        reject(new Error('Request aborted'));
+      };
 
       try {
         if (isGet || !data) {
@@ -125,33 +124,28 @@ class HTTPTransport {
     });
   }
 
-  public get<R = any>(url: string, options: RequestOptions<QueryParams> = {}): Promise<R> {
-    return this.request(url, { ...options, method: METHODS.GET });
-  }
+  public get: TMethod = (url, options = {}) =>
+    this.request(url, { ...options, method: METHODS.GET }, options.timeout);
 
-  public post<D = any, R = any>(url: string, options: RequestOptions<D> = {}): Promise<R> {
-    return this.request<D, R>(url, { ...options, method: METHODS.POST });
-  }
+  public put: TMethod = (url, options = {}) =>
+    this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
 
-  public put<D = any, R = any>(url: string, options: RequestOptions<D> = {}): Promise<R> {
-    return this.request<D, R>(url, { ...options, method: METHODS.PUT });
-  }
+  public post: TMethod = (url, options = {}) =>
+    this.request(url, { ...options, method: METHODS.POST }, options.timeout);
 
-  public delete<D = any, R = any>(url: string, options: RequestOptions<D> = {}): Promise<R> {
-    return this.request<D, R>(url, { ...options, method: METHODS.DELETE });
-  }
+  public delete: TMethod = (url, options = {}) =>
+    this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 
-  public patch<D = any, R = any>(url: string, options: RequestOptions<D> = {}): Promise<R> {
-    return this.request<D, R>(url, { ...options, method: METHODS.PATCH });
-  }
+  public patch: TMethod = (url, options = {}) =>
+    this.request(url, { ...options, method: METHODS.PATCH }, options.timeout);
 
-  public head<R = any>(url: string, options: RequestOptions = {}): Promise<R> {
-    return this.request(url, { ...options, method: METHODS.HEAD });
-  }
+  public head: TMethod = (url, options = {}) =>
+    this.request(url, { ...options, method: METHODS.HEAD }, options.timeout);
 
-  public options<R = any>(url: string, options: RequestOptions = {}): Promise<R> {
-    return this.request(url, { ...options, method: METHODS.OPTIONS });
-  }
+  public options: TMethod = (url, options = {}) =>
+    this.request(url, { ...options, method: METHODS.OPTIONS }, options.timeout);
 }
+
+export const api = new HTTPTransport('https://ya-praktikum.tech/api/v2');
 
 export default HTTPTransport;

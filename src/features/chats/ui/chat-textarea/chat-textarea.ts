@@ -30,7 +30,6 @@ class ChatTextArea extends Block {
             src: '/icons/photo.svg',
             name: 'Фото или Видео',
             onClick: () => {
-              console.log('Прикрепить фото/видео');
               this.toggleAttachDropdown();
             },
           }),
@@ -38,7 +37,6 @@ class ChatTextArea extends Block {
             src: '/icons/file.svg',
             name: 'Файл',
             onClick: () => {
-              console.log('Прикрепить файл');
               this.toggleAttachDropdown();
             },
           }),
@@ -46,7 +44,6 @@ class ChatTextArea extends Block {
             src: '/icons/location.svg',
             name: 'Локация',
             onClick: () => {
-              console.log('Прикрепить локацию');
               this.toggleAttachDropdown();
             },
           }),
@@ -104,7 +101,6 @@ class ChatTextArea extends Block {
           src: '/icons/dropdown-photo.icon.svg',
           name: 'Фото или Видео',
           onClick: () => {
-            console.log('Прикрепить фото/видео');
             this.toggleAttachDropdown();
           },
         }),
@@ -112,7 +108,6 @@ class ChatTextArea extends Block {
           src: '/icons/dropdown-file.icon.svg',
           name: 'Файл',
           onClick: () => {
-            console.log('Прикрепить файл');
             this.toggleAttachDropdown();
           },
         }),
@@ -120,7 +115,6 @@ class ChatTextArea extends Block {
           src: '/icons/dropdown-location.icon.svg',
           name: 'Локация',
           onClick: () => {
-            console.log('Прикрепить локацию');
             this.toggleAttachDropdown();
           },
         }),

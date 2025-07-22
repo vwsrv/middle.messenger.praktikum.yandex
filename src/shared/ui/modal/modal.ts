@@ -38,6 +38,12 @@ class Modal extends Block {
     if (oldProps.status !== newProps.status && this.element) {
       this.element.className = `modal modal__${newProps.status}`;
     }
+
+    // Обновляем content если он изменился
+    if (oldProps.content !== newProps.content) {
+      this.children.content = newProps.content;
+    }
+
     return true;
   }
 

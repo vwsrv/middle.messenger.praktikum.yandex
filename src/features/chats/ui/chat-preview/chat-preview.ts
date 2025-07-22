@@ -12,7 +12,7 @@ export interface IProps extends IBlockProps {
   time: string;
   message: string;
   count?: number;
-  onClick?: (e: Event) => void;
+  onChatSelect?: (chatId: string) => void;
 }
 
 class ChatPreview extends Block {
@@ -31,6 +31,10 @@ class ChatPreview extends Block {
         click: (e: Event) => {
           e.preventDefault();
           e.stopPropagation();
+
+          if (props.onChatSelect && props.chatId) {
+            props.onChatSelect(props.chatId);
+          }
         },
       } as TEvents,
     });

@@ -10,4 +10,5 @@ export interface IProps extends IBlockProps {
   message: string;
   count?: number;
   onClick?: (e: Event) => void;
+  onChatSelect?: (chatId: string) => void;
 }

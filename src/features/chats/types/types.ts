@@ -1,4 +1,4 @@
-import { IBlockProps } from '../../../shared/lib/block/interfaces';
+import { IBlockProps } from '@/shared/lib/block/interfaces';
 
 export interface IMessage {
   id: string;
@@ -6,6 +6,7 @@ export interface IMessage {
   type: 'incoming' | 'outgoing';
   status?: 'sent' | 'delivered' | 'read';
   time: string;
+  originalTime?: string;
   active?: boolean;
 }
 

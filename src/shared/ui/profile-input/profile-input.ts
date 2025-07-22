@@ -1,7 +1,7 @@
 import Block from '../../lib/block/block';
 import { IBlockProps } from '../../lib/block/interfaces';
 import template from './profile-input.hbs?raw';
-import { TProfileInput, TInput } from './types';
+import { TInput, TProfileInput } from './types';
 import { validateField } from '../../lib/validation';
 
 interface IProps extends IBlockProps {

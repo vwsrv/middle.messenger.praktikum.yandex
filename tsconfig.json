@@ -15,7 +15,7 @@
     "strictBindCallApply": true,
     "strictPropertyInitialization": true,
     "sourceMap": true,
-    "noUnusedLocals": false,
+    "noUnusedLocals": true,
     "noUnusedParameters": false,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,

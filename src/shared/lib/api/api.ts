@@ -1,6 +1,6 @@
 import { METHODS } from '@/shared/lib/api/constants';
 import { TMethod, TQueryParams } from '@/shared/lib/api/models/types';
-import { IRequestOptions } from '@/shared/lib/api/models/interfaces/request-options.interface.ts';
+import { IRequestOptions } from '@/shared/lib/api/models/interfaces/request-options.interface';
 
 class HTTPTransport {
   private baseUrl: string;
@@ -83,15 +83,15 @@ class HTTPTransport {
           let errorMessage = `Request failed with status ${xhr.status}`;
 
           if (xhr.status === 401) {
-            errorMessage = 'Unauthorized: cookie is not valid';
+            errorMessage = 'Проверьте правильность ввода логина или пароля';
           } else if (xhr.status === 403) {
-            errorMessage = 'Forbidden: access denied';
+            errorMessage = 'Для совершения действия требуется авторизация';
           } else if (xhr.status === 404) {
-            errorMessage = 'Not found';
+            errorMessage = 'Не найдено.';
           } else if (xhr.status === 400) {
-            errorMessage = 'Bad request: invalid data';
+            errorMessage = 'Что то не так, повторите попытку позже.';
           } else if (xhr.status === 500) {
-            errorMessage = 'Internal server error';
+            errorMessage = 'Ошибка сервера.';
           }
 
           console.error('HTTPTransport: Ошибка запроса:', errorMessage);

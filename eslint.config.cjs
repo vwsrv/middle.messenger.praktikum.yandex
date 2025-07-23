@@ -16,6 +16,12 @@ module.exports = [
         document: 'readonly',
         console: 'readonly',
         NodeJS: 'readonly',
+        describe: 'readonly',
+        it: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        expect: 'readonly',
+        sinon: 'readonly',
       },
     },
     plugins: {
@@ -27,15 +33,23 @@ module.exports = [
       'prettier/prettier': 'error',
       'no-debugger': 'warn',
       'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': ['error', { 
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        caughtErrorsIgnorePattern: '^_'
+      }],
       'import/no-unresolved': 'off',
       'import/no-duplicates': 'off',
       'import/order': 'off',
-      "no-console": "off", 
+      "no-console": "off",
+      '@typescript-eslint/no-explicit-any': 'off',
     },
     settings: {
       'import/resolver': {
-        typescript: {},
+        typescript: {
+          alwaysTryTypes: true,
+          project: './tsconfig.json',
+        },
       },
     },
   },

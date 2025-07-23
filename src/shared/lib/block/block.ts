@@ -72,7 +72,6 @@ class Block {
       });
     }
 
-    // Обработка стандартных HTML атрибутов
     if (props.disabled !== undefined && this._element) {
       if (props.disabled) {
         this._element.setAttribute('disabled', 'true');
@@ -278,8 +277,6 @@ class Block {
         const oldTarget = { ...target };
         target[prop] = value;
 
-        // Запускаем обновление компоненты
-        // Плохой cloneDeep, в следующей итерации нужно заставлять добавлять cloneDeep им самим
         emitBind(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;
       },
@@ -290,7 +287,6 @@ class Block {
   }
 
   _createDocumentElement(tagName: string): HTMLElement {
-    // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
     return document.createElement(tagName);
   }
 

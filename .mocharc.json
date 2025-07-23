@@ -1,0 +1,8 @@
+{
+  "extension": ["ts"],
+  "spec": "src/**/*.test.ts",
+  "require": ["ts-node/register", "jsdom-global/register", "./mocha-setup.js"],
+  "timeout": 5000,
+  "ui": "bdd",
+  "loader": ["ts-node/esm", "./alias-resolver.js"]
+}

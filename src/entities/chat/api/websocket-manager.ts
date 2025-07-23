@@ -33,7 +33,6 @@ class WebSocketManager implements IWebSocketManager {
   async connect(chatId: number, onOpen?: () => void): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        // Проверяем состояние авторизации
         const isAuthenticated = authStore.getIsAuth();
         const user = authStore.getUser();
 
@@ -44,7 +43,6 @@ class WebSocketManager implements IWebSocketManager {
 
         ChatApi.getChatToken(chatId)
           .then(({ token }) => {
-            // Используем прямой URL к API без прокси
             const userId = user?.id;
             const wsUrl = `wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`;
 

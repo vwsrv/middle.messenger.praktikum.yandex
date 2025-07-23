@@ -85,7 +85,6 @@ class ChatDialog extends Block {
   }
 
   public updateSystemMessages(systemMessages: ISystemMessage[]): void {
-    // Проверяем, есть ли изменения в системных сообщениях
     const currentSystemMessages = this.props.systemMessages || [];
     const hasChanges =
       currentSystemMessages.length !== systemMessages.length ||

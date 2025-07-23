@@ -64,7 +64,6 @@ export class LocalStorage {
     try {
       const messages = this.getSystemMessages(chatId);
 
-      // Проверяем, не является ли это дубликатом по ID
       const isDuplicateById = messages.some(existingMessage => existingMessage.id === message.id);
 
       if (isDuplicateById) {
@@ -72,13 +71,12 @@ export class LocalStorage {
         return;
       }
 
-      // Проверяем, не является ли это дубликатом по содержимому и времени (в пределах 5 секунд)
       const isDuplicateByContent = messages.some(existingMessage => {
         const timeDiff = Math.abs(Date.now() - new Date(existingMessage.timestamp || 0).getTime());
         return (
           existingMessage.content === message.content &&
           existingMessage.type === message.type &&
-          timeDiff < 5000 // 5 секунд
+          timeDiff < 5000
         );
       });
 
